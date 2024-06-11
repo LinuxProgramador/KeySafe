@@ -123,7 +123,7 @@ Help Menu:
     -h  --help  print this help message and exit
                 """)
                 
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt,EOFError):
             print()
             exit(2)
         except FileNotFoundError as e:
