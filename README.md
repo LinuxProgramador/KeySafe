@@ -1,7 +1,7 @@
 SecureVault: tool that allows me to generate and store secure passwords.
 
 Note: to read and save secure keys, 
-first generate the unique key with python3 -u, 
+first generate the unique key with python3 sv.py -u, 
 remember to save that key very well, 
 because without it you will not be able to access your saved passwords
 
