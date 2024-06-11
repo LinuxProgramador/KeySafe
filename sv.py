@@ -14,10 +14,10 @@ from getpass import getpass, getuser
 class SecureVault:
 
     def __init__(self):
-        self.symbols_and_numbers = ["@", "1", "/", "8", "_", "6", "0", "'", "2", '"', "\\", "+", "9", "&", "3", "-", ";", "4", "!", "?", "5", "#", "$", "7"]
+        self.symbols_and_numbers = ["@", "1", "/", "*", "8", "_", "6", "0", "'", "2", '"', "\\", "+", "9", "&", "3", "-", ";", "4", "!", "?", "5", "#", "$", "7"]
         self.alpha = [ "m", "t", "u", "v", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "n", "o", "p", "q", "r", "s", "w", "x", "y", "z"]
         self.characters = self.symbols_and_numbers + self.alpha
-        self.key_length = choice([15, 16, 17, 18, 19, 20])
+        self.key_length = choice([16, 17, 18, 19, 20, 21])
         self.fernet_key = Fernet.generate_key()
         self.fernet = Fernet(self.fernet_key)
         self.user = getuser()
