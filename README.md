@@ -13,7 +13,7 @@ use:
 
 cd ~ 
 
-git clone 
+git clone https://github.com/LinuxProgramador/KeySafe
 
 cd KeySafe 
 
