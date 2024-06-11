@@ -131,7 +131,7 @@ Help Menu:
             exit(2)
 
         except:
-            print("invalid or corrupt password!")
+            print("Invalid or corrupt password!")
 
 if __name__ == "__main__":
     vault = SecureVault()
