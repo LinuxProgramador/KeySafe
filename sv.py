@@ -122,7 +122,7 @@ Usage:
 Help Menu:
     -h  --help  print this help message and exit
                 """)
-                exit(2)
+                
         except KeyboardInterrupt:
             print()
             exit(2)
@@ -131,7 +131,7 @@ Help Menu:
             exit(2)
 
         except:
-            pass
+            print("invalid or corrupt password!")
 
 if __name__ == "__main__":
     vault = SecureVault()
