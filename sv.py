@@ -131,7 +131,7 @@ Help Menu:
             exit(2)
 
         except:
-            print("The token is invalid or corrupt!")
+            pass
 
 if __name__ == "__main__":
     vault = SecureVault()
