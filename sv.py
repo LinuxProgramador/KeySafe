@@ -122,7 +122,8 @@ Usage:
 Help Menu:
     -h  --help  print this help message and exit
                 """)
-                
+            else:
+                print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
         except (KeyboardInterrupt,EOFError):
             print()
             exit(2)
