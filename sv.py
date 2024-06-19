@@ -5,7 +5,7 @@
 
 from secrets import choice
 from sys import argv
-from os import system, path, mkdir
+from os import system, path, mkdir, remove
 from cryptography.fernet import Fernet
 from hashlib import sha3_512
 from getpass import getpass, getuser
@@ -105,7 +105,7 @@ class SecureVault:
             hashed_password = sha3_512(user_password.encode()).hexdigest()
             user_password = ""
             if stored_hash == hashed_password:
-               system(f"rm -f {key_path}")
+               remove(key_path)
                print("Your password has been successfully deleted!")
                break
 
