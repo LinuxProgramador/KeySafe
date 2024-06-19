@@ -4,7 +4,7 @@
 # Author: WhiteHack
 
 from secrets import choice
-from sys import argv, exit
+from sys import argv
 from os import system, path, mkdir
 from cryptography.fernet import Fernet
 from hashlib import sha3_512
@@ -147,11 +147,11 @@ Help Menu:
             else:
                 print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
         except (KeyboardInterrupt,EOFError):
-            print()
-            exit(2)
+            pass
+            
         except FileNotFoundError as e:
             print(f"Path or file does not exist => {e}")
-            exit(2)
+            
 
         except:
             print("Invalid or corrupt password!")
