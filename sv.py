@@ -5,7 +5,7 @@
 
 from secrets import choice
 from sys import argv, exit
-from os import system, path, mkdir
+from os import system, path, mkdir, remove
 from cryptography.fernet import Fernet
 from hashlib import sha3_512
 from getpass import getpass, getuser
@@ -94,8 +94,27 @@ class SecureVault:
                 else:
                     print("Password name already exists!")
 
+    def delete(self):
+          for _ in range(2):
+            key_name = input("Enter the name of your password: ").strip()
+            key_path = f"/home/{self.user}/KeySafe/.VaultSecret/{key_name}"
+            with open(f"/home/{self.user}/KeySafe/.VaultSecret/.key", 'r') as key_file:
+                stored_hash = key_file.read()
+
+            user_password = getpass("Enter your password: ").strip()
+            hashed_password = sha3_512(user_password.encode()).hexdigest()
+            user_password = ""
+            if stored_hash == hashed_password:
+               remove(key_path)
+               print("Your password has been successfully deleted!")
+               break
+
+            else:
+                print("Incorrect password!")
+
     def main(self):
         try:
+            system(f"chmod 700 /home/{self.user}/KeySafe/sv.py")
             secret_dir = f"/home/{self.user}/KeySafe/.VaultSecret"
             if not path.isdir(secret_dir):
                 mkdir(secret_dir)
@@ -110,6 +129,8 @@ class SecureVault:
                 self.store_unique_key()
             elif "-r" in argv:
                 self.read_key()
+            elif "-d" in argv:
+                self.delete()
             elif "-h" in argv or "--help" in argv:
                 print("""
 SecureVault 1.0. It is a tool that allows you to generate secure keys.
@@ -118,7 +139,8 @@ Usage:
     python3 sv.py -V  print version info and exit
     python3 sv.py -r  read a stored password by its custom name
     python3 sv.py -u  generate a unique key
-
+    python3 sv.py -d  delete secure key
+    
 Help Menu:
     -h  --help  print this help message and exit
                 """)
