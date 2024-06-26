@@ -93,6 +93,8 @@ class SecureVault:
                         print("Incorrect password!")
                 else:
                     print("Password name already exists!")
+
+    
     def list_password(self):
             self.listen = listdir(f"/home/{self.user}/KeySafe/.VaultSecret/") 
             for x in self.listen: 
