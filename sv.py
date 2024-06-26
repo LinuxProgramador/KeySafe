@@ -136,6 +136,8 @@ class SecureVault:
                 self.read_key()
             elif "-d" in argv:
                 self.delete()
+            elif "-l" in argv:
+                self.list_password()
             elif "-h" in argv or "--help" in argv:
                 print("""
 SecureVault 1.0. It is a tool that allows you to generate secure keys.
@@ -145,7 +147,7 @@ Usage:
     python3 sv.py -r  read a stored password by its custom name
     python3 sv.py -u  generate a unique key
     python3 sv.py -d  delete secure key
-    python3 sv.py -l  
+    python3 sv.py -l  list your stored passwords
 Help Menu:
     -h  --help  print this help message and exit
                 """)
