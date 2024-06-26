@@ -5,7 +5,7 @@
 
 from secrets import choice
 from sys import argv
-from os import system, path, mkdir, remove
+from os import system, path, mkdir, remove, listdir
 from cryptography.fernet import Fernet
 from hashlib import sha3_512
 from getpass import getpass, getuser
@@ -93,6 +93,11 @@ class SecureVault:
                         print("Incorrect password!")
                 else:
                     print("Password name already exists!")
+    def list_password(self):
+            self.listen = listdir(f"/home/{self.user}/KeySafe/.VaultSecret/") 
+            for x in self.listen: 
+                print(x)
+    
 
     def delete(self):
           for _ in range(2):
@@ -140,7 +145,7 @@ Usage:
     python3 sv.py -r  read a stored password by its custom name
     python3 sv.py -u  generate a unique key
     python3 sv.py -d  delete secure key
-    
+    python3 sv.py -l  
 Help Menu:
     -h  --help  print this help message and exit
                 """)
