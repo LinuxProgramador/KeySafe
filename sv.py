@@ -24,7 +24,7 @@ class SecureVault:
         self.fernet = Fernet(self.fernet_key)
         self.user = getuser()
         self.version_info = "SecureVault 1.0. It is a tool that allows you to generate secure keys."
-        secret_dir = f"/home/{self.user}/KeySafe/.VaultSecret"
+        
     
 
     def generate_key(self):
@@ -111,7 +111,7 @@ class SecureVault:
     
     def list_password(self):
         
-            self.listen = listdir(secret_dir) 
+            self.listen = listdir(f"/home/{self.user}/KeySafe/.VaultSecret") 
             for x in self.listen: 
                 if x != ".key":
                    print(x)
@@ -142,6 +142,7 @@ class SecureVault:
         
         try:
             system(f"chmod 700 /home/{self.user}/KeySafe/sv.py")
+            secret_dir = f"/home/{self.user}/KeySafe/.VaultSecret"
             if not path.isdir(secret_dir):
                 mkdir(secret_dir)
                 system(f"chmod 700 {secret_dir}")
