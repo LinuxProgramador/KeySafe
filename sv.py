@@ -142,7 +142,7 @@ class SecureVault:
     def main(self):
         
         try:
-            chmod("/home/{self.user}/KeySafe/sv.py", 0o700)
+            chmod(f"/home/{self.user}/KeySafe/sv.py", 0o700)
             secret_dir = f"/home/{self.user}/KeySafe/.VaultSecret"
             if not path.isdir(secret_dir):
                 mkdir(secret_dir)
