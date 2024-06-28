@@ -114,7 +114,7 @@ class SecureVault:
             self.listen = listdir(secret_dir) 
             for x in self.listen: 
                 if x != ".key":
-                print(x)
+                   print(x)
     
 
     def delete(self):
