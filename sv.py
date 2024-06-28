@@ -5,7 +5,7 @@
 
 from secrets import choice
 from sys import argv
-from os import system, path, mkdir, remove, listdir
+from os import chmod, path, mkdir, remove, listdir
 from cryptography.fernet import Fernet
 from hashlib import sha3_512
 from getpass import getpass, getuser
@@ -72,7 +72,7 @@ class SecureVault:
             with open(key_path, 'w') as key_file:
                 hashed_key = sha3_512(self.fernet_key).hexdigest()
                 key_file.write(hashed_key)
-                system(f"chmod 600 {key_path}")
+                chmod(key_path, 0o600)
                 print(f"Your password is => {self.fernet_key.decode()}")
                 self.fernet_key = ""
         else:
@@ -101,7 +101,7 @@ class SecureVault:
                             self.generated_key = ""
                             fernet = ""
                             key_file.write(encrypted_key)
-                            system(f"chmod 600 {key_path}")
+                            chmod(key_path, 0o600)
                             print("Your password has been saved successfully!")
                             break
                     else:
@@ -142,11 +142,11 @@ class SecureVault:
     def main(self):
         
         try:
-            system(f"chmod 700 /home/{self.user}/KeySafe/sv.py")
+            chmod("/home/{self.user}/KeySafe/sv.py", 0o700)
             secret_dir = f"/home/{self.user}/KeySafe/.VaultSecret"
             if not path.isdir(secret_dir):
                 mkdir(secret_dir)
-                system(f"chmod 700 {secret_dir}")
+                chmod(secret_dir, 0o700)
 
             if "-g" in argv:
                 print(f"Key-Safe => {self.generate_key()}")
