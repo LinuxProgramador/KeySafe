@@ -12,8 +12,10 @@ from getpass import getpass, getuser
 
 
 class SecureVault:
+    
 
     def __init__(self):
+        
         self.symbols_and_numbers = ["@", "1", "/", "*", "8", "_", "6", "0", "'", "2", '"', "\\", "+", "9", "&", "3", "-", ";", "4", "!", "?", "5", "#", "$", "7"]
         self.alpha = [ "m", "t", "u", "v", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "n", "o", "p", "q", "r", "s", "w", "x", "y", "z"]
         self.characters = self.symbols_and_numbers + self.alpha
@@ -22,8 +24,11 @@ class SecureVault:
         self.fernet = Fernet(self.fernet_key)
         self.user = getuser()
         self.version_info = "SecureVault 1.0. It is a tool that allows you to generate secure keys."
+        secret_dir = f"/home/{self.user}/KeySafe/.VaultSecret"
+    
 
     def generate_key(self):
+        
         self.generated_key = ""
         for _ in range(self.key_length):
             char = choice(self.characters)
@@ -33,7 +38,10 @@ class SecureVault:
                 self.generated_key += char
         return self.generated_key
 
+    
+
     def read_key(self):
+        
         for _ in range(2):
             key_name = input("Enter the name of your password: ").strip()
             key_path = f"/home/{self.user}/KeySafe/.VaultSecret/{key_name}"
@@ -55,7 +63,10 @@ class SecureVault:
             else:
                 print("Incorrect password!")
 
+    
+
     def store_unique_key(self):
+        
         key_path = f"/home/{self.user}/KeySafe/.VaultSecret/.key"
         if not path.isfile(key_path):
             with open(key_path, 'w') as key_file:
@@ -67,7 +78,10 @@ class SecureVault:
         else:
             print("The password already exists!")
 
+    
+
     def save_key(self):
+        
         confirm = input("Would you like to save the password (y/n): ").strip().lower()
         if confirm == "y":
             for _ in range(2):
@@ -96,12 +110,15 @@ class SecureVault:
 
     
     def list_password(self):
-            self.listen = listdir(f"/home/{self.user}/KeySafe/.VaultSecret/") 
+        
+            self.listen = listdir(secret_dir) 
             for x in self.listen: 
+                if x != ".key":
                 print(x)
     
 
     def delete(self):
+        
           for _ in range(2):
             key_name = input("Enter the name of your password: ").strip()
             key_path = f"/home/{self.user}/KeySafe/.VaultSecret/{key_name}"
@@ -119,10 +136,12 @@ class SecureVault:
             else:
                 print("Incorrect password!")
 
+    
+
     def main(self):
+        
         try:
             system(f"chmod 700 /home/{self.user}/KeySafe/sv.py")
-            secret_dir = f"/home/{self.user}/KeySafe/.VaultSecret"
             if not path.isdir(secret_dir):
                 mkdir(secret_dir)
                 system(f"chmod 700 {secret_dir}")
@@ -155,6 +174,8 @@ Help Menu:
                 """)
             else:
                 print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
+
+        
         except (KeyboardInterrupt,EOFError):
             print()
             
