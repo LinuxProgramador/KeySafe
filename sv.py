@@ -182,7 +182,9 @@ Help Menu:
             
         except FileNotFoundError as e:
             print(f"Path or file does not exist => {e}")
-            
+
+        except PermissionError as p:
+            print()
 
         except:
             print("Invalid or corrupt password!")
