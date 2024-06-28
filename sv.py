@@ -98,6 +98,7 @@ class SecureVault:
                             fernet = Fernet(user_password.encode())
                             user_password = ""
                             encrypted_key = fernet.encrypt(self.generated_key.encode())
+                            self.generated_key = ""
                             fernet = ""
                             key_file.write(encrypted_key)
                             system(f"chmod 600 {key_path}")
