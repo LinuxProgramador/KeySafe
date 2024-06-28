@@ -184,7 +184,7 @@ Help Menu:
             print(f"Path or file does not exist => {e}")
 
         except PermissionError as p:
-            print()
+            print(f"Permissions error on the file or directory => {p}")
 
         except:
             print("Invalid or corrupt password!")
