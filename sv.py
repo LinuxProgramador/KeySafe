@@ -187,6 +187,9 @@ Help Menu:
         except PermissionError as p:
             print(f"Permissions error on the file or directory => {p}")
 
+        except (ModuleNotFoundError,ImportError):
+            print("Module or function not imported")
+
         except:
             print("Invalid or corrupt password!")
 
