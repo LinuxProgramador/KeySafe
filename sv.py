@@ -179,7 +179,7 @@ Help Menu:
 
         
         except (KeyboardInterrupt,EOFError):
-            print()
+            print("\nOperation canceled by user!")
             
         except FileNotFoundError as e:
             print(f"Path or file does not exist => {e}")
