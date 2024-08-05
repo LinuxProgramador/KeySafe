@@ -136,8 +136,23 @@ class SecureVault:
 
             else:
                 print("Incorrect password!")
+                
+                
 
-    
+    def show_help(self):
+        print("""
+SecureVault 1.0. It is a tool that allows you to generate secure keys.
+Usage:
+    python3 sv.py -g  generate a secure key
+    python3 sv.py -V  print version info and exit
+    python3 sv.py -r  read a stored password by its custom name
+    python3 sv.py -u  generate a unique key
+    python3 sv.py -d  delete secure key
+    python3 sv.py -l  list your stored passwords
+Help Menu:
+    -h  --help  print this help message and exit
+                """)
+        
 
     def main(self):
         
@@ -162,18 +177,7 @@ class SecureVault:
             elif "-l" in argv:
                 self.list_password()
             elif "-h" in argv or "--help" in argv:
-                print("""
-SecureVault 1.0. It is a tool that allows you to generate secure keys.
-Usage:
-    python3 sv.py -g  generate a secure key
-    python3 sv.py -V  print version info and exit
-    python3 sv.py -r  read a stored password by its custom name
-    python3 sv.py -u  generate a unique key
-    python3 sv.py -d  delete secure key
-    python3 sv.py -l  list your stored passwords
-Help Menu:
-    -h  --help  print this help message and exit
-                """)
+                self.show_help()
             else:
                 print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
 
