@@ -4,12 +4,12 @@
 # Author: WhiteHack
 
 from secrets import choice
-from sys import argv
+from sys import argv, exit
 from os import chmod, path, mkdir, remove, listdir
 from cryptography.fernet import Fernet
 from hashlib import sha3_512
 from getpass import getpass, getuser
-
+from re import search
 
 class SecureVault:
     
@@ -24,7 +24,7 @@ class SecureVault:
         self.fernet = Fernet(self.fernet_key)
         self.user = getuser()
         self.version_info = "SecureVault 1.0. It is a tool that allows you to generate secure keys."
-        
+        self.sanitize_entry = "\"'\\..."
     
 
     def generate_key(self):
