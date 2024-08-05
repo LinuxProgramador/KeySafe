@@ -187,8 +187,10 @@ Help Menu:
         except PermissionError as p:
             print(f"Permissions error on the file or directory => {p}")
             
-        except:
-            print("Invalid or corrupt password!")
+        except Exception as all:
+            print(f"An error occurred: {all}")     
+        
+           
 
 if __name__ == "__main__":
     vault = SecureVault()
