@@ -24,7 +24,7 @@ class SecureVault:
         self.fernet = Fernet(self.fernet_key)
         self.user = getuser()
         self.version_info = "SecureVault 1.0. It is a tool that allows you to generate secure keys."
-        self.sanitize_entry = "\"'\\..."
+        self.sanitize_entry = "\"'\\..;&|."
     
 
     def generate_key(self):
