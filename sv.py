@@ -17,7 +17,7 @@ class SecureVault:
     def __init__(self):
         
         self.symbols_and_numbers = ["@", "1", "/", "*", "8", "_", "6", "0", "'", "2", '"', "\\", "+", "9", "&", "3", "-", ";", "4", "!", "?", "5", "#", "$", "7"]
-        self.alpha = [ "m", "t", "u", "v", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "n", "o", "p", "q", "r", "s", "w", "x", "y", "z"]
+        self.alpha = list("abcdefghijklmnopqrstuvwxyz")
         self.characters = self.symbols_and_numbers + self.alpha
         self.key_length = choice(range(16 ,27))
         self.fernet_key = Fernet.generate_key()
