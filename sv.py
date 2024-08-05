@@ -39,6 +39,10 @@ class SecureVault:
         return self.generated_key
 
     
+    def hashing_password_input(self):
+            self.user_password = getpass("Enter your password: ").strip()
+            hashed_password = sha3_512(self.user_password.encode()).hexdigest()
+            return hashed_password
 
     def read_key(self):
         
@@ -48,13 +52,12 @@ class SecureVault:
             with open(f"/home/{self.user}/KeySafe/.VaultSecret/.key", 'r') as key_file:
                 stored_hash = key_file.read()
 
-            user_password = getpass("Enter your password: ").strip()
-            hashed_password = sha3_512(user_password.encode()).hexdigest()
-            if stored_hash == hashed_password:
+            
+            if stored_hash == self.hashing_password_input():
                 with open(key_path, 'rb') as key_file:
                     encrypted_key = key_file.read()
-                    fernet = Fernet(user_password.encode())
-                    user_password = ""
+                    fernet = Fernet(self.user_password.encode())
+                    self.user_password = ""
                     decrypted_key = fernet.decrypt(encrypted_key)
                     fernet = ""
                     print(f"Your password is => {decrypted_key.decode()}")
@@ -91,12 +94,11 @@ class SecureVault:
                     with open(f"/home/{self.user}/KeySafe/.VaultSecret/.key", 'r') as key_file:
                         stored_hash = key_file.read()
 
-                    user_password = getpass("Enter your password: ").strip()
-                    hashed_password = sha3_512(user_password.encode()).hexdigest()
-                    if stored_hash == hashed_password:
+                    
+                    if stored_hash == self.hashing_password_input():
                         with open(key_path, 'wb') as key_file:
-                            fernet = Fernet(user_password.encode())
-                            user_password = ""
+                            fernet = Fernet(self.user_password.encode())
+                            self.user_password = ""
                             encrypted_key = fernet.encrypt(self.generated_key.encode())
                             self.generated_key = ""
                             fernet = ""
@@ -126,10 +128,9 @@ class SecureVault:
             with open(f"/home/{self.user}/KeySafe/.VaultSecret/.key", 'r') as key_file:
                 stored_hash = key_file.read()
 
-            user_password = getpass("Enter your password: ").strip()
-            hashed_password = sha3_512(user_password.encode()).hexdigest()
-            user_password = ""
-            if stored_hash == hashed_password:
+            
+            if stored_hash == self.hashing_password_input():
+               self.user_password = ""
                remove(key_path)
                print("Your password has been successfully deleted!")
                break
