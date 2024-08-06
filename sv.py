@@ -24,7 +24,7 @@ class SecureVault:
         self.fernet = Fernet(self.fernet_key)
         self.user = getuser()
         self.version_info = "SecureVault 1.0. It is a tool that allows you to generate secure keys."
-        self.sanitize_entry = r"\"'\\;&"
+        self.sanitize_entry = r"\"'\\;|&"
     
 
     def generate_key(self):
@@ -41,10 +41,7 @@ class SecureVault:
     
     def hashing_password_input(self):
             self.user_password = getpass("Enter your password: ").strip()
-            if not search(self.sanitize_entry, self.user_password) and self.user_password.isalnum():
-               hashed_password = sha3_512(self.user_password.encode()).hexdigest()
-            else:
-                exit(2)
+            hashed_password = sha3_512(self.user_password.encode()).hexdigest()
             return hashed_password
 
     def read_key(self):
