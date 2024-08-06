@@ -117,7 +117,7 @@ class SecureVault:
                         print("Incorrect password!")
                  else:
                     print("Password name already exists!")
-             else:
+              else:
                  exit(2)
 
     
