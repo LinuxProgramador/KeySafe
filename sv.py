@@ -5,7 +5,7 @@
 
 from secrets import choice
 from sys import argv, exit
-from os import chmod, path, mkdir, remove, listdir
+from os import chmod, path, mkdir, remove, listdir, stat
 from cryptography.fernet import Fernet
 from hashlib import sha3_512
 from getpass import getpass, getuser
@@ -142,9 +142,12 @@ class SecureVault:
              if stored_hash == self.hashing_password_input():
                self.user_password = ""
                if key_name != ".key":
-                 remove(key_path)
-                 print("Your password has been successfully deleted!")
-                 break
+                 if (stat(key_path).st_mode & 0o777) == 0o600:
+                   remove(key_path)
+                   print("Your password has been successfully deleted!")
+                   break
+                 else:
+                     print("You do not have permissions to delete this file!")
 
                else:
                    print("The unique key cannot be deleted!")
