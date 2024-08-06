@@ -147,7 +147,7 @@ class SecureVault:
                  break
 
                else:
-                   print()
+                   print("The unique key cannot be deleted!")
              else:
                 print("Incorrect password!")
            else:
