@@ -206,7 +206,7 @@ Help Menu:
             print(f"Permissions error on the file or directory => {p}")
             
         except:
-            print("Possible password corruption error or failure!")     
+            print("Possible error, malicious symbol lockout, or password corruption failure!")
         
            
 
