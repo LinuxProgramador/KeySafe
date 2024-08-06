@@ -41,7 +41,10 @@ class SecureVault:
     
     def hashing_password_input(self):
             self.user_password = getpass("Enter your password: ").strip()
-            hashed_password = sha3_512(self.user_password.encode()).hexdigest()
+            if not search(self.sanitize_entry, self.user_password):
+               hashed_password = sha3_512(self.user_password.encode()).hexdigest()
+            else:
+                exit(2)
             return hashed_password
 
     def read_key(self):
