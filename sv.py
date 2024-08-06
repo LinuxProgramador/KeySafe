@@ -141,10 +141,13 @@ class SecureVault:
             
              if stored_hash == self.hashing_password_input():
                self.user_password = ""
-               remove(key_path)
-               print("Your password has been successfully deleted!")
-               break
+               if key_path != ".key":
+                 remove(key_path)
+                 print("Your password has been successfully deleted!")
+                 break
 
+               else:
+                   print()
              else:
                 print("Incorrect password!")
            else:
