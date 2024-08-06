@@ -141,7 +141,7 @@ class SecureVault:
             
              if stored_hash == self.hashing_password_input():
                self.user_password = ""
-               if key_path != ".key":
+               if key_name.lower() != ".key":
                  remove(key_path)
                  print("Your password has been successfully deleted!")
                  break
