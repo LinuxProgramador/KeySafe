@@ -41,7 +41,7 @@ class SecureVault:
     
     def hashing_password_input(self):
             self.user_password = getpass("Enter your password: ").strip()
-            if not self.user_password in self.sanitize_entry and self.user_password <= len(79):
+            if not self.user_password in self.sanitize_entry and len(self.user_password) <= 79:
                hashed_password = sha3_512(self.user_password.encode()).hexdigest()
             else:
                 exit(2)
@@ -51,7 +51,7 @@ class SecureVault:
         
         for _ in range(2):
           key_name = input("Enter the name of your password: ").strip()
-          if not key_name in self.sanitize_entry and key_name <= len(20):
+          if not key_name in self.sanitize_entry and len(key_name) <= 20:
              key_path = f"/home/{self.user}/KeySafe/.VaultSecret/{key_name}"
              with open(f"/home/{self.user}/KeySafe/.VaultSecret/.key", 'r') as key_file:
                 stored_hash = key_file.read()
@@ -95,7 +95,7 @@ class SecureVault:
         if confirm == "y":
             for _ in range(2):
               key_name = input("Enter the name of the file that will store your password: ").strip()
-              if not key_name in self.sanitize_entry and key_name <= len(20):
+              if not key_name in self.sanitize_entry and len(key_name) <= 20:
                  key_path = f"/home/{self.user}/KeySafe/.VaultSecret/{key_name}"
                  if not path.isfile(key_path):
                     with open(f"/home/{self.user}/KeySafe/.VaultSecret/.key", 'r') as key_file:
@@ -133,7 +133,7 @@ class SecureVault:
         
           for _ in range(2):
            key_name = input("Enter the name of your password: ").strip()
-           if not key_name in self.sanitize_entry and key_name <= len(20):
+           if not key_name in self.sanitize_entry and len(key_name) <= 20:
              key_path = f"/home/{self.user}/KeySafe/.VaultSecret/{key_name}"
              with open(f"/home/{self.user}/KeySafe/.VaultSecret/.key", 'r') as key_file:
                 stored_hash = key_file.read()
