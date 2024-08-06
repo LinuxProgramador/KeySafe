@@ -144,10 +144,10 @@ class SecureVault:
                if key_name != ".key":
                  if (stat(key_path).st_mode & 0o777) == 0o600:
                    remove(key_path)
-                   print("The permissions were altered, for security the file will not be deleted!")
+                   print("The file has been successfully deleted!")
                    break
                  else:
-                     print("You do not have permissions to delete this file!")
+                     print("The permissions were altered, for security the file will not be deleted!")
 
                else:
                    print("The unique key cannot be deleted!")
