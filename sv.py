@@ -185,7 +185,7 @@ Help Menu:
                 chmod(secret_dir, 0o700)
                 
             if len(argv) >= 2 and not argv[1] in self.options:
-                if argv[1] in self.sanitize_entry:
+                if argv[1] in self.sanitize_entry or len(argv) > 2:
                     exit(2)
             elif self.options[2] in argv:
                 print(f"Key-Safe => {self.generate_key()}")
