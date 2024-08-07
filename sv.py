@@ -187,20 +187,20 @@ Help Menu:
             if len(argv) >= 2 and not argv[1] in self.options:
                 if argv[1] in self.sanitize_entry:
                     exit(2)
-            elif "-g" in argv:
+            elif self.options[2] in argv:
                 print(f"Key-Safe => {self.generate_key()}")
                 self.save_key()
-            elif "-V" in argv:
+            elif self.options[3] in argv:
                 print(self.version_info)
-            elif "-u" in argv:
+            elif self.options[5] in argv:
                 self.store_unique_key()
-            elif "-r" in argv:
+            elif self.options[1] in argv:
                 self.read_key()
-            elif "-d" in argv:
+            elif self.options[0] in argv:
                 self.delete()
-            elif "-l" in argv:
+            elif self.options[4] in argv:
                 self.list_password()
-            elif "-h" in argv or "--help" in argv:
+            elif self.options[6] in argv or self.options[7] in argv:
                 self.show_help()
             else:
                 print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
