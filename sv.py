@@ -122,8 +122,8 @@ class SecureVault:
                     print("Password name already exists!")
               else:
                  exit(2)
-        else:
-             exit(2)
+      else:
+          exit(2)
     
     def list_password(self):
         
