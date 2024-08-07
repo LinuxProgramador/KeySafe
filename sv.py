@@ -93,7 +93,8 @@ class SecureVault:
 
     def save_key(self):
         
-        confirm = input("Would you like to save the password (y/n): ").strip().lower()
+      confirm = input("Would you like to save the password (y/n): ").strip().lower()
+      if not confirm in self.sanitize_entry and len(confirm) < 2:
         if confirm == "y":
             for _ in range(2):
               key_name = input("Enter the name of the file that will store your password: ").strip()
@@ -121,7 +122,8 @@ class SecureVault:
                     print("Password name already exists!")
               else:
                  exit(2)
-
+        else:
+             exit(2)
     
     def list_password(self):
         
