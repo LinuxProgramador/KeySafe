@@ -184,8 +184,10 @@ Help Menu:
                 mkdir(secret_dir)
                 chmod(secret_dir, 0o700)
                 
-            
-            if "-g" in argv:
+            if len(argv) >= 2 and not argv[1] in self.options:
+                if argv[1] in self.sanitize_entry:
+                    exit(2)
+            elif "-g" in argv:
                 print(f"Key-Safe => {self.generate_key()}")
                 self.save_key()
             elif "-V" in argv:
