@@ -44,7 +44,7 @@ class SecureVault:
     
     def hashing_password_input(self):
             self.user_password = getpass("Enter your password: ").strip()
-            if not self.user_password in self.sanitize_entry and len(self.user_password) <= 79:
+            if not self.user_password in self.sanitize_entry and len(self.user_password) <= 45:
                hashed_password = sha3_512(self.user_password.encode()).hexdigest()
             else:
                 exit(2)
