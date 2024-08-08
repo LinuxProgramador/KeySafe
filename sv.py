@@ -44,7 +44,7 @@ class SecureVault:
     def is_sanitized(self,entry):
       for char in entry:
          if char in self.sanitize_entry:
-            print("Possible malicious symbol lockout")
+            print("Malicious symbol lockout!")
       return True
 
     
@@ -53,7 +53,7 @@ class SecureVault:
             if self.is_sanitized(self.frequent_user_entry) and len(self.frequent_user_entry) <= 45:
                hashed_password = sha3_512(self.frequent_user_entry.encode()).hexdigest()
             else:
-                exit(2)
+                print("You have exceeded the maximum character length established by security!")
             return hashed_password
 
     def read_key(self):
@@ -78,7 +78,7 @@ class SecureVault:
              else:
                 print("Incorrect password!")
           else:
-              exit(2)
+              print("You have exceeded the maximum character length established by security!")
 
     
 
@@ -126,9 +126,9 @@ class SecureVault:
                  else:
                     print("Password name already exists!")
               else:
-                 exit(2)
+                 print("You have exceeded the maximum character length established by security!")
       else:
-          exit(2)
+          print("You have exceeded the maximum character length established by security!")
     
     def list_password(self):
         
@@ -162,7 +162,7 @@ class SecureVault:
              else:
                 print("Incorrect password!")
            else:
-               exit(2)
+               print("You have exceeded the maximum character length established by security!")
                 
                 
 
@@ -191,7 +191,7 @@ Help Menu:
                 
             if len(argv) >= 2 and not argv[1] in self.options:
                 if not self.is_sanitized(argv[1) or len(argv) > 2:
-                    exit(2)
+                    print("You have exceeded the maximum character length established by security!")
             elif self.options[2] in argv:
                 print(f"Key-Safe => {self.generate_key()}")
                 self.save_key()
