@@ -44,7 +44,7 @@ class SecureVault:
     def is_sanitized(self,entry):
       for char in entry:
          if char in self.sanitize_entry:
-            print("Malicious symbol lockout!")
+            raise Exception
       return True
 
     
@@ -53,7 +53,7 @@ class SecureVault:
             if self.is_sanitized(self.frequent_user_entry) and len(self.frequent_user_entry) <= 45:
                hashed_password = sha3_512(self.frequent_user_entry.encode()).hexdigest()
             else:
-                print("You have exceeded the maximum character length established by security!")
+                raise Exception
             return hashed_password
 
     def read_key(self):
@@ -78,7 +78,7 @@ class SecureVault:
              else:
                 print("Incorrect password!")
           else:
-              print("You have exceeded the maximum character length established by security!")
+              raise Exception
 
     
 
@@ -126,9 +126,9 @@ class SecureVault:
                  else:
                     print("Password name already exists!")
               else:
-                 print("You have exceeded the maximum character length established by security!")
+                 raise Exception
       else:
-          print("You have exceeded the maximum character length established by security!")
+          raise Exception
     
     def list_password(self):
         
@@ -162,7 +162,7 @@ class SecureVault:
              else:
                 print("Incorrect password!")
            else:
-               print("You have exceeded the maximum character length established by security!")
+               raise Exception
                 
                 
 
@@ -190,8 +190,8 @@ Help Menu:
                 chmod(self.key_path, 0o700)
                 
             if len(argv) >= 2 and not argv[1] in self.options:
-                if not self.is_sanitized(argv[1) or len(argv) > 2:
-                    print("You have exceeded the maximum character length established by security!")
+                if not self.is_sanitized(argv[1]) or len(argv) > 2:
+                    raise Exception
             elif self.options[2] in argv:
                 print(f"Key-Safe => {self.generate_key()}")
                 self.save_key()
@@ -221,7 +221,7 @@ Help Menu:
             print(f"Permissions error on the file or directory => {p}")
             
         except:
-            print("Password corruption failure!")
+            print("Possible malicious symbol lockout or password corruption failure!")
         
            
 
