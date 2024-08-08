@@ -4,7 +4,7 @@
 # Author: WhiteHack
 
 from secrets import choice
-from sys import argv, exit
+from sys import argv
 from os import chmod, path, mkdir, remove, listdir, stat
 from cryptography.fernet import Fernet
 from hashlib import sha3_512
@@ -44,7 +44,7 @@ class SecureVault:
     def is_sanitized(self,entry):
       for char in entry:
          if char in self.sanitize_entry:
-            exit(2)
+            print("Possible malicious symbol lockout")
       return True
 
     
@@ -221,7 +221,7 @@ Help Menu:
             print(f"Permissions error on the file or directory => {p}")
             
         except:
-            print("Possible malicious symbol lockout, or password corruption failure!")
+            print("Password corruption failure!")
         
            
 
