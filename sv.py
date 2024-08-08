@@ -27,7 +27,8 @@ class SecureVault:
         self.malicios_simbols_and_comands =["echo","rm","cat","exec","wget","curl","&&","||","--","\"","\\"]
         self.sanitize_entry = self.malicios_simbols_and_comands + self.malicious_symbols
         self.options = ['-d','-r','-g','-V','-l','-u','-h','--help']
-        
+        self.key_path = f"/home/{self.user}/KeySafe/.VaultSecret"
+        self.sv_path = f"/home/{self.user}/KeySafe"
 
     def generate_key(self):
         
@@ -54,13 +55,12 @@ class SecureVault:
         for _ in range(2):
           key_name = input("Enter the name of your password: ").strip()
           if not key_name in self.sanitize_entry and len(key_name) <= 20:
-             key_path = f"/home/{self.user}/KeySafe/.VaultSecret/{key_name}"
-             with open(f"/home/{self.user}/KeySafe/.VaultSecret/.key", 'r') as key_file:
+             with open(path.join(self.key_path,".key"), 'r') as key_file:
                 stored_hash = key_file.read()
 
             
              if stored_hash == self.hashing_password_input():
-                with open(key_path, 'rb') as key_file:
+                with open(path.join(self.key_path,key_name), 'rb') as key_file:
                     encrypted_key = key_file.read()
                     fernet = Fernet(self.user_password.encode())
                     self.user_password = ""
@@ -78,12 +78,12 @@ class SecureVault:
 
     def store_unique_key(self):
         
-        key_path = f"/home/{self.user}/KeySafe/.VaultSecret/.key"
-        if not path.isfile(key_path):
-            with open(key_path, 'w') as key_file:
+        
+        if not path.isfile(path.join(self.key_path,".key")):
+            with open(path.join(self.key_path,".key"), 'w') as key_file:
                 hashed_key = sha3_512(self.fernet_key).hexdigest()
                 key_file.write(hashed_key)
-                chmod(key_path, 0o600)
+                chmod(path.join(self.key_path,".key"), 0o600)
                 print(f"Your password is => {self.fernet_key.decode()}")
                 self.fernet_key = ""
         else:
@@ -99,21 +99,20 @@ class SecureVault:
             for _ in range(2):
               key_name = input("Enter the name of the file that will store your password: ").strip()
               if not key_name in self.sanitize_entry and len(key_name) <= 20:
-                 key_path = f"/home/{self.user}/KeySafe/.VaultSecret/{key_name}"
-                 if not path.isfile(key_path):
-                    with open(f"/home/{self.user}/KeySafe/.VaultSecret/.key", 'r') as key_file:
+                 if not path.isfile(path.join(self.key_path,key_name)):
+                    with open(path.join(self.key_path,".key"), 'r') as key_file:
                         stored_hash = key_file.read()
 
                     
                     if stored_hash == self.hashing_password_input():
-                        with open(key_path, 'wb') as key_file:
+                        with open(path.join(self.key_path,key_name), 'wb') as key_file:
                             fernet = Fernet(self.user_password.encode())
                             self.user_password = ""
                             encrypted_key = fernet.encrypt(self.generated_key.encode())
                             self.generated_key = ""
                             fernet = ""
                             key_file.write(encrypted_key)
-                            chmod(key_path, 0o600)
+                            chmod(path.join(self.key_path,key_name), 0o600)
                             print("Your password has been saved successfully!")
                             break
                     else:
@@ -127,7 +126,7 @@ class SecureVault:
     
     def list_password(self):
         
-            self.listen = listdir(f"/home/{self.user}/KeySafe/.VaultSecret") 
+            self.listen = listdir(self.key_path) 
             for x in self.listen: 
                 if x != ".key":
                    print(x)
@@ -138,16 +137,15 @@ class SecureVault:
           for _ in range(2):
            key_name = input("Enter the name of your password: ").strip()
            if not key_name in self.sanitize_entry and len(key_name) <= 20:
-             key_path = f"/home/{self.user}/KeySafe/.VaultSecret/{key_name}"
-             with open(f"/home/{self.user}/KeySafe/.VaultSecret/.key", 'r') as key_file:
+             with open(path.join(self.key_path,".key"), 'r') as key_file:
                 stored_hash = key_file.read()
 
             
              if stored_hash == self.hashing_password_input():
                self.user_password = ""
                if key_name != ".key":
-                 if (stat(key_path).st_mode & 0o777) == 0o600:
-                   remove(key_path)
+                 if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
+                   remove(path.join(self.key_path,key_name))
                    print("The file has been successfully deleted!")
                    break
                  else:
@@ -180,11 +178,10 @@ Help Menu:
     def main(self):
         
         try:
-            chmod(f"/home/{self.user}/KeySafe/sv.py", 0o700)
-            secret_dir = f"/home/{self.user}/KeySafe/.VaultSecret"
-            if not path.isdir(secret_dir):
-                mkdir(secret_dir)
-                chmod(secret_dir, 0o700)
+            chmod(path.join(self.sv_path,"sv.py"), 0o700)
+            if not path.isdir(self.key_path):
+                mkdir(self.key_path)
+                chmod(self.key_path, 0o700)
                 
             if len(argv) >= 2 and not argv[1] in self.options:
                 if argv[1] in self.sanitize_entry or len(argv) > 2:
