@@ -43,9 +43,9 @@ class SecureVault:
 
     
     def hashing_password_input(self):
-            self.user_password = getpass("Enter your password: ").strip()
-            if not self.user_password in self.sanitize_entry and len(self.user_password) <= 45:
-               hashed_password = sha3_512(self.user_password.encode()).hexdigest()
+            self.frequent_user_entry = getpass("Enter your password: ").strip()
+            if not self.frequent_user_entry in self.sanitize_entry and len(self.frequent_user_entry) <= 45:
+               hashed_password = sha3_512(self.frequent_user_entry.encode()).hexdigest()
             else:
                 exit(2)
             return hashed_password
@@ -62,8 +62,8 @@ class SecureVault:
              if stored_hash == self.hashing_password_input():
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
                     encrypted_key = key_file.read()
-                    fernet = Fernet(self.user_password.encode())
-                    self.user_password = ""
+                    fernet = Fernet(self.frequent_user_entry.encode())
+                    self.frequent_user_entry = ""
                     decrypted_key = fernet.decrypt(encrypted_key)
                     fernet = ""
                     print(f"Your password is => {decrypted_key.decode()}")
@@ -106,8 +106,8 @@ class SecureVault:
                     
                     if stored_hash == self.hashing_password_input():
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
-                            fernet = Fernet(self.user_password.encode())
-                            self.user_password = ""
+                            fernet = Fernet(self.frequent_user_entry.encode())
+                            self.frequent_user_entry = ""
                             encrypted_key = fernet.encrypt(self.generated_key.encode())
                             self.generated_key = ""
                             fernet = ""
@@ -142,7 +142,7 @@ class SecureVault:
 
             
              if stored_hash == self.hashing_password_input():
-               self.user_password = ""
+               self.frequent_user_entry = ""
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
                    remove(path.join(self.key_path,key_name))
