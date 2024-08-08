@@ -23,8 +23,8 @@ class SecureVault:
         self.fernet_key = Fernet.generate_key()
         self.user = getuser()
         self.version_info = "SecureVault 1.0. It is a tool that allows you to generate secure keys."
-        self.malicious_symbols = list("';|&}{][><)($@:`,-°")
-        self.malicios_simbols_and_comands =["echo","rm","cat","exec","wget","curl","&&","||","--","\"","\\"]
+        self.malicious_symbols = list("';|&}{][><)($@:`,°")
+        self.malicios_simbols_and_comands =["echo","rm","cat","exec","wget","curl","&&","||","\"","\\"]
         self.sanitize_entry = self.malicios_simbols_and_comands + self.malicious_symbols
         self.options = ['-d','-r','-g','-V','-l','-u','-h','--help']
         self.key_path = f"/home/{self.user}/KeySafe/.VaultSecret"
