@@ -192,6 +192,8 @@ Help Menu:
             if len(argv) >= 2 and not argv[1] in self.options:
                 if not self.is_sanitized(argv[1]) or len(argv) > 2:
                     raise Exception
+                else:
+                     print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
             elif self.options[2] in argv:
                 print(f"Key-Safe => {self.generate_key()}")
                 self.save_key()
