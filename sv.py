@@ -43,7 +43,7 @@ class SecureVault:
 
     def is_sanitized(self,entry):
       for char in entry:
-         if char in self.sanitize_entry:
+         if char in set(self.sanitize_entry):
             raise Exception
       return True
 
@@ -69,11 +69,11 @@ class SecureVault:
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
                     encrypted_key = key_file.read()
                     fernet = Fernet(self.frequent_user_entry.encode())
-                    self.frequent_user_entry = ""
+                    self.frequent_user_entry = None
                     decrypted_key = fernet.decrypt(encrypted_key)
-                    fernet = ""
+                    fernet = None
                     print(f"Your password is => {decrypted_key.decode()}")
-                    decrypted_key = ""
+                    decrypted_key = None
                     break
              else:
                 print("Incorrect password!")
@@ -91,7 +91,7 @@ class SecureVault:
                 key_file.write(hashed_key)
                 chmod(path.join(self.key_path,".key"), 0o600)
                 print(f"Your password is => {self.fernet_key.decode()}")
-                self.fernet_key = ""
+                self.fernet_key = None
         else:
             print("The password already exists!")
 
@@ -113,10 +113,10 @@ class SecureVault:
                     if stored_hash == self.hashing_password_input():
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
                             fernet = Fernet(self.frequent_user_entry.encode())
-                            self.frequent_user_entry = ""
+                            self.frequent_user_entry = None
                             encrypted_key = fernet.encrypt(self.generated_key.encode())
-                            self.generated_key = ""
-                            fernet = ""
+                            self.generated_key = None
+                            fernet = None
                             key_file.write(encrypted_key)
                             chmod(path.join(self.key_path,key_name), 0o600)
                             print("Your password has been saved successfully!")
@@ -148,7 +148,7 @@ class SecureVault:
 
             
              if stored_hash == self.hashing_password_input():
-               self.frequent_user_entry = ""
+               self.frequent_user_entry = None
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
                    remove(path.join(self.key_path,key_name))
