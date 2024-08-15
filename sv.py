@@ -230,5 +230,9 @@ Help Menu:
            
 
 if __name__ == "__main__":
-    vault = SecureVault()
-    vault.main()
+    if getuser() == 'root':
+          print("Access denied to root user!")
+          exit(1)
+    else:
+          vault = SecureVault()
+          vault.main()
