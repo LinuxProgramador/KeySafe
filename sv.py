@@ -192,7 +192,7 @@ Help Menu:
                 chmod(self.key_path, 0o700)
                 
             if len(argv) >= 2 and not argv[1] in self.options:
-                if not self.is_sanitized(argv[1]) or len(argv) > 2:
+                if not self.is_sanitized(argv[1]) or len(argv) > 2 or len(argv[1]) > 7:
                     raise Exception
                 else:
                      print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
