@@ -13,6 +13,8 @@ dependencies: (python3,pip)
 
 use: 
 
+NOTE:DO NOT USE AS ROOT USER!
+
 cd ~ 
 
 git clone https://github.com/LinuxProgramador/KeySafe
