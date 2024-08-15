@@ -7,7 +7,7 @@ from secrets import choice
 from sys import argv
 from os import chmod, path, mkdir, remove, listdir, stat
 from cryptography.fernet import Fernet
-from hashlib import sha3_512
+import bcrypt
 from getpass import getpass, getuser
 
 
