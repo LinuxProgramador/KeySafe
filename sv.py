@@ -145,11 +145,11 @@ class SecureVault:
           for _ in range(2):
            key_name = input("Enter the name of your password: ").strip().replace(" ","")
            if self.is_sanitized(key_name) and len(key_name) <= 20:
-             with open(path.join(self.key_path,".key"), 'r') as key_file:
+             with open(path.join(self.key_path,".key"), 'rb') as key_file:
                 stored_hash = key_file.read()
 
             
-             if stored_hash == self.hashing_password_input():
+             if bcrypt.checkpw(self.hashing_password_input(), stored_hash):
                self.frequent_user_entry = None
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
