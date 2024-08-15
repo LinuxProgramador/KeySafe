@@ -88,8 +88,8 @@ class SecureVault:
         
         
         if not path.isfile(path.join(self.key_path,".key")):
-            with open(path.join(self.key_path,".key"), 'w') as key_file:
-                hashed_key = sha3_512(self.fernet_key).hexdigest()
+            with open(path.join(self.key_path,".key"), 'wb') as key_file:
+                hashed_key = bcrypt.hashpw(self.fernet_key,bcrypt.gensalt())
                 key_file.write(hashed_key)
                 chmod(path.join(self.key_path,".key"), 0o600)
                 print(f"Your password is => {self.fernet_key.decode()}")
