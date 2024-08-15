@@ -42,8 +42,10 @@ class SecureVault:
         return self.generated_key
 
     def is_sanitized(self,entry):
+      if entry in self.sanitize_entry:
+              exit(2)
       for char in entry:
-         if char in set(self.sanitize_entry):
+         if char in self.sanitize_entry:
             raise Exception
       return True
 
