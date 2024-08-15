@@ -23,6 +23,6 @@ cd KeySafe
 
 chmod 700 sv.py 
 
-pip install -r requirements.txt 
+python3 -m pip install -r requirements.txt 
 
 python3 sv.py [-h,--help,-V,-r,-g,-u,-d,-l]
