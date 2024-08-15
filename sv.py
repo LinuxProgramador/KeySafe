@@ -43,7 +43,7 @@ class SecureVault:
 
     def is_sanitized(self,entry):
       if entry in self.sanitize_entry:
-              exit(2)
+              raise Exception
       for char in entry:
          if char in self.sanitize_entry:
             raise Exception
