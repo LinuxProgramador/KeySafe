@@ -53,10 +53,10 @@ class SecureVault:
     def hashing_password_input(self):
             self.frequent_user_entry = getpass("Enter your password: ").strip().replace(" ","")
             if self.is_sanitized(self.frequent_user_entry) and len(self.frequent_user_entry) <= 45:
-               hashed_password = sha3_512(self.frequent_user_entry.encode()).hexdigest()
+               return self.frequent_user_entry.encode()
             else:
                 raise Exception
-            return hashed_password
+            
 
     def read_key(self):
         
