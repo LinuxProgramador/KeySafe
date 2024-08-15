@@ -108,11 +108,11 @@ class SecureVault:
               key_name = input("Enter the name of the file that will store your password: ").strip().replace(" ","")
               if self.is_sanitized(key_name) and len(key_name) <= 20:
                  if not path.isfile(path.join(self.key_path,key_name)):
-                    with open(path.join(self.key_path,".key"), 'r') as key_file:
+                    with open(path.join(self.key_path,".key"), 'rb') as key_file:
                         stored_hash = key_file.read()
 
                     
-                    if stored_hash == self.hashing_password_input():
+                    if bcrypt.checkpw(self.hashing_password_input(), stored_hash):
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
                             fernet = Fernet(self.frequent_user_entry.encode())
                             self.frequent_user_entry = None
