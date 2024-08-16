@@ -7,7 +7,7 @@ from secrets import choice
 from sys import argv
 from os import chmod, path, mkdir, remove, listdir, stat
 from cryptography.fernet import Fernet
-import bcrypt
+from bcrypt import checkpw, hashpw, gensalt 
 from getpass import getpass, getuser
 
 
@@ -67,7 +67,7 @@ class SecureVault:
                 stored_hash = key_file.read()
 
             
-             if bcrypt.checkpw(self.hashing_password_input(), stored_hash):
+             if checkpw(self.hashing_password_input(), stored_hash):
               if key_name != ".key":
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
                     encrypted_key = key_file.read()
@@ -92,7 +92,7 @@ class SecureVault:
         
         if not path.isfile(path.join(self.key_path,".key")):
             with open(path.join(self.key_path,".key"), 'wb') as key_file:
-                hashed_key = bcrypt.hashpw(self.fernet_key,bcrypt.gensalt())
+                hashed_key = hashpw(self.fernet_key,gensalt())
                 key_file.write(hashed_key)
                 chmod(path.join(self.key_path,".key"), 0o600)
                 print(f"Your password is => {self.fernet_key.decode()}")
@@ -115,7 +115,7 @@ class SecureVault:
                         stored_hash = key_file.read()
 
                     
-                    if bcrypt.checkpw(self.hashing_password_input(), stored_hash):
+                    if checkpw(self.hashing_password_input(), stored_hash):
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
                             fernet = Fernet(self.frequent_user_entry.encode())
                             self.frequent_user_entry = None
@@ -152,7 +152,7 @@ class SecureVault:
                 stored_hash = key_file.read()
 
             
-             if bcrypt.checkpw(self.hashing_password_input(), stored_hash):
+             if checkpw(self.hashing_password_input(), stored_hash):
                self.frequent_user_entry = None
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
