@@ -68,6 +68,7 @@ class SecureVault:
 
             
              if bcrypt.checkpw(self.hashing_password_input(), stored_hash):
+              if key_name != ".key":
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
                     encrypted_key = key_file.read()
                     fernet = Fernet(self.frequent_user_entry.encode())
@@ -77,6 +78,8 @@ class SecureVault:
                     print(f"Your password is => {decrypted_key.decode()}")
                     decrypted_key = None
                     break
+              else:
+                  print("Can't read the unique key!")
              else:
                 print("Incorrect password!")
           else:
