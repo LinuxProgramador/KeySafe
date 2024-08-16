@@ -114,8 +114,9 @@ class SecureVault:
     
 
     def store_unique_key(self):
-        
-        
+        '''
+        Stores a unique key by creating a .key file if it does not already exist.
+        '''
         if not path.isfile(path.join(self.key_path,".key")):
             with open(path.join(self.key_path,".key"), 'wb') as key_file:
                 hashed_key = hashpw(self.fernet_key,gensalt())
