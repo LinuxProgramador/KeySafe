@@ -237,6 +237,8 @@ Help Menu:
                     raise Exception
                 else:
                      print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
+            elif len(argv) >= 3:
+                   raise Exception      
             elif self.options[2] in argv:
                 print(f"Key-Safe => {self.generate_key()}")
                 self.save_key()
