@@ -237,6 +237,9 @@ Help Menu:
         except PermissionError as p:
             print(f"Permissions error on the file or directory => {p}")
             
+        except ValueError:
+            print("You did not enter a number!")   
+            
         except:
             print("Possible malicious symbol lockout or password corruption failure!")
         
