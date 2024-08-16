@@ -165,7 +165,9 @@ class SecureVault:
           raise Exception
     
     def list_password(self):
-        
+            '''
+            Lists all stored passwords except the .key file.
+            '''
             self.listen = listdir(self.key_path) 
             for x in self.listen: 
                 if x != ".key":
