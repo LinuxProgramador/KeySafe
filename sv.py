@@ -12,7 +12,9 @@ from getpass import getpass, getuser
 
 class SecureVault:
     
-
+    '''
+    SecureVault class provides functionalities to generate, store, and manage cryptographic keys.
+    '''
     def __init__(self):
         
         self.symbols_and_numbers = ["@", "1", "/", "*", "8", "_", "6", "0", "'", "2", '"', "\\", "+", "9", "&", "3", "-", ";", "4", "!", "?", "5", "#", "$", "7"]
