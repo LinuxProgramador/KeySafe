@@ -35,6 +35,9 @@ class SecureVault:
         self.sv_path = f"/home/{self.user}/KeySafe"
 
     def generate_key(self):
+        '''
+        Generates a secure cryptographic key with a user-defined or default length.
+        '''
         
         self.generated_key = ""
         query_longitude = int(getpass("Set key length (15/64) or press zero for default: "))
