@@ -32,6 +32,17 @@ class SecureVault:
     def generate_key(self):
         
         self.generated_key = ""
+        query_longitude = int(getpass("Set key length (15/64) or press zero for default: "))
+        if bool(query_longitude) == True:
+         if len(str(query_longitude)) <= 3:
+          if query_longitude >= 15 and query_longitude <= 64:
+             self.key_length = query_longitude
+          else:
+             print("You entered a number outside the allowed range, the default value will be set!")
+
+         else:
+            raise Exception
+            
         for _ in range(self.key_length):
             char = choice(self.characters)
             if char not in self.symbols_and_numbers and choice(range(10)) in [0, 3, 4, 6, 7]:
