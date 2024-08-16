@@ -241,7 +241,7 @@ Help Menu:
             print("You did not enter any integer!")   
             
         except:
-            print("Possible malicious symbol lockout or password corruption failure!")
+            print("Possible malicious symbol lock error, allowed length exceeded, or password corruption!")
         
            
 
