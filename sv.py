@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
-# SecureVault 1.0
-# Author: WhiteHack
+#Tool to generate secure keys and store them safely on Linux distros
 
 from secrets import choice
 from sys import argv
@@ -239,3 +238,10 @@ if __name__ == "__main__":
     else:
           vault = SecureVault()
           vault.main()
+
+
+__name__="SecureVault"
+__version__="1.0"
+__maintainer__="WhiteHack"
+__license__="GPL"
+
