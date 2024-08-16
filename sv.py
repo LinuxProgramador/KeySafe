@@ -130,7 +130,9 @@ class SecureVault:
     
 
     def save_key(self):
-        
+      '''
+      Saves a generated key to a specified file, after verifying the password.
+      '''  
       confirm = input("Would you like to save the password (y/n): ").strip().lower()
       if self.is_sanitized(confirm) and len(confirm) < 2:
         if confirm == "y":
