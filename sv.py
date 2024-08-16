@@ -205,6 +205,9 @@ class SecureVault:
                 
 
     def show_help(self):
+        '''
+        When the function is called, it prints the help menu.
+        '''
         print("""
 SecureVault 1.0. It is a tool that allows you to generate secure keys.
 Usage:
