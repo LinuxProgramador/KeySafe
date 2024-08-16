@@ -61,7 +61,7 @@ class SecureVault:
         
         for _ in range(2):
           key_name = input("Enter the name of your password: ").strip().replace(" ","")
-          if self.is_sanitized(key_name) and len(key_name) <= 20:
+          if self.is_sanitized(key_name) and len(key_name) <= 40:
              with open(path.join(self.key_path,".key"), 'rb') as key_file:
                 stored_hash = key_file.read()
 
@@ -108,7 +108,7 @@ class SecureVault:
         if confirm == "y":
             for _ in range(2):
               key_name = input("Enter the name of the file that will store your password: ").strip().replace(" ","")
-              if self.is_sanitized(key_name) and len(key_name) <= 20:
+              if self.is_sanitized(key_name) and len(key_name) <= 40:
                  if not path.isfile(path.join(self.key_path,key_name)):
                     with open(path.join(self.key_path,".key"), 'rb') as key_file:
                         stored_hash = key_file.read()
@@ -146,7 +146,7 @@ class SecureVault:
         
           for _ in range(2):
            key_name = input("Enter the name of your password: ").strip().replace(" ","")
-           if self.is_sanitized(key_name) and len(key_name) <= 20:
+           if self.is_sanitized(key_name) and len(key_name) <= 40:
              with open(path.join(self.key_path,".key"), 'rb') as key_file:
                 stored_hash = key_file.read()
 
