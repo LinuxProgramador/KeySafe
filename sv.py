@@ -72,6 +72,9 @@ class SecureVault:
 
     
     def hashing_password_input(self):
+            '''
+            Hashes the user's password input for validation purposes.
+            '''
             self.frequent_user_entry = getpass("Enter your password: ").strip().replace(" ","")
             if self.is_sanitized(self.frequent_user_entry) and len(self.frequent_user_entry) <= 45:
                return self.frequent_user_entry.encode()
