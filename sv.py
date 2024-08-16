@@ -60,6 +60,9 @@ class SecureVault:
         return self.generated_key
 
     def is_sanitized(self,entry):
+      '''
+      Checks if the provided entry contains any malicious symbols or commands.
+      '''
       if entry in self.sanitize_entry:
               raise Exception
       for char in entry:
