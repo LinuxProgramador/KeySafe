@@ -16,6 +16,9 @@ class SecureVault:
     SecureVault class provides functionalities to generate, store, and manage cryptographic keys.
     '''
     def __init__(self):
+        '''
+        Initializes the SecureVault instance with default values and generates a Fernet key.
+        '''
         
         self.symbols_and_numbers = ["@", "1", "/", "*", "8", "_", "6", "0", "'", "2", '"', "\\", "+", "9", "&", "3", "-", ";", "4", "!", "?", "5", "#", "$", "7"]
         self.alpha = list("abcdefghijklmnopqrstuvwxyz")
