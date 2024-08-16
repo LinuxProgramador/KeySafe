@@ -83,7 +83,9 @@ class SecureVault:
             
 
     def read_key(self):
-        
+        '''
+        Reads a stored key by prompting the user for its name and verifying the password.
+        '''
         for _ in range(2):
           key_name = input("Enter the name of your password: ").strip().replace(" ","")
           if self.is_sanitized(key_name) and len(key_name) <= 40:
