@@ -255,9 +255,12 @@ Help Menu:
                 key = None
                 temp = self.generate_key()
                 print(f"Key-Safe => {temp}")
-                self.save_key(temp)
+                temp = fernet_key_generate.encrypt(temp.encode())
+                self.save_key(temp,fernet_key_generate)
                 temp = ""
                 temp = None
+                fernet_key_generate = ""
+                fernet_key_generate = None
             elif self.options[3] in argv:
                 print(self.version_info)
             elif self.options[5] in argv:
