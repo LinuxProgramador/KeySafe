@@ -97,19 +97,16 @@ class SecureVault:
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
                     encrypted_key = key_file.read()
                     fernet = Fernet(temp_entry)
-                    temp_entry = ""
-                    temp_entry = None
+                    del(temp_entry)
                     decrypted_key = fernet.decrypt(encrypted_key)
-                    fernet = ""
-                    fernet = None
+                    del(fernet)
                     print(f"Your password is => {decrypted_key.decode()}")
-                    decrypted_key = ""
-                    decrypted_key = None
+                    del(decrypted_key)
                     break
               else:
                   print("Can't read the unique key!")
-                  temp_entry = ""
-                  temp_entry = None
+                  del(temp_entry)
+                  
              else:
                 print("Incorrect password!")
           else:
@@ -128,8 +125,7 @@ class SecureVault:
                 key_file.write(hashed_key)
                 chmod(path.join(self.key_path,".key"), 0o600)
                 print(f"Your password is => {fernet_key.decode()}")
-                fernet_key = ""
-                fernet_key = None
+                del(fernet_key)
         else:
             print("The password already exists!")
 
@@ -153,16 +149,12 @@ class SecureVault:
                     if checkpw(temp_entry, stored_hash):
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
                             fernet = Fernet(temp_entry)
-                            temp_entry = ""
-                            temp_entry = None
+                            del(temp_entry)
                             temp = fernet_key_generate.decrypt(temp)
                             encrypted_key = fernet.encrypt(temp)
-                            temp = ""
-                            temp = None
-                            fernet_key_generate = ""
-                            fernet_key_generate = None
-                            fernet = ""
-                            fernet = None
+                            del(temp)
+                            del(fernet_key_generate)
+                            del(fernet)
                             key_file.write(encrypted_key)
                             chmod(path.join(self.key_path,key_name), 0o600)
                             print("Your password has been saved successfully!")
@@ -199,8 +191,7 @@ class SecureVault:
 
              temp_entry = self.hashing_password_input()
              if checkpw(temp_entry, stored_hash):
-               temp_entry = ""
-               temp_entry = None
+               del(temp_entry)
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
                    remove(path.join(self.key_path,key_name))
@@ -256,16 +247,13 @@ Help Menu:
             elif self.options[2] in argv:
                 key = Fernet.generate_key()
                 fernet_key_generate = Fernet(key)
-                key = ""
-                key = None
+                del(key)
                 temp = self.generate_key()
                 print(f"Key-Safe => {temp}")
                 temp = fernet_key_generate.encrypt(temp.encode())
                 self.save_key(temp,fernet_key_generate)
-                temp = ""
-                temp = None
-                fernet_key_generate = ""
-                fernet_key_generate = None
+                del(temp)
+                del(fernet_key_generate)
             elif self.options[3] in argv:
                 print(self.version_info)
             elif self.options[5] in argv:
