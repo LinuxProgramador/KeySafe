@@ -170,6 +170,7 @@ class SecureVault:
                  raise Exception
       else:
           raise Exception
+    return
     
     def list_password(self):
             '''
