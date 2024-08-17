@@ -251,6 +251,8 @@ Help Menu:
                 temp = self.generate_key()
                 print(f"Key-Safe => {temp}")
                 self.save_key(temp)
+                temp = ""
+                temp = None
             elif self.options[3] in argv:
                 print(self.version_info)
             elif self.options[5] in argv:
