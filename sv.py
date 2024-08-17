@@ -133,7 +133,7 @@ class SecureVault:
 
     
 
-    def save_key(self,temp):
+    def save_key(self,temp,fernet_key_generate):
       '''
       Saves a generated key to a specified file, after verifying the password.
       '''  
@@ -153,9 +153,12 @@ class SecureVault:
                             fernet = Fernet(self.frequent_user_entry.encode())
                             self.frequent_user_entry = ""
                             self.frequent_user_entry = None
-                            encrypted_key = fernet.encrypt(temp.encode())
+                            temp = fernet_key_generate.decrypt(temp)
+                            encrypted_key = fernet.encrypt(temp)
                             temp = ""
                             temp = None
+                            fernet_key_generate = ""
+                            fernet_key_generate = None
                             fernet = ""
                             fernet = None
                             key_file.write(encrypted_key)
