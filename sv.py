@@ -97,10 +97,13 @@ class SecureVault:
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
                     encrypted_key = key_file.read()
                     fernet = Fernet(self.frequent_user_entry.encode())
+                    self.frequent_user_entry = ""
                     self.frequent_user_entry = None
                     decrypted_key = fernet.decrypt(encrypted_key)
+                    fernet = ""
                     fernet = None
                     print(f"Your password is => {decrypted_key.decode()}")
+                    decrypted_key = ""
                     decrypted_key = None
                     break
               else:
@@ -123,6 +126,7 @@ class SecureVault:
                 key_file.write(hashed_key)
                 chmod(path.join(self.key_path,".key"), 0o600)
                 print(f"Your password is => {fernet_key.decode()}")
+                fernet_key = ""
                 fernet_key = None
         else:
             print("The password already exists!")
@@ -147,9 +151,12 @@ class SecureVault:
                     if checkpw(self.hashing_password_input(), stored_hash):
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
                             fernet = Fernet(self.frequent_user_entry.encode())
+                            self.frequent_user_entry = ""
                             self.frequent_user_entry = None
                             encrypted_key = fernet.encrypt(self.generated_key.encode())
+                            self.generated_key = ""
                             self.generated_key = None
+                            fernet = ""
                             fernet = None
                             key_file.write(encrypted_key)
                             chmod(path.join(self.key_path,key_name), 0o600)
@@ -186,6 +193,7 @@ class SecureVault:
 
             
              if checkpw(self.hashing_password_input(), stored_hash):
+               self.frequent_user_entry = ""
                self.frequent_user_entry = None
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
