@@ -38,7 +38,7 @@ class SecureVault:
         Generates a secure cryptographic key with a user-defined or default length.
         '''
         
-        self.generated_key = ""
+        generated_key = ""
         query_longitude = int(getpass("Set key length (15/64) or press zero for default: "))
         if bool(query_longitude) == True:
          if len(str(query_longitude)) <= 3:
@@ -53,10 +53,10 @@ class SecureVault:
         for _ in range(self.key_length):
             char = choice(self.characters)
             if char not in self.symbols_and_numbers and choice(range(10)) in [0, 3, 4, 6, 7]:
-                self.generated_key += char.upper()
+                generated_key += char.upper()
             else:
-                self.generated_key += char
-        return self.generated_key
+                generated_key += char
+        return generated_key
 
     def is_sanitized(self,entry):
       '''
@@ -133,7 +133,7 @@ class SecureVault:
 
     
 
-    def save_key(self):
+    def save_key(self,temp):
       '''
       Saves a generated key to a specified file, after verifying the password.
       '''  
@@ -153,9 +153,9 @@ class SecureVault:
                             fernet = Fernet(self.frequent_user_entry.encode())
                             self.frequent_user_entry = ""
                             self.frequent_user_entry = None
-                            encrypted_key = fernet.encrypt(self.generated_key.encode())
-                            self.generated_key = ""
-                            self.generated_key = None
+                            encrypted_key = fernet.encrypt(temp.encode())
+                            temp = ""
+                            temp = None
                             fernet = ""
                             fernet = None
                             key_file.write(encrypted_key)
@@ -248,8 +248,9 @@ Help Menu:
             elif len(argv) >= 3:
                    raise Exception      
             elif self.options[2] in argv:
-                print(f"Key-Safe => {self.generate_key()}")
-                self.save_key()
+                temp = self.generate_key()
+                print(f"Key-Safe => {temp}")
+                self.save_key(temp)
             elif self.options[3] in argv:
                 print(self.version_info)
             elif self.options[5] in argv:
