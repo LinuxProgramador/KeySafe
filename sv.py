@@ -249,6 +249,10 @@ Help Menu:
             elif len(argv) >= 3:
                    raise Exception      
             elif self.options[2] in argv:
+                key = Fernet.generate_key()
+                fernet_key_generate = Fernet(key)
+                key = ""
+                key = None
                 temp = self.generate_key()
                 print(f"Key-Safe => {temp}")
                 self.save_key(temp)
