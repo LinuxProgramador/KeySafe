@@ -108,6 +108,8 @@ class SecureVault:
                     break
               else:
                   print("Can't read the unique key!")
+                  temp_entry = ""
+                  temp_entry = None
              else:
                 print("Incorrect password!")
           else:
