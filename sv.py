@@ -74,9 +74,9 @@ class SecureVault:
             '''
             Hashes the user's password input for validation purposes.
             '''
-            self.frequent_user_entry = getpass("Enter your password: ").strip().replace(" ","")
-            if self.is_sanitized(self.frequent_user_entry) and len(self.frequent_user_entry) <= 45:
-               return self.frequent_user_entry.encode()
+            frequent_user_entry = getpass("Enter your password: ").strip().replace(" ","")
+            if self.is_sanitized(frequent_user_entry) and len(frequent_user_entry) <= 45:
+               return frequent_user_entry.encode()
             else:
                 raise Exception
             
@@ -91,14 +91,14 @@ class SecureVault:
              with open(path.join(self.key_path,".key"), 'rb') as key_file:
                 stored_hash = key_file.read()
 
-            
-             if checkpw(self.hashing_password_input(), stored_hash):
+             temp_entry = self.hashing_password_input()
+             if checkpw(temp_entry, stored_hash):
               if key_name != ".key":
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
                     encrypted_key = key_file.read()
-                    fernet = Fernet(self.frequent_user_entry.encode())
-                    self.frequent_user_entry = ""
-                    self.frequent_user_entry = None
+                    fernet = Fernet(temp_entry)
+                    temp_entry = ""
+                    temp_entry = None
                     decrypted_key = fernet.decrypt(encrypted_key)
                     fernet = ""
                     fernet = None
@@ -147,12 +147,12 @@ class SecureVault:
                     with open(path.join(self.key_path,".key"), 'rb') as key_file:
                         stored_hash = key_file.read()
 
-                    
-                    if checkpw(self.hashing_password_input(), stored_hash):
+                    temp_entry = self.hashing_password_input()
+                    if checkpw(temp_entry, stored_hash):
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
-                            fernet = Fernet(self.frequent_user_entry.encode())
-                            self.frequent_user_entry = ""
-                            self.frequent_user_entry = None
+                            fernet = Fernet(temp_entry)
+                            temp_entry = ""
+                            temp_entry = None
                             temp = fernet_key_generate.decrypt(temp)
                             encrypted_key = fernet.encrypt(temp)
                             temp = ""
@@ -195,10 +195,10 @@ class SecureVault:
              with open(path.join(self.key_path,".key"), 'rb') as key_file:
                 stored_hash = key_file.read()
 
-            
-             if checkpw(self.hashing_password_input(), stored_hash):
-               self.frequent_user_entry = ""
-               self.frequent_user_entry = None
+             temp_entry = self.hashing_password_input()
+             if checkpw(temp_entry, stored_hash):
+               temp_entry = ""
+               temp_entry = None
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
                    remove(path.join(self.key_path,key_name))
