@@ -40,7 +40,7 @@ class SecureVault:
         
         generated_key = ""
         query_longitude = int(getpass("Set key length (15/64) or press zero for default: "))
-        if bool(query_longitude) == True:
+        if query_longitude:
          if len(str(query_longitude)) <= 3:
           if query_longitude >= 15 and query_longitude <= 64:
              self.key_length = query_longitude
