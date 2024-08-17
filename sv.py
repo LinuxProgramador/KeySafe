@@ -24,7 +24,6 @@ class SecureVault:
         self.alpha = list("abcdefghijklmnopqrstuvwxyz")
         self.characters = self.symbols_and_numbers + self.alpha
         self.key_length = choice(range(15 ,65))
-        self.fernet_key = Fernet.generate_key()
         self.user = getuser()
         self.version_info = "SecureVault 1.0. It is a tool that allows you to generate secure keys."
         self.malicious_symbols = list("'~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
@@ -118,12 +117,13 @@ class SecureVault:
         Stores a unique key by creating a .key file if it does not already exist.
         '''
         if not path.isfile(path.join(self.key_path,".key")):
+            fernet_key = Fernet.generate_key()
             with open(path.join(self.key_path,".key"), 'wb') as key_file:
-                hashed_key = hashpw(self.fernet_key,gensalt())
+                hashed_key = hashpw(fernet_key,gensalt())
                 key_file.write(hashed_key)
                 chmod(path.join(self.key_path,".key"), 0o600)
-                print(f"Your password is => {self.fernet_key.decode()}")
-                self.fernet_key = None
+                print(f"Your password is => {fernet_key.decode()}")
+                fernet_key = None
         else:
             print("The password already exists!")
 
