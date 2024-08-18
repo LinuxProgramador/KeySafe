@@ -284,7 +284,8 @@ Help Menu:
             print("Error, please enter a valid name!")
               
 if __name__ == "__main__":
-    process = subprocess.run(['ps', 'aux'], text=True, capture_output=True)
+   try:
+    process = subprocess.run(['ps', 'aux'], text=True, check=True, capture_output=True)
     output = process.stdout
     if not 'S+' in output:
           exit(1)
@@ -294,7 +295,9 @@ if __name__ == "__main__":
     else:
           vault = SecureVault()
           vault.main()
-
+   except subprocess.CalledProcessError:
+    print("Error running ps command!")
+    exit(1)
 
 __name__="SecureVault"
 __version__="1.0"
