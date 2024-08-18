@@ -8,7 +8,7 @@ from os import chmod, path, mkdir, remove, listdir, stat
 from cryptography.fernet import Fernet
 from bcrypt import checkpw, hashpw, gensalt 
 from getpass import getpass, getuser
-
+import string 
 
 class SecureVault:
     '''
@@ -18,9 +18,7 @@ class SecureVault:
         '''
         Initializes the SecureVault instance with default values and generates a Fernet key.
         '''
-        self.symbols_and_numbers = ["@", "1", "/", "*", "8", "_", "6", "0", "'", "2", '"', "\\", "+", "9", "&", "3", "-", ";", "4", "!", "?", "5", "#", "$", "7"]
-        self.alpha = list("abcdefghijklmnopqrstuvwxyz")
-        self.characters = self.symbols_and_numbers + self.alpha
+        self.characters = string.ascii_lowercase + string.digits + '@/*_"\',\\+&-;!?#$' + string.ascii_uppercase
         self.key_length = choice(range(15 ,65))
         self.user = getuser()
         self.malicious_symbols = list("'~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
@@ -45,11 +43,8 @@ class SecureVault:
          else:
             raise Exception
         for _ in range(self.key_length):
-            char = choice(self.characters)
-            if char not in self.symbols_and_numbers and choice(range(10)) in [0, 3, 4, 6, 7]:
-                generated_key += char.upper()
-            else:
-                generated_key += char
+            char = choice(list(self.characters))
+            generated_key += char
         return generated_key
 
     def is_sanitized(self,entry):
