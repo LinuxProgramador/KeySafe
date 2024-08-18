@@ -155,7 +155,7 @@ class SecureVault:
                     print("Password name already exists!")
               else:
                  print("Possible block due to length exceeded!")
-                  exit(1)
+                 exit(1)
       else:
           print("Possible block due to length exceeded!")
           exit(1)
