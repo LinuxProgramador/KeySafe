@@ -11,7 +11,6 @@ from getpass import getpass, getuser
 
 
 class SecureVault:
-    
     '''
     SecureVault class provides functionalities to generate, store, and manage cryptographic keys.
     '''
@@ -19,13 +18,11 @@ class SecureVault:
         '''
         Initializes the SecureVault instance with default values and generates a Fernet key.
         '''
-        
         self.symbols_and_numbers = ["@", "1", "/", "*", "8", "_", "6", "0", "'", "2", '"', "\\", "+", "9", "&", "3", "-", ";", "4", "!", "?", "5", "#", "$", "7"]
         self.alpha = list("abcdefghijklmnopqrstuvwxyz")
         self.characters = self.symbols_and_numbers + self.alpha
         self.key_length = choice(range(15 ,65))
         self.user = getuser()
-        self.version_info = "SecureVault 1.0. It is a tool that allows you to generate secure keys."
         self.malicious_symbols = list("'~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
         self.malicios_simbols_and_comands =["umount","mount","ls","cd","nano","vim","chown","chmod","mkfs","dd","..","echo","rm","cat","exec","wget","curl","&&","||","\"","\\"]
         self.sanitize_entry = self.malicios_simbols_and_comands + self.malicious_symbols
@@ -37,7 +34,6 @@ class SecureVault:
         '''
         Generates a secure cryptographic key with a user-defined or default length.
         '''
-        
         generated_key = ""
         query_longitude = int(getpass("Set key length (15/64) or press zero for default: "))
         if query_longitude:
@@ -46,10 +42,8 @@ class SecureVault:
              self.key_length = query_longitude
           else:
              print("You entered a number outside the allowed range, the default value will be set!")
-
          else:
             raise Exception
-            
         for _ in range(self.key_length):
             char = choice(self.characters)
             if char not in self.symbols_and_numbers and choice(range(10)) in [0, 3, 4, 6, 7]:
@@ -90,7 +84,6 @@ class SecureVault:
           if self.is_sanitized(key_name) and len(key_name) <= 40:
              with open(path.join(self.key_path,".key"), 'rb') as key_file:
                 stored_hash = key_file.read()
-
              temp_entry = self.hashing_password_input()
              if checkpw(temp_entry, stored_hash):
               if key_name != ".key":
@@ -106,7 +99,6 @@ class SecureVault:
               else:
                   print("Can't read the unique key!")
                   del(temp_entry)
-                  
              else:
                 print("Incorrect password!")
           else:
@@ -144,7 +136,6 @@ class SecureVault:
                  if not path.isfile(path.join(self.key_path,key_name)):
                     with open(path.join(self.key_path,".key"), 'rb') as key_file:
                         stored_hash = key_file.read()
-
                     temp_entry = self.hashing_password_input()
                     if checkpw(temp_entry, stored_hash):
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
@@ -188,7 +179,6 @@ class SecureVault:
            if self.is_sanitized(key_name) and len(key_name) <= 40:
              with open(path.join(self.key_path,".key"), 'rb') as key_file:
                 stored_hash = key_file.read()
-
              temp_entry = self.hashing_password_input()
              if checkpw(temp_entry, stored_hash):
                del(temp_entry)
@@ -199,7 +189,6 @@ class SecureVault:
                    break
                  else:
                      print("The permissions were altered, for security the file will not be deleted!")
-
                else:
                    print("The unique key cannot be deleted!")
              else:
@@ -236,7 +225,6 @@ Help Menu:
             if not path.isdir(self.key_path):
                 mkdir(self.key_path)
                 chmod(self.key_path, 0o700)
-                
             if len(argv) >= 2 and not argv[1] in self.options:
                 if not self.is_sanitized(argv[1]) or len(argv) > 2 or len(argv[1]) > 7:
                     raise Exception
@@ -255,7 +243,7 @@ Help Menu:
                 del(temp)
                 del(fernet_key_generate)
             elif self.options[3] in argv:
-                print(self.version_info)
+                print("SecureVault 1.0. It is a tool that allows you to generate secure keys.")
             elif self.options[5] in argv:
                 self.store_unique_key()
             elif self.options[1] in argv:
@@ -268,20 +256,14 @@ Help Menu:
                 self.show_help()
             else:
                 print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
-
-        
         except (KeyboardInterrupt,EOFError):
             print("\nOperation canceled by user!")
-            
         except FileNotFoundError as e:
             print(f"Path or file does not exist => {e}")
-
         except PermissionError as p:
             print(f"Permissions error on the file or directory => {p}")
-            
         except ValueError:
             print("You did not enter any integer!")   
-            
         except:
             print("Possible malicious symbol lock error, allowed length exceeded, or password corruption!")
         
