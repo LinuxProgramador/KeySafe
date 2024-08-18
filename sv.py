@@ -9,7 +9,7 @@ from cryptography.fernet import Fernet, InvalidToken
 from bcrypt import checkpw, hashpw, gensalt 
 from getpass import getpass, getuser
 from string import ascii_lowercase, digits, ascii_uppercase
-import subprocess 
+import subprocess, signal
 
 class SecureVault:
     '''
@@ -27,6 +27,13 @@ class SecureVault:
         self.user = getuser()
         self.key_path = f"/home/{self.user}/KeySafe/.VaultSecret"
         self.sv_path = f"/home/{self.user}/KeySafe"
+
+    def handle_tstp_signal(self,signum,frame):
+       '''
+       Function that allows me to catch the signal produced by the ctrl_z key
+       '''
+       print('')
+       exit(1)
 
     def generate_key(self):
         '''
