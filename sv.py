@@ -8,7 +8,7 @@ from os import chmod, path, mkdir, remove, listdir, stat
 from cryptography.fernet import Fernet, InvalidToken
 from bcrypt import checkpw, hashpw, gensalt 
 from getpass import getpass, getuser
-import string 
+from string import ascii_lowercase, digits, ascii_uppercase
 
 class SecureVault:
     '''
@@ -18,7 +18,7 @@ class SecureVault:
         '''
         Initializes the SecureVault instance with default values and generates a Fernet key.
         '''
-        self.characters = string.ascii_lowercase + string.digits + '@/*_"\',\\+&-;!?#$' + string.ascii_uppercase
+        self.characters = ascii_lowercase + digits + '@/*_"\',\\+&-;!?#$' + ascii_uppercase
         self.key_length = choice(range(15 ,65))
         self.malicious_symbols = list("'~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
         self.malicios_symbols_and_commands =["umount","mount","ls","cd","nano","vim","chown","chmod","mkfs","dd","..","echo","rm","cat","exec","wget","curl","&&","||","\"","\\"]
