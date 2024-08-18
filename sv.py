@@ -20,13 +20,11 @@ class SecureVault:
         '''
         self.characters = string.ascii_lowercase + string.digits + '@/*_"\',\\+&-;!?#$' + string.ascii_uppercase
         self.key_length = choice(range(15 ,65))
-        self.user = getuser()
         self.malicious_symbols = list("'~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
-        self.malicios_simbols_and_comands =["umount","mount","ls","cd","nano","vim","chown","chmod","mkfs","dd","..","echo","rm","cat","exec","wget","curl","&&","||","\"","\\"]
-        self.sanitize_entry = self.malicios_simbols_and_comands + self.malicious_symbols
+        self.malicios_symbols_and_commands =["umount","mount","ls","cd","nano","vim","chown","chmod","mkfs","dd","..","echo","rm","cat","exec","wget","curl","&&","||","\"","\\"]
         self.options = ['-d','-r','-g','-V','-l','-u','-h','--help']
-        self.key_path = f"/home/{self.user}/KeySafe/.VaultSecret"
-        self.sv_path = f"/home/{self.user}/KeySafe"
+        self.key_path = f"/home/{getuser()}/KeySafe/.VaultSecret"
+        self.sv_path = f"/home/{getuser()}/KeySafe"
 
     def generate_key(self):
         '''
@@ -51,10 +49,11 @@ class SecureVault:
       '''
       Checks if the provided entry contains any malicious symbols or commands.
       '''
-      if entry in self.sanitize_entry:
+      sanitize_entry = self.malicious_symbols + self.malicios_symbols_and_commands
+      if entry in sanitize_entry:
               raise Exception
       for char in entry:
-         if char in self.sanitize_entry:
+         if char in sanitize_entry:
             raise Exception
       return True
 
