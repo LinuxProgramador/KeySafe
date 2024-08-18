@@ -40,7 +40,8 @@ class SecureVault:
           else:
              print("You entered a number outside the allowed range, the default value will be set!")
          else:
-            raise Exception
+            print("Possible block due to length exceeded!")
+            exit(1)
         for _ in range(self.key_length):
             char = choice(list(self.characters))
             generated_key += char
