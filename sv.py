@@ -123,7 +123,7 @@ class SecureVault:
 
     
 
-    def save_key(self,temp,fernet_key_generate):
+    def save_key(self,temp_encrypt,fernet_key_generate):
       '''
       Saves a generated key to a specified file, after verifying the password.
       '''  
@@ -141,9 +141,9 @@ class SecureVault:
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
                             fernet = Fernet(temp_entry)
                             del(temp_entry)
-                            temp = fernet_key_generate.decrypt(temp)
-                            encrypted_key = fernet.encrypt(temp)
-                            del(temp)
+                            temp_encrypt = fernet_key_generate.decrypt(temp_encrypt)
+                            encrypted_key = fernet.encrypt(temp_encrypt)
+                            del(temp_encrypt)
                             del(fernet_key_generate)
                             del(fernet)
                             key_file.write(encrypted_key)
@@ -241,11 +241,11 @@ Help Menu:
                 key = Fernet.generate_key()
                 fernet_key_generate = Fernet(key)
                 del(key)
-                temp = self.generate_key()
-                print(f"Key-Safe => {temp}")
-                temp = fernet_key_generate.encrypt(temp.encode())
-                self.save_key(temp,fernet_key_generate)
-                del(temp)
+                temp_encrypt = self.generate_key()
+                print(f"Key-Safe => {temp_encrypt}")
+                temp_encrypt = fernet_key_generate.encrypt(temp_encrypt.encode())
+                self.save_key(temp_encrypt,fernet_key_generate)
+                del(temp_encrypt)
                 del(fernet_key_generate)
             elif self.options[3] in argv:
                 print("SecureVault 1.0. It is a tool that allows you to generate secure keys.")
