@@ -271,6 +271,8 @@ Help Menu:
             print("You did not enter any integer!")   
         except InvalidToken:
             print("Invalid Token Error!")
+        except IsADirectoryError:
+            print("Error, please enter a valid name!")
               
 if __name__ == "__main__":
     if getuser() == 'root':
