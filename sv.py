@@ -9,6 +9,7 @@ from cryptography.fernet import Fernet, InvalidToken
 from bcrypt import checkpw, hashpw, gensalt 
 from getpass import getpass, getuser
 from string import ascii_lowercase, digits, ascii_uppercase
+import subprocess 
 
 class SecureVault:
     '''
@@ -275,7 +276,11 @@ Help Menu:
             print("Error, please enter a valid name!")
               
 if __name__ == "__main__":
-    if getuser() == 'root':
+    process = subprocess.run('ps aux | grep  sv.py  | grep -v grep ', shell=True, text=True, capture_output=True)
+    output = process.stdout
+    if not 'S+' in output:
+          exit(1)
+    elif getuser() == 'root':
           print("Access denied to root user!")
           exit(1)
     else:
