@@ -270,11 +270,7 @@ Help Menu:
             print("You did not enter any integer!")   
         except InvalidToken:
             print("Invalid Token Error!")
-        except:
-            print("Possible unknown error, please restart the script!")
-        
-           
-
+              
 if __name__ == "__main__":
     if getuser() == 'root':
           print("Access denied to root user!")
