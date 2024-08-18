@@ -3,9 +3,9 @@
 #Tool to generate secure keys and store them safely on Linux distros
 
 from secrets import choice
-from sys import argv
+from sys import argv, exit
 from os import chmod, path, mkdir, remove, listdir, stat
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet, InvalidToken
 from bcrypt import checkpw, hashpw, gensalt 
 from getpass import getpass, getuser
 import string 
@@ -23,8 +23,9 @@ class SecureVault:
         self.malicious_symbols = list("'~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
         self.malicios_symbols_and_commands =["umount","mount","ls","cd","nano","vim","chown","chmod","mkfs","dd","..","echo","rm","cat","exec","wget","curl","&&","||","\"","\\"]
         self.options = ['-d','-r','-g','-V','-l','-u','-h','--help']
-        self.key_path = f"/home/{getuser()}/KeySafe/.VaultSecret"
-        self.sv_path = f"/home/{getuser()}/KeySafe"
+        self.user = getuser()
+        self.key_path = f"/home/{self.user}/KeySafe/.VaultSecret"
+        self.sv_path = f"/home/{self.user}/KeySafe"
 
     def generate_key(self):
         '''
@@ -51,10 +52,12 @@ class SecureVault:
       '''
       sanitize_entry = self.malicious_symbols + self.malicios_symbols_and_commands
       if entry in sanitize_entry:
-              raise Exception
+            print("Possible blocking due to malicious symbol!")
+            exit(1)
       for char in entry:
          if char in sanitize_entry:
-            raise Exception
+            print("Possible blocking due to malicious symbol!")
+            exit(1)
       return True
 
     
@@ -66,7 +69,8 @@ class SecureVault:
             if self.is_sanitized(frequent_user_entry) and len(frequent_user_entry) <= 45:
                return frequent_user_entry.encode()
             else:
-                raise Exception
+                print("Possible block due to length exceeded!")
+                exit(1)
             
 
     def read_key(self):
@@ -96,7 +100,8 @@ class SecureVault:
              else:
                 print("Incorrect password!")
           else:
-              raise Exception
+              print("Possible block due to length exceeded!")
+              exit(1)
 
     
 
@@ -149,9 +154,11 @@ class SecureVault:
                  else:
                     print("Password name already exists!")
               else:
-                 raise Exception
+                 print("Possible block due to length exceeded!")
+                  exit(1)
       else:
-          raise Exception
+          print("Possible block due to length exceeded!")
+          exit(1)
       return
     
     def list_password(self):
@@ -188,7 +195,8 @@ class SecureVault:
              else:
                 print("Incorrect password!")
            else:
-               raise Exception
+               print("Possible block due to length exceeded!")
+               exit(1)
                 
                 
 
@@ -221,11 +229,13 @@ Help Menu:
                 chmod(self.key_path, 0o700)
             if len(argv) >= 2 and not argv[1] in self.options:
                 if not self.is_sanitized(argv[1]) or len(argv) > 2 or len(argv[1]) > 7:
-                    raise Exception
+                    print("Possible block due to length exceeded!")
+                    exit(1)
                 else:
                      print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
             elif len(argv) >= 3:
-                   raise Exception      
+                   print("Possible block due to length exceeded!")
+                   exit(1)  
             elif self.options[2] in argv:
                 key = Fernet.generate_key()
                 fernet_key_generate = Fernet(key)
@@ -258,8 +268,10 @@ Help Menu:
             print(f"Permissions error on the file or directory => {p}")
         except ValueError:
             print("You did not enter any integer!")   
+        except InvalidToken:
+            print("Invalid Token Error!")
         except:
-            print("Possible malicious symbol lock error, allowed length exceeded, or password corruption!")
+            print("Possible unknown error, please restart the script!")
         
            
 
