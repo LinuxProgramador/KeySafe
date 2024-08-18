@@ -284,7 +284,7 @@ Help Menu:
             print("Error, please enter a valid name!")
               
 if __name__ == "__main__":
-    process = subprocess.run('ps aux | grep  sv.py  | grep -v grep ', shell=True, text=True, capture_output=True)
+    process = subprocess.run(['ps', 'aux'], text=True, capture_output=True)
     output = process.stdout
     if not 'S+' in output:
           exit(1)
