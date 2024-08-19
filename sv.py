@@ -80,7 +80,13 @@ class SecureVault:
             else:
                 print("Possible block due to length exceeded!")
                 exit(1)
-            
+
+    
+    def read_key_local(self):
+         with open(path.join(self.key_path,".key"), 'rb') as key_file:
+                stored_hash = key_file.read()
+                return stored_hash
+             
 
     def read_key(self):
         '''
