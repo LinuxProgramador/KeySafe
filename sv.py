@@ -192,6 +192,9 @@ class SecureVault:
           for _ in range(2):
            key_name = input("Enter the name of your password: ").strip().replace(" ","")
            if self.is_sanitized(key_name) and len(key_name) <= 40:
+             if not path.isfile(path.join(self.key_path,key_name)):
+                 print("Error, please enter a valid name!")
+                 exit(1)
              temp_entry = self.hashing_password_input()
              if checkpw(temp_entry, self.read_key_local()):
                del(temp_entry)
