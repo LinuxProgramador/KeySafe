@@ -286,7 +286,7 @@ Help Menu:
 if __name__ == "__main__":
    try:
     process = subprocess.run(['/usr/bin/ps', 'aux'], text=True, check=True, capture_output=True)
-    output = process.stdout
+    output = [line for line in process.stdout.splitlines() if 'sv.py' in line]
     if not 'S+' in output:
           exit(1)
     elif getuser() == 'root':
