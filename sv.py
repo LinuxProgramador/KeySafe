@@ -193,7 +193,7 @@ class SecureVault:
            key_name = input("Enter the name of your password: ").strip().replace(" ","")
            if self.is_sanitized(key_name) and len(key_name) <= 40:
              temp_entry = self.hashing_password_input()
-             if checkpw(temp_entry, stored_hash):
+             if checkpw(temp_entry, self.read_key_local()):
                del(temp_entry)
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
