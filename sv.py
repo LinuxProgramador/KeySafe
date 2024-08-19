@@ -20,7 +20,6 @@ class SecureVault:
         Initializes the SecureVault instance with default values and generates a Fernet key.
         '''
         self.characters = ascii_lowercase + digits + '@/*_"\',\\+&-;!?#$' + ascii_uppercase
-        self.key_length = choice(range(15 ,65))
         self.malicious_symbols = list("'~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
         self.malicios_symbols_and_commands = ["chgrp","more","dir","ps","mv","cp","umount","mount","ls","cd","nano","vim","chown","chmod","mkfs","dd","..","echo","rm","cat","exec","wget","curl","&&","||","\"","\\"]
         self.options = ['-d','-r','-g','-V','-l','-u','-h','--help']
@@ -39,18 +38,19 @@ class SecureVault:
         '''
         Generates a secure cryptographic key with a user-defined or default length.
         '''
+        key_length = choice(range(15 ,65))
         generated_key = ""
         query_longitude = int(getpass("Set key length (15/64) or press zero for default: "))
         if query_longitude:
          if len(str(query_longitude)) <= 3:
           if query_longitude >= 15 and query_longitude <= 64:
-             self.key_length = query_longitude
+             key_length = query_longitude
           else:
              print("You entered a number outside the allowed range, the default value will be set!")
          else:
             print("Possible block due to length exceeded!")
             exit(1)
-        for _ in range(self.key_length):
+        for _ in range(key_length):
             char = choice(list(self.characters))
             generated_key += char
         return generated_key
