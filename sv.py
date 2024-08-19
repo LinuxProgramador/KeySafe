@@ -285,7 +285,7 @@ Help Menu:
               
 if __name__ == "__main__":
    try:
-    process = subprocess.run(['ps', 'aux'], text=True, check=True, capture_output=True)
+    process = subprocess.run(['/usr/bin/ps', 'aux'], text=True, check=True, capture_output=True)
     output = process.stdout
     if not 'S+' in output:
           exit(1)
