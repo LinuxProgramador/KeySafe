@@ -95,10 +95,8 @@ class SecureVault:
         for _ in range(2):
           key_name = input("Enter the name of your password: ").strip().replace(" ","")
           if self.is_sanitized(key_name) and len(key_name) <= 40:
-             with open(path.join(self.key_path,".key"), 'rb') as key_file:
-                stored_hash = key_file.read()
              temp_entry = self.hashing_password_input()
-             if checkpw(temp_entry, stored_hash):
+             if checkpw(temp_entry, self.read_key_local()):
               if key_name != ".key":
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
                     encrypted_key = key_file.read()
@@ -148,10 +146,8 @@ class SecureVault:
               key_name = input("Enter the name of the file that will store your password: ").strip().replace(" ","")
               if self.is_sanitized(key_name) and len(key_name) <= 40:
                  if not path.isfile(path.join(self.key_path,key_name)):
-                    with open(path.join(self.key_path,".key"), 'rb') as key_file:
-                        stored_hash = key_file.read()
                     temp_entry = self.hashing_password_input()
-                    if checkpw(temp_entry, stored_hash):
+                    if checkpw(temp_entry, self.read_key_local()):
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
                             fernet = Fernet(temp_entry)
                             del(temp_entry)
@@ -193,8 +189,6 @@ class SecureVault:
           for _ in range(2):
            key_name = input("Enter the name of your password: ").strip().replace(" ","")
            if self.is_sanitized(key_name) and len(key_name) <= 40:
-             with open(path.join(self.key_path,".key"), 'rb') as key_file:
-                stored_hash = key_file.read()
              temp_entry = self.hashing_password_input()
              if checkpw(temp_entry, stored_hash):
                del(temp_entry)
