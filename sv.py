@@ -298,7 +298,7 @@ if __name__ == "__main__":
            
    except subprocess.CalledProcessError:
       print("Error running ps command!")
-      exit(1)
+      
 
 __name__="SecureVault"
 __version__="1.0"
