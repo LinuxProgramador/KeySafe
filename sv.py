@@ -83,6 +83,9 @@ class SecureVault:
 
     
     def read_key_local(self):
+         '''
+         read the hash of the key stored in the .key file 
+         '''
          with open(path.join(self.key_path,".key"), 'rb') as key_file:
                 stored_hash = key_file.read()
                 return stored_hash
