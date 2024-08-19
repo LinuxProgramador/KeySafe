@@ -287,14 +287,16 @@ if __name__ == "__main__":
    try:
     process = subprocess.run(['/usr/bin/ps', 'aux'], text=True, check=True, capture_output=True)
     output = [line for line in process.stdout.splitlines() if 'sv.py' in line]
-    if not 'S+' in output:
-          exit(1)
-    elif getuser() == 'root':
-          print("Access denied to root user!")
-          exit(1)
-    else:
-          vault = SecureVault()
-          vault.main()
+    for line in output:  
+      if not 'S+' in line :
+           exit(1)
+      elif getuser() == 'root':
+           print("Access denied to root user!")
+           exit(1)
+      else:
+           vault = SecureVault()
+           vault.main()
+           break
    except subprocess.CalledProcessError:
     print("Error running ps command!")
     exit(1)
