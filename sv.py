@@ -69,7 +69,7 @@ class SecureVault:
             exit(1)
       elif len(entry) >= 44:
         for _ in range(5):
-           for rm_indices in sanitize_entry:
+           for rm_indices in self.malicious_symbols:
              sanitize_entry.remove(rm_indices)
       for char in entry:
          if char in self.malicious_symbols:
