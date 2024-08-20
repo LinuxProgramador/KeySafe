@@ -253,7 +253,7 @@ Help Menu:
                     exit(1)
                 else:
                      print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
-            elif len(argv) >= 3 or len(argv[1]) > 7:
+            elif len(argv) >= 3 :
                    print("Possible block due to length exceeded!")
                    exit(1)  
             elif self.options[2] in argv:
