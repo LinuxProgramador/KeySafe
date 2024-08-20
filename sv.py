@@ -70,7 +70,7 @@ class SecureVault:
            for rm_indices in sanitize_entry:
              sanitize_entry.remove(rm_indices)
       for char in entry:
-         if char in sanitize_entry:
+         if char in self.malicious_symbols:
             print("Possible blocking due to malicious symbol!")
             exit(1)
       return True
