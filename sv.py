@@ -21,9 +21,9 @@ class SecureVault:
         '''
         self.characters = ascii_lowercase + digits + '@/*_"\',\\+&-;!?#$' + ascii_uppercase
         self.malicious_symbols = list("/+_-='~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
-        self.malicios_symbols_and_commands = ["ping","ss","netstat","id","whoami","groups","disown","nohup","fg",
-        "bg","chgrp","more","dir","ps","mv","cp","umount","mount","ls","cd","nano","vim","chown","chmod","mkfs",
-        "dd","..","echo","rm","cat","exec","wget","curl","&&","||","\"","\\","host","fdisk","ln","df","system"]
+        self.malicios_symbols_and_commands = ["ping","ss","id","whoami", "groups","disown",
+        "nohup","fg","bg","more","dir","ps","ls","cd","nano","vim","echo","cat","exec","wget",
+        "curl","host","df","system","..","&&","||","\"","\\"]                                        
         self.options = ['-d','-r','-g','-V','-l','-u','-h','--help']
         self.user = getuser()
         self.key_path = f"/home/{self.user}/KeySafe/.VaultSecret"
