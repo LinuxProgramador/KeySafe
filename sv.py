@@ -314,4 +314,4 @@ __name__="SecureVault"
 __version__="1.0"
 __maintainer__="WhiteHack"
 __license__="GPL"
-
+__status__="alpha"
