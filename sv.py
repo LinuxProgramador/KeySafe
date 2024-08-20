@@ -279,7 +279,7 @@ Help Menu:
                 print(f"Key-Safe => {temp_encrypt}")
                 temp_encrypt = fernet_key_generate.encrypt(temp_encrypt.encode())
                 self.save_key(temp_encrypt,fernet_key_generate)
-                temp_entry = self.overwrite
+                temp_encrypt = self.overwrite
                 del(temp_encrypt)
                 fernet_key_generate = self.overwrite
                 del(fernet_key_generate)
