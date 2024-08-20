@@ -9,7 +9,8 @@ from cryptography.fernet import Fernet, InvalidToken
 from bcrypt import checkpw, hashpw, gensalt 
 from getpass import getpass, getuser
 from string import ascii_lowercase, digits, ascii_uppercase
-import subprocess, signal
+from subprocess import run, CalledProcessError
+import signal
 
 class SecureVault:
     '''
@@ -297,7 +298,7 @@ Help Menu:
               
 if __name__ == "__main__":
    try:
-    process = subprocess.run(['/usr/bin/ps', 'aux'], text=True, check=True, capture_output=True)
+    process = run(['/usr/bin/ps', 'aux'], text=True, check=True, capture_output=True)
     output = [line for line in process.stdout.splitlines() if 'sv.py' in line]
     if not any('S+' in line for line in output):
        exit(1)
@@ -308,7 +309,7 @@ if __name__ == "__main__":
        vault = SecureVault()
        vault.main()
            
-   except subprocess.CalledProcessError:
+   except CalledProcessError:
       print("Error running ps command!")
       
 
