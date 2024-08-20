@@ -4,7 +4,7 @@
 
 from secrets import choice
 from sys import argv, exit
-from os import chmod, path, mkdir, remove, listdir, stat
+from os import chmod, path, mkdir, remove, listdir, stat, urandom
 from cryptography.fernet import Fernet, InvalidToken
 from bcrypt import checkpw, hashpw, gensalt 
 from getpass import getpass, getuser
@@ -20,6 +20,7 @@ class SecureVault:
         '''
         Initializes the SecureVault instance with default values and generates a Fernet key.
         '''
+        self.overwrite = urandom(256)
         self.characters = ascii_lowercase + digits + '@/*_"\',\\+&-;!?#$' + ascii_uppercase
         self.malicious_symbols = list("/+_-='~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
         self.malicios_symbols_and_commands = ["ping","ss","id","whoami", "groups","disown",
@@ -111,14 +112,18 @@ class SecureVault:
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
                     encrypted_key = key_file.read()
                     fernet = Fernet(temp_entry)
+                    temp_entry = self.overwrite
                     del(temp_entry)
                     decrypted_key = fernet.decrypt(encrypted_key)
+                    fernet = self.overwrite
                     del(fernet)
                     print(f"Your password is => {decrypted_key.decode()}")
+                    decrypted_key = self.overwrite
                     del(decrypted_key)
                     break
               else:
                   print("Can't read the unique key!")
+                  temp_entry = self.overwrite
                   del(temp_entry)
              else:
                 print("Incorrect password!")
@@ -139,6 +144,7 @@ class SecureVault:
                 key_file.write(hashed_key)
                 chmod(path.join(self.key_path,".key"), 0o600)
                 print(f"Your password is => {fernet_key.decode()}")
+                fernet_key = self.overwrite
                 del(fernet_key)
         else:
             print("The password already exists!")
@@ -160,11 +166,15 @@ class SecureVault:
                     if checkpw(temp_entry, self.read_key_local()):
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
                             fernet = Fernet(temp_entry)
+                            temp_entry = self.overwrite
                             del(temp_entry)
                             temp_encrypt = fernet_key_generate.decrypt(temp_encrypt)
                             encrypted_key = fernet.encrypt(temp_encrypt)
+                            temp_encrypt = self.overwrite
                             del(temp_encrypt)
+                            fernet_key_generate = self.overwrite
                             del(fernet_key_generate)
+                            fernet = self.overwrite
                             del(fernet)
                             key_file.write(encrypted_key)
                             chmod(path.join(self.key_path,key_name), 0o600)
@@ -204,6 +214,7 @@ class SecureVault:
                  exit(1)
              temp_entry = self.hashing_password_input()
              if checkpw(temp_entry, self.read_key_local()):
+               temp_entry = self.overwrite
                del(temp_entry)
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
@@ -262,12 +273,15 @@ Help Menu:
             elif self.options[2] in argv:
                 key = Fernet.generate_key()
                 fernet_key_generate = Fernet(key)
+                key = self.overwrite
                 del(key)
                 temp_encrypt = self.generate_key()
                 print(f"Key-Safe => {temp_encrypt}")
                 temp_encrypt = fernet_key_generate.encrypt(temp_encrypt.encode())
                 self.save_key(temp_encrypt,fernet_key_generate)
+                temp_entry = self.overwrite
                 del(temp_encrypt)
+                fernet_key_generate = self.overwrite
                 del(fernet_key_generate)
             elif self.options[3] in argv:
                 print("SecureVault 1.0. It is a tool that allows you to generate secure keys.")
