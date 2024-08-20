@@ -125,7 +125,7 @@ class SecureVault:
           else:
               print("Possible block due to length exceeded!")
               exit(1)
-
+        return
     
 
     def store_unique_key(self):
@@ -142,7 +142,7 @@ class SecureVault:
                 del(fernet_key)
         else:
             print("The password already exists!")
-
+        return
     
 
     def save_key(self,temp_encrypt,fernet_key_generate):
@@ -190,7 +190,7 @@ class SecureVault:
             for x in self.listen: 
                 if x != ".key":
                    print(x)
-    
+            return
 
     def delete(self):
           '''
@@ -219,7 +219,7 @@ class SecureVault:
            else:
                print("Possible block due to length exceeded!")
                exit(1)
-                
+          return     
                 
 
     def show_help(self):
@@ -238,7 +238,7 @@ Usage:
 Help Menu:
     -h  --help  print this help message and exit
                 """)
-        
+        return
 
     def main(self):
         '''
@@ -295,6 +295,7 @@ Help Menu:
             print("Invalid Token Error!")
         except IsADirectoryError:
             print("Error, please enter a valid name!")
+        return
               
 if __name__ == "__main__":
    try:
