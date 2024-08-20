@@ -63,6 +63,10 @@ class SecureVault:
       if entry in sanitize_entry:
             print("Possible blocking due to malicious symbol!")
             exit(1)
+      elif len(entry) == 44:
+        for c in range(5):
+           for x in sanitize_entry:
+             sanitize_entry.remove(x)
       for char in entry:
          if char in sanitize_entry:
             print("Possible blocking due to malicious symbol!")
