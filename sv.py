@@ -10,7 +10,7 @@ from bcrypt import checkpw, hashpw, gensalt
 from getpass import getpass, getuser
 from string import ascii_lowercase, digits, ascii_uppercase
 from subprocess import run, CalledProcessError
-import signal
+from signal import signal, SIGTSTP
 
 class SecureVault:
     '''
@@ -245,7 +245,7 @@ Help Menu:
         Main function, which will perform tasks based on the arguments given by the user.
         '''
         try:
-            signal.signal(signal.SIGTSTP, self.handle_tstp_signal)
+            signal(SIGTSTP, self.handle_tstp_signal)
             chmod(path.join(self.sv_path,"sv.py"), 0o700)
             if not path.isdir(self.key_path):
                 mkdir(self.key_path)
