@@ -21,7 +21,9 @@ class SecureVault:
         '''
         self.characters = ascii_lowercase + digits + '@/*_"\',\\+&-;!?#$' + ascii_uppercase
         self.malicious_symbols = list("/+_-='~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
-        self.malicios_symbols_and_commands = ["disown","nohup","fg","bg","chgrp","more","dir","ps","mv","cp","umount","mount","ls","cd","nano","vim","chown","chmod","mkfs","dd","..","echo","rm","cat","exec","wget","curl","&&","||","\"","\\"]
+        self.malicios_symbols_and_commands = ["ping","ss","netstat","id","whoami","groups","disown","nohup","fg",
+        "bg","chgrp","more","dir","ps","mv","cp","umount","mount","ls","cd","nano","vim","chown","chmod","mkfs",
+        "dd","..","echo","rm","cat","exec","wget","curl","&&","||","\"","\\","host","fdisk","ln","df"]
         self.options = ['-d','-r','-g','-V','-l','-u','-h','--help']
         self.user = getuser()
         self.key_path = f"/home/{self.user}/KeySafe/.VaultSecret"
@@ -253,7 +255,7 @@ Help Menu:
                     exit(1)
                 else:
                      print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
-            elif len(argv) >= 3 :
+            elif len(argv) >= 3:
                    print("Possible block due to length exceeded!")
                    exit(1)  
             elif self.options[2] in argv:
