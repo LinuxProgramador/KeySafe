@@ -20,7 +20,7 @@ class SecureVault:
         Initializes the SecureVault instance with default values and generates a Fernet key.
         '''
         self.characters = ascii_lowercase + digits + '@/*_"\',\\+&-;!?#$' + ascii_uppercase
-        self.malicious_symbols = list("'~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
+        self.malicious_symbols = list("/+_-='~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
         self.malicios_symbols_and_commands = ["disown","nohup","fg","bg","chgrp","more","dir","ps","mv","cp","umount","mount","ls","cd","nano","vim","chown","chmod","mkfs","dd","..","echo","rm","cat","exec","wget","curl","&&","||","\"","\\"]
         self.options = ['-d','-r','-g','-V','-l','-u','-h','--help']
         self.user = getuser()
