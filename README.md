@@ -9,7 +9,7 @@ RECOMMENDED: Have a backup copy locally on an external storage drive of the uniq
 
 Remember to keep script and module dependencies updated in requirements .txt
 
-dependencies: (python3,pip) 
+dependencies: (python3, python3-pip) 
 
 use: 
 
@@ -22,6 +22,8 @@ git clone https://github.com/LinuxProgramador/KeySafe
 cd KeySafe 
 
 chmod 700 sv.py 
+
+Install dependencies (python3, python3-pip)
 
 python3 -m pip install -r requirements.txt 
 
