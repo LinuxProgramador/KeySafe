@@ -253,19 +253,15 @@ class SecureVault:
             for file in files:
               if not path.isfile(path.join(path_backup,file)):
                 copy(path.join(self.key_path,file),path_backup)
-
               else:
-
                 copy(path.join(self.key_path,file),path.join(path_backup,file + str(int(random()*1000))))
-
             print(f"The backup was created successfully in => {path_backup}")
             break
-
-
           else:
              print("Incorrect password!")
+         return     
 
-         return           
+    
 
     def show_help(self):
         '''
