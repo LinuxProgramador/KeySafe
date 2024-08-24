@@ -27,4 +27,4 @@ python3 -m pip install -r requirements.txt
 
 python3 sv.py -u   Run first to get the unique key which is the one you will be asked for whenever you want to perform an action within the script 
 
-python3 sv.py [-h,--help,-V,-r,-g,-u,-d,-l]
+python3 sv.py [-h,--help,-V,-r,-g,-u,-d,-l,-b]
