@@ -329,6 +329,8 @@ Help Menu:
                 self.list_password()
             elif self.options[6] in argv or self.options[7] in argv:
                 self.show_help()
+            elif self.options[8] in argv:
+                 self.backup()
             else:
                 print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
         except (KeyboardInterrupt,EOFError):
