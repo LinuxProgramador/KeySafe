@@ -345,6 +345,8 @@ Help Menu:
             print("Invalid Token Error!")
         except IsADirectoryError:
             print("Error, please enter a valid name!")
+        except OSError:
+           print("An error has occurred in the system that prevents the correct execution of the given function!")
         return
               
 if __name__ == "__main__":
