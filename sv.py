@@ -251,6 +251,7 @@ class SecureVault:
                   mkdir(path_backup)
                   chmod(path_backup, 0o700)
             for file in files:
+              if not path.isfile(path.join(path_backup,file + " " + str(datetime.now()))):
                 copy(path.join(self.key_path,file),path.join(path_backup,file + " " + str(datetime.now())))
             print(f"The backup was created successfully in => {path_backup}")
             break
