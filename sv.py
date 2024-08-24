@@ -11,6 +11,9 @@ from getpass import getpass, getuser
 from string import ascii_lowercase, digits, ascii_uppercase
 from subprocess import run, CalledProcessError
 from signal import signal, SIGTSTP
+from shutil import copy
+from random import random
+
 
 class SecureVault:
     '''
@@ -26,7 +29,7 @@ class SecureVault:
         self.malicios_symbols_and_commands = ["ping","ss","id","whoami", "groups","disown",
         "nohup","fg","bg","more","dir","ps","ls","cd","nano","vim","echo","cat","exec","wget",
         "curl","host","df","system","..","&&","||","\"","\\"]                                        
-        self.options = ['-d','-r','-g','-V','-l','-u','-h','--help']
+        self.options = ['-d','-r','-g','-V','-l','-u','-h','--help','-b']
         self.user = getuser()
         self.key_path = f"/home/{self.user}/KeySafe/.VaultSecret"
         self.sv_path = f"/home/{self.user}/KeySafe"
@@ -230,8 +233,39 @@ class SecureVault:
            else:
                print("Possible block due to length exceeded!")
                exit(1)
-          return     
-                
+          return 
+
+    
+    def backup(self):
+         '''
+         Function that allows you to create a backup locally
+         '''
+         for _ in range(2):
+          temp_entry = self.hashing_password_input()
+          if checkpw(temp_entry, self.read_key_local()):
+            temp_entry = self.overwrite
+            del(temp_entry)
+            files = listdir(self.key_path)
+            path_backup = f"/home/{self.user}/.BacKupSV"
+            if not path.isdir(path_backup):
+                  mkdir(path_backup)
+                  chmod(path_backup, 0o700)
+            for file in files:
+              if not path.isfile(path.join(path_backup,file)):
+                copy(path.join(self.key_path,file),path_backup)
+
+              else:
+
+                copy(path.join(self.key_path,file),path.join(path_backup,file + str(int(random()*1000))))
+
+            print(f"The backup was created successfully in => {path_backup}")
+            break
+
+
+          else:
+             print("Incorrect password!")
+
+         return           
 
     def show_help(self):
         '''
