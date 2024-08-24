@@ -23,7 +23,9 @@ cd KeySafe
 
 chmod 700 sv.py 
 
-Install dependencies (python3, python3-pip)
+Install dependencies (python3, python3-pip) 
+
+Note: Arch Linux: (python, python-pip)
 
 python3 -m pip install -r requirements.txt 
 
