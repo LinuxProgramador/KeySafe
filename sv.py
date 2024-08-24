@@ -280,6 +280,7 @@ Usage:
     python3 sv.py -u  generate a unique key
     python3 sv.py -d  delete secure key
     python3 sv.py -l  list your stored passwords
+    python3 sv.py -b  create a backup locally
 Help Menu:
     -h  --help  print this help message and exit
                 """)
