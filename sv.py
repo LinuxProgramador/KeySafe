@@ -339,7 +339,7 @@ Help Menu:
         except InvalidToken:
             print("Invalid Token Error!")
         except IsADirectoryError:
-            print("Error, you entered a directory!")
+            print("Error, a directory has been detected!")
         except TypeError:  
             print("An error occurred while creating the backup!")
         except OSError:
