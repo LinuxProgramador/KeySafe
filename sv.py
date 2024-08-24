@@ -12,7 +12,7 @@ from string import ascii_lowercase, digits, ascii_uppercase
 from subprocess import run, CalledProcessError
 from signal import signal, SIGTSTP
 from shutil import copy
-from random import random
+from datetime import datetime
 
 
 class SecureVault:
@@ -251,10 +251,7 @@ class SecureVault:
                   mkdir(path_backup)
                   chmod(path_backup, 0o700)
             for file in files:
-              if not path.isfile(path.join(path_backup,file)):
-                copy(path.join(self.key_path,file),path_backup)
-              else:
-                copy(path.join(self.key_path,file),path.join(path_backup,file + str(int(random()*1000))))
+                copy(path.join(self.key_path,file),path.join(path_backup,file + datetime.now()))
             print(f"The backup was created successfully in => {path_backup}")
             break
           else:
