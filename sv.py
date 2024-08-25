@@ -23,7 +23,7 @@ class SecureVault:
         '''
         Initializes the SecureVault instance with default values and generates a Fernet key.
         '''
-        self.overwrite = urandom(512)
+        self.overwrite = urandom(2048)
         self.characters = ascii_lowercase + digits + '@/*_"\',\\+&-;!?#$' + ascii_uppercase
         self.malicious_symbols = list("/+_-='~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
         self.malicios_symbols_and_commands = ["ping","ss","id","whoami", "groups","disown",
