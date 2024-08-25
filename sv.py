@@ -198,8 +198,8 @@ class SecureVault:
             '''
             Lists all stored passwords except the .key file.
             '''
-            self.listen = listdir(self.key_path) 
-            for x in self.listen: 
+            listen = listdir(self.key_path) 
+            for x in listen: 
                 if x != ".key":
                    print(x)
             return
