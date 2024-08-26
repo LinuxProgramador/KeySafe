@@ -72,7 +72,8 @@ class SecureVault:
             exit(1)
       elif len(entry) >= 44:
         for rm_indices in list("/+_-="):
-             self.malicious_symbols.remove(rm_indices)
+           if rm_indices in self.malicious_symbols:
+              self.malicious_symbols.remove(rm_indices)
       for char in entry:
          if char in self.malicious_symbols:
             print("Possible blocking due to malicious symbol!")
