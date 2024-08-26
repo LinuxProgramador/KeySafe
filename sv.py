@@ -312,18 +312,11 @@ Help Menu:
                    print("Possible block due to length exceeded!")
                    exit(1)  
             elif self.options[2] in argv:
-                key = Fernet.generate_key()
-                fernet_key_generate = Fernet(key)
-                key = self.overwrite
-                del(key)
                 temp_encrypt = self.generate_key()
                 print(f"Key-Safe => {temp_encrypt}")
-                temp_encrypt = fernet_key_generate.encrypt(temp_encrypt.encode())
-                self.save_key(temp_encrypt,fernet_key_generate)
+                self.temporary_key_encryption(temp_encrypt)
                 temp_encrypt = self.overwrite
                 del(temp_encrypt)
-                fernet_key_generate = self.overwrite
-                del(fernet_key_generate)
             elif self.options[3] in argv:
                 print("SecureVault 1.0. It is a tool that allows you to generate secure keys.")
             elif self.options[5] in argv:
