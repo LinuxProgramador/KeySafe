@@ -278,6 +278,19 @@ Help Menu:
     -h  --help  print this help message and exit
                 """)
         return
+        
+
+    def temporary_key_encryption(self,temp_encrypt):
+        key = Fernet.generate_key()
+        fernet_key_generate = Fernet(key)
+        key = self.overwrite
+        del(key)
+        temp_encrypt = fernet_key_generate.encrypt(temp_encrypt.encode())
+        self.save_key(temp_encrypt,fernet_key_generate)
+        fernet_key_generate = self.overwrite                                       
+        del(fernet_key_generate)
+        return
+        
 
     def main(self):
         '''
