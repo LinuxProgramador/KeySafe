@@ -265,8 +265,8 @@ class SecureVault:
         '''
         When the function is called, it prints the help menu.
         '''
+        print("SecureVault 1.0. It is a tool that allows you to generate secure keys.")
         print("""
-SecureVault 1.0. It is a tool that allows you to generate secure keys.
 Usage:
     python3 sv.py -g  generate a secure key
     python3 sv.py -V  print version info and exit
