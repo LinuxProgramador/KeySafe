@@ -81,7 +81,7 @@ class SecureVault:
       return True
 
     
-    def hashing_password_input(self):
+    def Password_entry_validation(self):
             '''
             Allows you to enter a key to validate with the stored password hash 
             '''
@@ -109,7 +109,7 @@ class SecureVault:
         for _ in range(2):
           key_name = input("Enter the name of your password: ").strip().replace(" ","")
           if self.is_sanitized(key_name) and len(key_name) <= 40:
-             temp_entry = self.hashing_password_input()
+             temp_entry = self.Password_entry_validation()
              if checkpw(temp_entry, self.read_key_local()):
               if key_name != ".key":
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
@@ -165,7 +165,7 @@ class SecureVault:
               key_name = input("Enter the name of the file that will store your password: ").strip().replace(" ","")
               if self.is_sanitized(key_name) and len(key_name) <= 40:
                  if not path.isfile(path.join(self.key_path,key_name)):
-                    temp_entry = self.hashing_password_input()
+                    temp_entry = self.Password_entry_validation()
                     if checkpw(temp_entry, self.read_key_local()):
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
                             fernet = Fernet(temp_entry)
@@ -215,7 +215,7 @@ class SecureVault:
              if not path.isfile(path.join(self.key_path,key_name)):
                  print("Error, please enter a valid name!")
                  exit(1)
-             temp_entry = self.hashing_password_input()
+             temp_entry = self.Password_entry_validation()
              if checkpw(temp_entry, self.read_key_local()):
                temp_entry = self.overwrite
                del(temp_entry)
@@ -241,7 +241,7 @@ class SecureVault:
          Function that allows you to create a backup locally
          '''
          for _ in range(2):
-          temp_entry = self.hashing_password_input()
+          temp_entry = self.Password_entry_validation()
           if checkpw(temp_entry, self.read_key_local()):
             temp_entry = self.overwrite
             del(temp_entry)
