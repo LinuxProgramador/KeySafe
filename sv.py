@@ -21,7 +21,7 @@ class SecureVault:
     '''
     def __init__(self):
         '''
-        Initializes the SecureVault instance with default values and generates a Fernet key.
+        Initializes the SecureVault instance with default values.
         '''
         self.overwrite = urandom(2048)
         self.characters = ascii_lowercase + digits + '@/*_"\',\\+&-;!?#$' + ascii_uppercase
