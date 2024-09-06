@@ -170,8 +170,7 @@ class SecureVault:
       if self.is_sanitized(confirm) and len(confirm) < 2:
         if confirm == "y":
             for _ in range(2):
-              key_name = input("Enter the name of the file that will store your password: ").strip().replace(" ","")
-              if self.is_sanitized(key_name) and len(key_name) <= 40:
+                 key_name = self.name_input()
                  if not path.isfile(path.join(self.key_path,key_name)):
                     temp_entry = self.Password_entry_validation()
                     if checkpw(temp_entry, self.read_key_local()):
@@ -195,9 +194,6 @@ class SecureVault:
                         print("Incorrect password!")
                  else:
                     print("Password name already exists!")
-              else:
-                 print("Possible block due to length exceeded!")
-                 exit(1)
       else:
           print("Possible block due to length exceeded!")
           exit(1)
