@@ -214,8 +214,7 @@ class SecureVault:
           Deletes a specified key file after verifying the password.
           '''
           for _ in range(2):
-           key_name = input("Enter the name of your password: ").strip().replace(" ","")
-           if self.is_sanitized(key_name) and len(key_name) <= 40:
+             key_name = self.name_input()
              if not path.isfile(path.join(self.key_path,key_name)):
                  print("Error, please enter a valid name!")
                  exit(1)
@@ -234,10 +233,7 @@ class SecureVault:
                    print("The unique key cannot be deleted!")
              else:
                 print("Incorrect password!")
-           else:
-               print("Possible block due to length exceeded!")
-               exit(1)
-          return 
+            return 
 
     
     def backup(self):
