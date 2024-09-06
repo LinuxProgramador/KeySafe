@@ -119,8 +119,7 @@ class SecureVault:
         Reads a stored key by prompting the user for its name and verifying the password.
         '''
         for _ in range(2):
-          key_name = input("Enter the name of your password: ").strip().replace(" ","")
-          if self.is_sanitized(key_name) and len(key_name) <= 40:
+             key_name = self.name_input()
              temp_entry = self.Password_entry_validation()
              if checkpw(temp_entry, self.read_key_local()):
               if key_name != ".key":
@@ -142,10 +141,7 @@ class SecureVault:
                   del(temp_entry)
              else:
                 print("Incorrect password!")
-          else:
-              print("Possible block due to length exceeded!")
-              exit(1)
-        return
+       return
     
 
     def store_unique_key(self):
