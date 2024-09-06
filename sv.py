@@ -101,6 +101,18 @@ class SecureVault:
                 stored_hash = key_file.read()
                 return stored_hash
              
+             
+    def name_input(self):
+         '''  
+         Function to set the name of the file where the password is.
+         '''                                                                                   
+         key_name = input("Enter the name of your password: ").strip().replace(" ","")         
+         if self.is_sanitized(key_name) and len(key_name) <= 40:
+             return key_name
+         else:
+             print("Possible block due to length exceeded!")
+             exit(1)   
+             
 
     def read_key(self):
         '''
