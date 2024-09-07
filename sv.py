@@ -66,7 +66,7 @@ class SecureVault:
       '''
       Checks if the provided entry contains any malicious symbols or commands.
       '''
-      malicious_symbols_list = self.malicious_symbols + self.malicios_symbols_and_commands
+      malicious_symbols_list = self.malicious_symbols + self.malicious_symbols_and_commands
       if entry in malicious_symbols_list:
             print("Possible blocking due to malicious symbol!")
             exit(1)
