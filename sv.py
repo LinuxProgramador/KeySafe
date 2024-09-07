@@ -26,7 +26,7 @@ class SecureVault:
         self.data_overwrite = urandom(2048)
         self.characters = ascii_lowercase + digits + '@/*_"\',\\+&-;!?#$' + ascii_uppercase
         self.malicious_symbols = list("/+_-='~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
-        self.malicios_symbols_and_commands = ["ping","ss","id","whoami", "groups","disown",
+        self.malicious_symbols_and_commands = ["ping","ss","id","whoami", "groups","disown",
         "nohup","fg","bg","more","dir","ps","ls","cd","nano","vim","echo","cat","exec","wget",
         "curl","host","df","system","..","&&","||","\"","\\"]                                        
         self.options = ['-d','-r','-g','-V','-l','-u','-h','--help','-b']
@@ -66,8 +66,8 @@ class SecureVault:
       '''
       Checks if the provided entry contains any malicious symbols or commands.
       '''
-      sanitize_entry = self.malicious_symbols + self.malicios_symbols_and_commands
-      if entry in sanitize_entry:
+      malicious_symbols_list = self.malicious_symbols + self.malicios_symbols_and_commands
+      if entry in malicious_symbols_list:
             print("Possible blocking due to malicious symbol!")
             exit(1)
       elif len(entry) >= 44:
