@@ -198,7 +198,7 @@ class SecureVault:
             for x in listen: 
                 if x != ".key":
                    print(x)
-            return
+            
 
     def delete(self):
           '''
@@ -267,7 +267,7 @@ Usage:
 Help Menu:
     -h  --help  print this help message and exit
                 """)
-        return
+        
         
 
     def temporary_key_encryption(self,temp_encrypt):
