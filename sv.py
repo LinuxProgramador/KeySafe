@@ -223,7 +223,7 @@ class SecureVault:
                    print("The unique key cannot be deleted!")
              else:
                 print("Incorrect password!")
-            return 
+          return 
 
     
     def backup(self):
