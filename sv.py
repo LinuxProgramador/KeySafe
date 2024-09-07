@@ -127,18 +127,14 @@ class SecureVault:
                     encrypted_key = key_file.read()
                     fernet = Fernet(temp_entry)
                     temp_entry = self.data_overwrite
-                    del(temp_entry)
                     decrypted_key = fernet.decrypt(encrypted_key)
                     fernet = self.data_overwrite
-                    del(fernet)
                     print(f"Your password is => {decrypted_key.decode()}")
                     decrypted_key = self.data_overwrite
-                    del(decrypted_key)
                     break
               else:
                   print("Can't read the unique key!")
                   temp_entry = self.data_overwrite
-                  del(temp_entry)
              else:
                 print("Incorrect password!")
        return
@@ -156,7 +152,6 @@ class SecureVault:
                 chmod(path.join(self.key_path,".key"), 0o600)
                 print(f"Your password is => {fernet_key.decode()}")
                 fernet_key = self.data_overwrite
-                del(fernet_key)
         else:
             print("The password already exists!")
         return
@@ -177,15 +172,11 @@ class SecureVault:
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
                             fernet = Fernet(temp_entry)
                             temp_entry = self.data_overwrite
-                            del(temp_entry)
                             temp_encrypt = temp_fernet_key.decrypt(temp_encrypt)
                             encrypted_key = fernet.encrypt(temp_encrypt)
                             temp_encrypt = self.data_overwrite
-                            del(temp_encrypt)
                             temp_fernet_key = self.data_overwrite
-                            del(temp_fernet_key)
                             fernet = self.data_overwrite
-                            del(fernet)
                             key_file.write(encrypted_key)
                             chmod(path.join(self.key_path,key_name), 0o600)
                             print("Your password has been saved successfully!")
@@ -221,7 +212,6 @@ class SecureVault:
              temp_entry = self.password_entry_validation()
              if checkpw(temp_entry, self.read_key_local()):
                temp_entry = self.data_overwrite
-               del(temp_entry)
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
                    remove(path.join(self.key_path,key_name))
@@ -244,7 +234,6 @@ class SecureVault:
           temp_entry = self.password_entry_validation()
           if checkpw(temp_entry, self.read_key_local()):
             temp_entry = self.data_overwrite
-            del(temp_entry)
             files = listdir(self.key_path)
             path_backup = f"/home/{self.user}/.BacKupSV"
             if not path.isdir(path_backup):
@@ -288,11 +277,9 @@ Help Menu:
         key = Fernet.generate_key()
         temp_fernet_key = Fernet(key)
         key = self.data_overwrite
-        del(key)
         temp_encrypt = temp_fernet_key.encrypt(temp_encrypt.encode())
         self.save_key(temp_encrypt,temp_fernet_key)
         temp_fernet_key = self.data_overwrite                                       
-        del(temp_fernet_key)
         return
         
 
@@ -320,7 +307,6 @@ Help Menu:
                 print(f"Key-Safe => {temp_encrypt}")
                 self.temporary_key_encryption(temp_encrypt)
                 temp_encrypt = self.data_overwrite
-                del(temp_encrypt)
             elif self.options[3] in argv:
                 print("SecureVault 1.0. It is a tool that allows you to generate secure keys.")
             elif self.options[5] in argv:
