@@ -71,19 +71,19 @@ class SecureVault:
       Checks if the provided entry contains any malicious symbols or commands.
       '''
       malicious_symbols_set = self.malicious_symbols | self.malicious_symbols_and_commands
+      sym =  "/+_-=" 
       if entry in malicious_symbols_set:
             print("Possible blocking due to malicious symbol!")
             exit(1)
       elif len(entry) >= 44:
-        for rm in "/+_-=":
+        for rm in sym:
            if rm in self.malicious_symbols:
               self.malicious_symbols.discard(rm)
       for char in entry:
          if char in self.malicious_symbols:
             print("Possible blocking due to malicious symbol!")
             exit(1)
-      existing_symbols = self.malicious_symbols
-      self.malicious_symbols.update([sym_input for sym_input in "/+_-=" if sym_input not in existing_symbols])
+      self.malicious_symbols.update(sym)
       return True
 
     
