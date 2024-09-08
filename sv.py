@@ -83,7 +83,7 @@ class SecureVault:
             print("Possible blocking due to malicious symbol!")
             exit(1)
       existing_symbols = self.malicious_symbols
-      self.malicious_symbols.update([sym for sym in "/+_-=" if sym not in existing_symbols])
+      self.malicious_symbols.update([sym_input for sym_input in "/+_-=" if sym_input not in existing_symbols])
       return True
 
     
