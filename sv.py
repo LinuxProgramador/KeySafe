@@ -24,10 +24,10 @@ class SecureVault:
         Initializes the SecureVault instance with default values.
         '''
         self.characters = ascii_lowercase + digits + '@/*_"\',\\+&-;!?#$' + ascii_uppercase
-        self.malicious_symbols = list("/+_-='~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
-        self.malicious_symbols_and_commands = ["ping","ss","id","whoami", "groups","disown",
+        self.malicious_symbols = set("/+_-='~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
+        self.malicious_symbols_and_commands = set(["ping","ss","id","whoami", "groups","disown",
         "nohup","fg","bg","more","dir","ps","ls","cd","nano","vim","echo","cat","exec","wget",
-        "curl","host","df","system","..","&&","||","\"","\\"]                                        
+        "curl","host","df","system","..","&&","||","\"","\\"])                                       
         self.options = ['-d','-r','-g','-V','-l','-u','-h','--help','-b']
         self.user = getuser()
         self.key_path = f"/home/{self.user}/KeySafe/.VaultSecret"
@@ -70,20 +70,20 @@ class SecureVault:
       '''
       Checks if the provided entry contains any malicious symbols or commands.
       '''
-      malicious_symbols_list = self.malicious_symbols + self.malicious_symbols_and_commands
-      if entry in malicious_symbols_list:
+      malicious_symbols_set = self.malicious_symbols | self.malicious_symbols_and_commands
+      if entry in malicious_symbols_set:
             print("Possible blocking due to malicious symbol!")
             exit(1)
       elif len(entry) >= 44:
-        for rm_indices in "/+_-=":
-           if rm_indices in self.malicious_symbols:
-              self.malicious_symbols.remove(rm_indices)
+        for rm in "/+_-=":
+           if rm in self.malicious_symbols:
+              self.malicious_symbols.discard(rm)
       for char in entry:
          if char in self.malicious_symbols:
             print("Possible blocking due to malicious symbol!")
             exit(1)
-      existing_symbols = set(self.malicious_symbols)
-      self.malicious_symbols.extend([sym for sym in "/+_-=" if sym not in existing_symbols])
+      existing_symbols = self.malicious_symbols
+      self.malicious_symbols.update([sym for sym in "/+_-=" if sym not in existing_symbols])
       return True
 
     
