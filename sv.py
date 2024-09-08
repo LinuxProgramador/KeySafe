@@ -82,9 +82,8 @@ class SecureVault:
          if char in self.malicious_symbols:
             print("Possible blocking due to malicious symbol!")
             exit(1)
-      for input_sym in list("/+_-="):
-        if not input_sym in self.malicious_symbols:
-          self.malicious_symbols.append(input_sym)
+      existing_symbols = set(self.malicious_symbols)
+      self.malicious_symbols.extend([sym for sym in "/+_-=" if sym not in existing_symbols])
       return True
 
     
