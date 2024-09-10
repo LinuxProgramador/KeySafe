@@ -211,7 +211,7 @@ class SecureVault:
           for _ in range(2):
              key_name = self.name_input()
              if not path.isfile(path.join(self.key_path,key_name)):
-                 print("Error, please enter a valid name!")
+                 print("Error, Please enter an existing file name!")
                  exit(1)
              temp_entry = self.password_entry_validation()
              if checkpw(temp_entry, self.read_key_local()):
