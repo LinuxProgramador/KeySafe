@@ -307,7 +307,7 @@ Help Menu:
             if not path.isdir(self.key_path):
                 mkdir(self.key_path)
                 chmod(self.key_path, 0o700)
-             self.validate_arguments()             
+            self.validate_arguments()             
             if self.options[2] in argv:
                 temp_encrypt = self.generate_key()
                 print(f"Key-Safe => {temp_encrypt}")
