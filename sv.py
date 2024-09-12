@@ -243,6 +243,8 @@ class SecureVault:
             if not path.isdir(path_backup):
                   mkdir(path_backup)
                   chmod(path_backup, 0o700)
+            elif path.isdir(path_backup):
+                  chmod(path_backup, 0o700)
             for file in files:
               if not path.isfile(path.join(path_backup,file + " " + str(datetime.now()))):
                 copy(path.join(self.key_path,file),path.join(path_backup,file + " " + str(datetime.now())))
