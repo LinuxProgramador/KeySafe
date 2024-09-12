@@ -286,7 +286,17 @@ Help Menu:
         temp_fernet_key = self.data_overwrite()                                       
         return
         
+        
+    def validate_arguments(self):
+          if len(argv) >= 2 and not argv[1] in self.options:
+               if not self.is_sanitized(argv[1]) or len(argv) > 2 or len(argv[1]) > 7:
+                    print("Possible block due to length exceeded!")
+                    exit(1)
+          elif len(argv) >= 3:
+                   print("Possible block due to length exceeded!")
+                   exit(1)
 
+    
     def main(self):
         '''
         Main function, which will perform tasks based on the arguments given by the user.
@@ -297,16 +307,8 @@ Help Menu:
             if not path.isdir(self.key_path):
                 mkdir(self.key_path)
                 chmod(self.key_path, 0o700)
-            if len(argv) >= 2 and not argv[1] in self.options:
-                if not self.is_sanitized(argv[1]) or len(argv) > 2 or len(argv[1]) > 7:
-                    print("Possible block due to length exceeded!")
-                    exit(1)
-                else:
-                     print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
-            elif len(argv) >= 3:
-                   print("Possible block due to length exceeded!")
-                   exit(1)  
-            elif self.options[2] in argv:
+             self.validate_arguments()             
+            if self.options[2] in argv:
                 temp_encrypt = self.generate_key()
                 print(f"Key-Safe => {temp_encrypt}")
                 self.temporary_key_encryption(temp_encrypt)
