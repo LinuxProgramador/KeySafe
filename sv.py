@@ -231,6 +231,9 @@ class SecureVault:
         
 
     def keep_safe(self,rute):
+        '''
+        Function that validates the existence of the directory and ensures that the set permissions are maintained.
+        '''
         if not path.isdir(rute):
               mkdir(rute)
               chmod(rute, 0o700)
