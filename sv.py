@@ -228,6 +228,14 @@ class SecureVault:
              else:
                 print("Incorrect password!")
           return 
+        
+
+    def keep_safe(self,rute):
+        if not path.isdir(rute):
+              mkdir(rute)
+              chmod(rute, 0o700)
+        elif path.isdir(rute):
+              chmod(rute, 0o700)
 
     
     def backup(self):
@@ -240,11 +248,7 @@ class SecureVault:
             temp_entry = self.data_overwrite()
             files = listdir(self.key_path)
             path_backup = f"/home/{self.user}/.BacKupSV"
-            if not path.isdir(path_backup):
-                  mkdir(path_backup)
-                  chmod(path_backup, 0o700)
-            elif path.isdir(path_backup):
-                  chmod(path_backup, 0o700)
+            self.keep_safe(path_backup)
             for file in files:
               if not path.isfile(path.join(path_backup,file + " " + str(datetime.now()))):
                 copy(path.join(self.key_path,file),path.join(path_backup,file + " " + str(datetime.now())))
@@ -309,11 +313,7 @@ Help Menu:
         try:
             signal(SIGTSTP, self.handle_tstp_signal)
             chmod(path.join(self.sv_path,"sv.py"), 0o700)
-            if not path.isdir(self.key_path):
-                mkdir(self.key_path)
-                chmod(self.key_path, 0o700)
-            elif path.isdir(self.key_path):
-                chmod(self.key_path, 0o700)
+            self.keep_safe(self.key_path):
             self.validate_arguments()             
             if self.options[2] in argv:
                 temp_encrypt = self.generate_key()
