@@ -1,6 +1,6 @@
-SecureVault: tool that allows me to generate and store secure passwords.
+SecureVault: Tool that allows me to generate and store secure passwords.
 
-Note: to read and save secure keys, 
+Note: To read and save secure keys, 
 first generate the unique key with python3 sv.py -u, 
 remember to save that key very well, 
 because without it you will not be able to access your saved passwords
@@ -9,6 +9,7 @@ RECOMMENDED: Have a backup copy locally on an external storage drive of the uniq
 
 Remember to keep script and module dependencies updated in requirements .txt
 
+Note: To resume local backups, just copy to the KeySafe/ directory. VaultSecret and removing date
 dependencies: (python3, python3-pip) 
 
 use: 
