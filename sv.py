@@ -319,7 +319,7 @@ Help Menu:
         try:
             signal(SIGTSTP, self.handle_tstp_signal)
             chmod(path.join(self.sv_path,"sv.py"), 0o700)
-            self.keep_safe(self.key_path):
+            self.keep_safe(self.key_path)
             self.validate_arguments()             
             if self.options[2] in argv:
                 temp_encrypt = self.generate_key()
