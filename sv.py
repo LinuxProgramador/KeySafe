@@ -42,6 +42,9 @@ class SecureVault:
         
 
     def data_overwrite(self):
+        '''
+        Allows overwriting variable values by a 2048-bit salt.
+        '''
         return urandom(2048)
         
         
