@@ -329,16 +329,18 @@ Help Menu:
                   exit(1)
 
     def auxiliary_main(self):
-        
+            signal(SIGTSTP, self.handle_tstp_signal)
+            chmod(path.join(self.sv_path,"sv.py"), 0o700)
+            self.keep_safe(self.key_path)
+            self.validate_arguments()   
+
+    
     def main(self):
         '''
         Main function, which will perform tasks based on the arguments given by the user.
         '''
         try:
-            signal(SIGTSTP, self.handle_tstp_signal)
-            chmod(path.join(self.sv_path,"sv.py"), 0o700)
-            self.keep_safe(self.key_path)
-            self.validate_arguments()             
+            self.auxiliary_main()
             if self.options[2] in argv:
                 temp_encrypt = self.generate_key()
                 print(f"Key-Safe => {temp_encrypt}")
