@@ -46,12 +46,11 @@ class SecureVault:
        (optional) set user keys to immutable added anti-delete security.
        '''
        try:
-        data_path = path.join(self.key_path,data)
-        list_attr_results = run(['/usr/bin/lsattr', data_path ], text=True, check=True, capture_output=True)
+        list_attr_results = run(['/usr/bin/lsattr', path.join(self.key_path,data) ], text=True, check=True, capture_output=True)
         if any('-i' in line for line in list_attr_results.stdout.splitlines()):
-           run(['/usr/bin/chattr', '-i', data_path ], text=True, check=True, capture_output=True)
+           run(['/usr/bin/chattr', '-i', path.join(self.key_path,data) ], text=True, check=True, capture_output=True)
         elif not any('-i' in line for line in list_attr_results.stdout.splitlines()):
-           run(['/usr/bin/chattr', '+i', data_path ], text=True, check=True, capture_output=True)
+           run(['/usr/bin/chattr', '+i', path.join(self.key_path,data) ], text=True, check=True, capture_output=True)
        except CalledProcessError:
            pass
 
