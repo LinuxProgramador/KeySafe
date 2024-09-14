@@ -49,7 +49,6 @@ class SecureVault:
         data_path = path.join(self.key_path,data)
         list_attr_results = run(['/usr/bin/lsattr', data_path ], text=True, check=True, capture_output=True)
         attr_lines = [line for line in list_attr_results.stdout.splitlines()]
-
         if any('-i' in line for line in attr_lines):
            run(['/usr/bin/chattr', '-i', data_path ], text=True, check=True, capture_output=True)
         elif not any('-i' in line for line in attr_lines):
