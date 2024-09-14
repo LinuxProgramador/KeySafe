@@ -35,7 +35,7 @@ class SecureVault:
 
     def handle_tstp_signal(self,signum,frame):
        '''
-       Function that allows me to catch the signal produced by the ctrl_z key
+       Function that allows me to catch the signal produced by the ctrl_z key.
        '''
        print('')
        exit(1)
@@ -104,7 +104,7 @@ class SecureVault:
     
     def password_entry_validation(self):
             '''
-            Allows you to enter a key to validate with the stored password hash 
+            Allows you to enter a key to validate with the stored password hash.
             '''
             frequent_user_entry = getpass("Enter your password: ").strip().replace(" ","")
             if self.is_sanitized(frequent_user_entry) and len(frequent_user_entry) <= 45:
@@ -116,7 +116,7 @@ class SecureVault:
     
     def read_key_local(self):
          '''
-         read the hash of the key stored in the .key file 
+         read the hash of the key stored in the .key file.
          '''
          with open(path.join(self.key_path,".key"), 'rb') as key_file:
                 stored_hash = key_file.read()
@@ -263,7 +263,7 @@ class SecureVault:
     
     def backup(self):
          '''
-         Function that allows you to create a backup locally
+         Function that allows you to create a backup locally.
          '''
          for _ in range(2):
           temp_entry = self.password_entry_validation()
@@ -330,7 +330,7 @@ Help Menu:
 
     def auxiliary_main(self):
          '''
-         Helper function to split the tasks of the main function 
+         Helper function to split the tasks of the main function.
          '''
          signal(SIGTSTP, self.handle_tstp_signal)
          chmod(path.join(self.sv_path,"sv.py"), 0o700)
