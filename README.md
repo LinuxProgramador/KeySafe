@@ -6,7 +6,7 @@ RECOMMENDED: Keep a backup of the unique key (or .key file) on external storage,
 
 Remember to keep the script and module dependencies up-to-date by maintaining the requirements.txt file.
 
-To restore local backups: simply copy the .VaultSecret folder back into the KeySafe/ directory and remove any date stamps.
+To restore local backups: simply copy them to the KeySafe/. VaultSecret path and remove the date.
 
 Dependencies: python3, python3-pip, e2fsprogs, procps
 
