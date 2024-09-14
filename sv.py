@@ -240,6 +240,7 @@ class SecureVault:
                temp_entry = self.data_overwrite()
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
+                   self.immutable_data(key_name)
                    remove(path.join(self.key_path,key_name))
                    print("The file has been successfully deleted!")
                    break
