@@ -204,6 +204,7 @@ class SecureVault:
                             fernet = self.data_overwrite()
                             key_file.write(encrypted_key)
                             chmod(path.join(self.key_path,key_name), 0o600)
+                            self.immutable_data(key_name)
                             print("Your password has been saved successfully!")
                             break
                     else:
