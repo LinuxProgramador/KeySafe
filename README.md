@@ -10,6 +10,7 @@ RECOMMENDED: Have a backup copy locally on an external storage drive of the uniq
 Remember to keep script and module dependencies updated in requirements .txt
 
 Note: To resume local backups, just copy to the KeySafe/ directory. VaultSecret and removing date
+
 dependencies: (python3, python3-pip) 
 
 use: 
