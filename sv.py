@@ -328,7 +328,8 @@ Help Menu:
                   print("Possible block due to length exceeded!")
                   exit(1)
 
-    
+    def auxiliary_main(self):
+        
     def main(self):
         '''
         Main function, which will perform tasks based on the arguments given by the user.
