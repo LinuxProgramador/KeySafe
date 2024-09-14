@@ -174,6 +174,7 @@ class SecureVault:
                 hashed_key = hashpw(fernet_key,gensalt())
                 key_file.write(hashed_key)
                 chmod(path.join(self.key_path,".key"), 0o600)
+                self.immutable_data(".key")
                 print(f"Your password is => {fernet_key.decode()}")
                 fernet_key = self.data_overwrite()
         else:
