@@ -329,10 +329,13 @@ Help Menu:
                   exit(1)
 
     def auxiliary_main(self):
-            signal(SIGTSTP, self.handle_tstp_signal)
-            chmod(path.join(self.sv_path,"sv.py"), 0o700)
-            self.keep_safe(self.key_path)
-            self.validate_arguments()   
+         '''
+         Helper function to split the tasks of the main function 
+         '''
+         signal(SIGTSTP, self.handle_tstp_signal)
+         chmod(path.join(self.sv_path,"sv.py"), 0o700)
+         self.keep_safe(self.key_path)
+         self.validate_arguments()   
 
     
     def main(self):
