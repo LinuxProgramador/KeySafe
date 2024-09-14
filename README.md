@@ -11,7 +11,7 @@ Remember to keep script and module dependencies updated in requirements .txt
 
 Note: To resume local backups, just copy to the KeySafe/ directory. VaultSecret and removing date
 
-dependencies: (python3, python3-pip,e2fsprogs) 
+dependencies: (python3, python3-pip, e2fsprogs, procps) 
 
 use: 
 
@@ -25,9 +25,9 @@ cd KeySafe
 
 chmod 700 sv.py 
 
-Install dependencies (python3, python3-pip,e2fsprogs) 
+Install dependencies (python3, python3-pip, e2fsprogs, procps) 
 
-Note: Arch Linux: (python, python-pip,e2fsprogs)
+Note: Arch Linux: (python, python-pip, e2fsprogs, procps)
 
 python3 -m pip install -r requirements.txt 
 
