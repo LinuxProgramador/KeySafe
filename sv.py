@@ -398,7 +398,8 @@ if __name__ == "__main__":
            
    except CalledProcessError:
       print("Error running ps command!")
-      
+   except FileNotFoundError as e:
+            print(f"Path or file does not exist => {e}")
 
 __name__="SecureVault"
 __version__="1.0"
