@@ -32,6 +32,10 @@ Set the appropriate permissions for the script:
 
 chmod 700 sv.py
 
+and
+
+chmod 700 requirements.txt
+
 Install dependencies:
 
 For most distributions, install with:
