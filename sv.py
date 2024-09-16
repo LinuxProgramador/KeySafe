@@ -99,6 +99,7 @@ class SecureVault:
          if char in self.malicious_symbols:
             print("Possible blocking due to malicious symbol!")
             exit(1)
+      #It reactivates the malicious symbols after entering the user's password, thus maintaining security.
       self.malicious_symbols.update("/+_-=")
       return True
 
