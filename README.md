@@ -6,7 +6,7 @@ RECOMMENDED: Keep a backup of the unique key (or .key file) on external storage,
 
 Remember to keep the script and module dependencies up-to-date by maintaining the requirements.txt file.
 
-To restore local backups: simply copy them to the KeySafe/. VaultSecret path and remove the date.
+To restore local backups: simply copy them to the KeySafe/. VaultSecret path and remove the date, but first remove the immutable attribute from the keys in the . VaultSecret directory.
 
 NOTE: Anti-data deletion protection only applies to keys within the directory. VaultSecret
 
