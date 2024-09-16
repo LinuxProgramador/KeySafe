@@ -37,7 +37,7 @@ class SecureVault:
        '''
        Function that allows me to catch the signal produced by the ctrl_z key.
        '''
-       print('')
+       print("Operation not permitted!")
        exit(1)
         
         
