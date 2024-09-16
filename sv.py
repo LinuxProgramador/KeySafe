@@ -48,9 +48,9 @@ class SecureVault:
        try:
         list_attr_results = run(['/usr/bin/lsattr', path.join(self.key_path,data) ], text=True, check=True, capture_output=True)
         if any('-i' in line for line in list_attr_results.stdout.splitlines()):
-           run(['sudo', '/usr/bin/chattr', '-i', path.join(self.key_path,data) ], check=True)
+           run(['sudo', '/usr/bin/chattr', '-i', path.join(self.key_path,data) ], check=True, capture_output=True)
         elif not any('-i' in line for line in list_attr_results.stdout.splitlines()):
-           run(['sudo', '/usr/bin/chattr', '+i', path.join(self.key_path,data) ], check=True)
+           run(['sudo', '/usr/bin/chattr', '+i', path.join(self.key_path,data) ], check=True, capture_output=True)
        except CalledProcessError:
            print("An error occurred while making the keys immutable!")
 
@@ -406,4 +406,4 @@ __version__="1.0"
 __author__="WhiteHack"
 __maintainer__="WhiteHack"
 __license__="GPL"
-__status__="stable"
+__status__="Finish"
