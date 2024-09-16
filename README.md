@@ -34,7 +34,7 @@ chmod 700 sv.py
 
 and
 
-chmod 700 requirements.txt
+chmod 600 requirements.txt
 
 Install dependencies:
 
