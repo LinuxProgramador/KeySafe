@@ -8,6 +8,8 @@ Remember to keep the script and module dependencies up-to-date by maintaining th
 
 To restore local backups: simply copy them to the KeySafe/. VaultSecret path and remove the date.
 
+NOTE: Anti-data deletion protection only applies to keys within the directory. VaultSecret
+
 Dependencies: python3, python3-pip, e2fsprogs, procps
 
 Usage:
