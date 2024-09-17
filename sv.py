@@ -24,6 +24,7 @@ class SecureVault:
         Initializes the SecureVault instance with default values.
         '''
         self.characters = ascii_lowercase + digits + '@/*_"\',\\+&-;!?#$' + ascii_uppercase
+        #gru These sets are customizable at the user's disposal to add more data (Recommended not to delete)
         self.malicious_symbols = set("/+_-='~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
         self.malicious_symbols_and_commands = set(["ping","ss","id","whoami", "groups","disown",
         "nohup","fg","bg","more","dir","ps","ls","cd","nano","vim","echo","cat","exec","wget",
