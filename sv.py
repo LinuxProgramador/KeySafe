@@ -75,11 +75,10 @@ class SecureVault:
              key_length = query_longitude
           else:
              print("You entered a number outside the allowed range, the default value will be set!")
+             key_length = choice(range(15 ,65))
          else:
             print("Possible block due to length exceeded!")
             exit(1)
-        else:   
-            key_length = choice(range(15 ,65))
         for _ in range(key_length):
             char = choice(list(self.characters))
             generated_key += char
