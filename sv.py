@@ -79,8 +79,9 @@ class SecureVault:
          else:
             print("Possible block due to length exceeded!")
             exit(1)
+        characters = list(self.characters)
         for _ in range(key_length):
-            char = choice(list(self.characters))
+            char = choice(characters)
             generated_key += char
         return generated_key
 
