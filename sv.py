@@ -69,6 +69,7 @@ class SecureVault:
         '''
         generated_key = ""
         query_longitude = int(getpass("Set key length (15/64) or press zero for default: "))
+        key_length = choice(range(15 ,65))
         if query_longitude:
          if len(str(query_longitude)) <= 3:
           if query_longitude >= 15 and query_longitude <= 64:
@@ -78,7 +79,6 @@ class SecureVault:
          else:
             print("Possible block due to length exceeded!")
             exit(1)
-        key_length = choice(range(15 ,65))
         for _ in range(key_length):
             char = choice(list(self.characters))
             generated_key += char
