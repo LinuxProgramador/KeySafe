@@ -247,7 +247,7 @@ class SecureVault:
                      if any('-i' in inm for inm in inmutable_validation.stdout.splitlines()):
                         self.immutable_data(key_name)
                    except CalledProcessError:
-                     print("I do not know how to correctly validate the existence of immutability in the file to be deleted!")
+                     print("Error validating immutability, failed to execute lsattr.")
                    remove(path.join(self.key_path,key_name))
                    print("The file has been successfully deleted!")
                    break
