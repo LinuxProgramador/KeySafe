@@ -242,9 +242,12 @@ class SecureVault:
                temp_entry = self.data_overwrite()
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
-                   inmutable_validation = run(['/usr/bin/lsattr', path.join(self.key_path,key_name) ], text=True, check=True, capture_output=True)  
-                   if any('-i' in inm for inm in inmutable_validation.stdout.splitlines())
-                      self.immutable_data(key_name)
+                   try:
+                     inmutable_validation = run(['/usr/bin/lsattr', path.join(self.key_path,key_name) ], text=True, check=True, capture_output=True)  
+                     if any('-i' in inm for inm in inmutable_validation.stdout.splitlines())
+                        self.immutable_data(key_name)
+                   except CalledProcessError:
+                     pass
                    remove(path.join(self.key_path,key_name))
                    print("The file has been successfully deleted!")
                    break
