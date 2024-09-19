@@ -54,7 +54,7 @@ class SecureVault:
         elif not any('-i' in line for line in list_attr_results.stdout.splitlines()):
            run(['sudo', '/usr/bin/chattr', '+i', path.join(self.key_path,data) ], check=True, capture_output=True)
        except CalledProcessError:
-           print("An error occurred while making the keys immutable!")
+           print("An error occurred while applying immutability settings!")
 
     
     def data_overwrite(self):
