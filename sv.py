@@ -229,12 +229,13 @@ class SecureVault:
             
     def inmutable_validation_delete(key_name):
           '''
+          To avoid amplifying the immutable_data method, this validation was set up only for the delete method to ensure that it was only called if the immutable property exists.
           '''
           try:
             inmutable_validation = run(['/usr/bin/lsattr', path.join(self.key_path,key_name) ], text=True, check=True, capture_output=True)  
             if any('-i' in inm for inm in inmutable_validation.stdout.splitlines()):
                self.immutable_data(key_name)
-            except CalledProcessError:
+          except CalledProcessError:
                print("Error validating immutability, failed to execute lsattr.")
 
 
