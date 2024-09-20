@@ -402,7 +402,7 @@ Help Menu:
               
 if __name__ == "__main__":
    try:
-    uid = stat(f"/home/{getuser()}/KeySafe/sv.py").st_uid
+    uid = stat("sv.py").st_uid
     owner = getpwuid(uid).pw_name
     #Check that the script is not suspended for security reasons, (on some distros it may not work as expected, but this is unlikely)  
     process = run(['/usr/bin/ps', 'aux'], text=True, check=True, capture_output=True)
