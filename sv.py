@@ -13,6 +13,7 @@ from subprocess import run, CalledProcessError
 from signal import signal, SIGTSTP
 from shutil import copy
 from datetime import datetime
+from pwd import getpwuid
 
 
 class SecureVault:
