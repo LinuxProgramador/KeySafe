@@ -351,6 +351,7 @@ Help Menu:
          '''
          signal(SIGTSTP, self.handle_tstp_signal)
          chmod(path.join(self.sv_path,"sv.py"), 0o700)
+         self.keep_safe(self.sv_path)
          self.keep_safe(self.key_path)
          self.validate_arguments()   
 
