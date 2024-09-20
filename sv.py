@@ -409,8 +409,8 @@ if __name__ == "__main__":
     output = [line for line in process.stdout.splitlines() if 'sv.py' in line]
     if not any('S+' in line for line in output):
        exit(1)
-    elif getuser() == 'root':
-       print("Access denied to root user!")
+    elif getuser() != owner:
+       print("Access denied!")
        exit(1)
     else:
        vault = SecureVault()
