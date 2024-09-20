@@ -228,7 +228,7 @@ class SecureVault:
                 if x != ".key":
                    print(x)
             
-    def inmutable_validation_delete(key_name):
+    def inmutable_validation_delete(self,key_name):
           '''
           To avoid amplifying the immutable_data method, this validation was set up only for the delete method to ensure that it was only called if the immutable property exists.
           '''
