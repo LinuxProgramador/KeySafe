@@ -402,6 +402,7 @@ Help Menu:
               
 if __name__ == "__main__":
    try:
+    #Gets the user who owns the sv.py file. 
     owner = getpwuid(stat("sv.py").st_uid).pw_name
     #Check that the script is not suspended for security reasons, (on some distros it may not work as expected, but this is unlikely)  
     process = run(['/usr/bin/ps', 'aux'], text=True, check=True, capture_output=True)
