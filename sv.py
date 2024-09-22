@@ -3,7 +3,7 @@
 #Tool to generate secure keys and store them safely on Linux distros
 
 from secrets import choice
-from sys import argv
+from sys import argv, exit
 from os import chmod, path, mkdir, remove, listdir, stat, urandom
 from cryptography.fernet import Fernet, InvalidToken
 from bcrypt import checkpw, hashpw, gensalt 
