@@ -4,9 +4,9 @@ Recommended distributions:
 
     1. Ubuntu and its derivatives (such as Kubuntu, Xubuntu)
 
-    2.Debian 
+    2. Debian 
 
-    3.Fedora 
+    3. Fedora 
 
     4. ArchLinux
 
