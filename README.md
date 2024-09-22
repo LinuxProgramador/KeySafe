@@ -1,5 +1,19 @@
 SecureVault: A tool designed to generate and store secure passwords.
 
+Recommended distributions:
+
+    1. Ubuntu and its derivatives (such as Kubuntu, Xubuntu)
+
+    2.Debian 
+
+    3.Fedora 
+
+    4. ArchLinux
+
+    5. CentOS and RHEL (with proper dependency management)
+
+    6. openSUSE
+
 Note: To read and save secure keys, first generate the unique key by running python3 sv.py -u. Make sure to store this key securely, as you won’t be able to access your saved passwords without it.
 
 RECOMMENDED: Keep a backup of the unique key (or .key file) on external storage, along with any keys saved in the KeySafe/.VaultSecret directory. This ensures that if the system is formatted or the .VaultSecret directory is accidentally deleted, you won’t lose access to your keys.
