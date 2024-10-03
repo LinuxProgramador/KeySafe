@@ -399,7 +399,8 @@ Help Menu:
             print("An error occurred while creating the backup!")
         except OSError:
            print("An error has occurred in the system that prevents the correct execution of the given function!")
-        return
+        finally:  
+           return
               
 if __name__ == "__main__":
    try:
@@ -423,7 +424,9 @@ if __name__ == "__main__":
       print(f"Path or file does not exist => {e}")
    except (KeyError,ValueError,LookupError):
       print("Error getting owner of file sv.py!")
-
+   finally:
+        exit(1)
+       
 __name__="SecureVault"
 __version__="1.0"
 __author__="WhiteHack"
