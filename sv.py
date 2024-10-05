@@ -429,6 +429,6 @@ if __name__ == "__main__":
        
 __name__="SecureVault"
 __version__="1.0"
-__author__="WhiteHack"
+__author__="JP Rojas"
 __license__="GPL"
 __status__="Finish"
