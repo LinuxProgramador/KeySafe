@@ -196,9 +196,9 @@ class SecureVault:
                  key_name = self.name_input()
                  if not path.isfile(path.join(self.key_path,key_name)):
                     temp_entry = self.password_entry_validation()
-                    if checkpw(temp_entry, self.read_key_local()):
+                    if checkpw(bytes(temp_entry), self.read_key_local()):
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
-                            fernet = Fernet(temp_entry)
+                            fernet = Fernet(bytes(temp_entry))
                             temp_entry = self.data_overwrite()
                             temp_encrypt = temp_fernet_key.decrypt(temp_encrypt)
                             encrypted_key = fernet.encrypt(temp_encrypt)
