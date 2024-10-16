@@ -399,6 +399,8 @@ Help Menu:
             print("An error occurred while creating the backup!")
         except OSError:
            print("An error has occurred in the system that prevents the correct execution of the given function!")
+        except UnicodeEncodeError:
+               print("Text encoding error, please enter valid characters!")
         finally:  
            return
               
