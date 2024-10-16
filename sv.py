@@ -250,7 +250,7 @@ class SecureVault:
                  print("Error, Please enter an existing file name!")
                  exit(1)
              temp_entry = self.password_entry_validation()
-             if checkpw(temp_entry, self.read_key_local()):
+             if checkpw(bytes(temp_entry), self.read_key_local()):
                temp_entry = self.data_overwrite()
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
@@ -284,7 +284,7 @@ class SecureVault:
          '''
          for _ in range(2):
           temp_entry = self.password_entry_validation()
-          if checkpw(temp_entry, self.read_key_local()):
+          if checkpw(bytes(temp_entry), self.read_key_local()):
             temp_entry = self.data_overwrite()
             files = listdir(self.key_path)
             path_backup = f"/home/{self.user}/.BacKupSV"
