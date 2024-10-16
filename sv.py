@@ -172,9 +172,9 @@ class SecureVault:
         Stores a unique key by creating a .key file if it does not already exist.
         '''
         if not path.isfile(path.join(self.key_path,".key")):
-            fernet_key = Fernet.generate_key()
+            fernet_key = bytearray(Fernet.generate_key())
             with open(path.join(self.key_path,".key"), 'wb') as key_file:
-                hashed_key = hashpw(fernet_key,gensalt())
+                hashed_key = hashpw(bytes(fernet_key),gensalt())
                 key_file.write(hashed_key)
                 chmod(path.join(self.key_path,".key"), 0o600)
                 print(f"Your password is => {fernet_key.decode()}")
