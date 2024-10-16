@@ -200,8 +200,8 @@ class SecureVault:
                         with open(path.join(self.key_path,key_name), 'wb') as key_file:
                             fernet = Fernet(bytes(temp_entry))
                             temp_entry = self.data_overwrite()
-                            temp_encrypt = temp_fernet_key.decrypt(temp_encrypt)
-                            encrypted_key = fernet.encrypt(temp_encrypt)
+                            temp_encrypt = bytearray(temp_fernet_key.decrypt(temp_encrypt))
+                            encrypted_key = fernet.encrypt(bytes(temp_encrypt))
                             temp_encrypt = self.data_overwrite()
                             temp_fernet_key = self.data_overwrite()
                             fernet = self.data_overwrite()
