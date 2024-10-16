@@ -256,7 +256,7 @@ class SecureVault:
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
                    self.inmutable_validation_delete(key_name)
                    remove(path.join(self.key_path,key_name))
-                   print("The file has been successfully deleted!")
+                   print("The password has been successfully deleted!")
                    break
                  else:
                      print("The permissions were altered, for security the file will not be deleted!")
