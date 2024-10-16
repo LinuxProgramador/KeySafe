@@ -114,7 +114,7 @@ class SecureVault:
             '''
             frequent_user_entry = getpass("Enter your password: ").strip().replace(" ","")
             if self.is_sanitized(frequent_user_entry) and len(frequent_user_entry) <= 45:
-               return frequent_user_entry.encode()
+               return bytearray(frequent_user_entry,"utf-8")
             else:
                 print("Possible block due to length exceeded!")
                 exit(1)
