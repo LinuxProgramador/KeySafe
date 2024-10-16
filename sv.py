@@ -363,8 +363,8 @@ Help Menu:
         try:
             self.auxiliary_main()
             if self.options[2] in argv:
-                temp_encrypt = self.generate_key()
-                print(f"Key-Safe => {temp_encrypt}")
+                temp_encrypt = bytearray(self.generate_key())
+                print(f"Key-Safe => {temp_encrypt.decode()}")
                 self.temporary_key_encryption(temp_encrypt)
                 temp_encrypt = self.data_overwrite()
             elif self.options[3] in argv:
