@@ -148,13 +148,13 @@ class SecureVault:
         for _ in range(2):
              key_name = self.name_input()
              temp_entry = self.password_entry_validation()
-             if checkpw(temp_entry, self.read_key_local()):
+             if checkpw(bytes(temp_entry), self.read_key_local()):
               if key_name != ".key":
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
                     encrypted_key = key_file.read()
-                    fernet = Fernet(temp_entry)
+                    fernet = Fernet(bytes(temp_entry))
                     temp_entry = self.data_overwrite()
-                    decrypted_key = fernet.decrypt(encrypted_key)
+                    decrypted_key = bytearray(fernet.decrypt(encrypted_key))
                     fernet = self.data_overwrite()
                     print(f"Your password is => {decrypted_key.decode()}")
                     decrypted_key = self.data_overwrite()
