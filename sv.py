@@ -380,7 +380,7 @@ Help Menu:
             elif self.options[6] in argv or self.options[7] in argv:
                 self.show_help()
             elif self.options[8] in argv:
-                 self.backup()
+                self.backup()
             else:
                 print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
         except (KeyboardInterrupt,EOFError):
@@ -400,7 +400,7 @@ Help Menu:
         except OSError:
            print("An error has occurred in the system that prevents the correct execution of the given function!")
         except UnicodeEncodeError:
-               print("Text encoding error, please enter valid characters!")
+           print("Text encoding error, please enter valid characters!")
         finally:  
            return
               
