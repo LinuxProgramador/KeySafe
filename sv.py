@@ -94,8 +94,8 @@ class SecureVault:
       '''
       malicious_symbols_set = self.malicious_symbols | self.malicious_symbols_and_commands
       if path.islink(entry):
-          print("Symbolic link detected, operation denied!")
-          exit(1)
+            print("Symbolic link detected, operation denied!")
+            exit(1)
       elif entry in malicious_symbols_set:
             print("Possible blocking due to malicious symbol!")
             exit(1)
