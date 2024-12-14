@@ -14,6 +14,7 @@ from signal import signal, SIGTSTP
 from shutil import copy
 from datetime import datetime
 from pwd import getpwuid
+from time import sleep
 
 
 class SecureVault:
@@ -115,6 +116,7 @@ class SecureVault:
             '''
             Allows you to enter a key to validate with the stored password hash.
             '''
+            sleep(2)
             frequent_user_entry = getpass("Enter your unique password: ").strip().replace(" ","")
             if self.is_sanitized(frequent_user_entry) and len(frequent_user_entry) <= 45:
                return bytearray(frequent_user_entry,"utf-8")
