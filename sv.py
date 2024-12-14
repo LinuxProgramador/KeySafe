@@ -92,7 +92,10 @@ class SecureVault:
       Checks if the provided entry contains any malicious symbols or commands.
       '''
       malicious_symbols_set = self.malicious_symbols | self.malicious_symbols_and_commands
-      if entry in malicious_symbols_set:
+      if path.islink(entry):
+          print("Symbolic link detected, operation denied!")
+          exit(1)
+      elif entry in malicious_symbols_set:
             print("Possible blocking due to malicious symbol!")
             exit(1)
       #Disables certain malicious symbols so that the unique key can be entered in base64.
