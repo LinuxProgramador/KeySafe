@@ -359,7 +359,7 @@ Usage:
     python3 sv.py -d  delete secure key
     python3 sv.py -l  list your stored passwords
     python3 sv.py -b  create a backup locally
-    python3 sv.py -c  Change the unique key
+    python3 sv.py -c  change the unique key
 Help Menu:
     -h  --help  print this help message and exit
                 """)
