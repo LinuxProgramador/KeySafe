@@ -31,7 +31,7 @@ class SecureVault:
         self.malicious_symbols_and_commands = set(["ping","ss","id","whoami", "groups","disown",
         "nohup","fg","bg","more","dir","ps","ls","cd","nano","vim","echo","cat","exec","wget",
         "curl","host","df","system","..","&&","||","\"","\\"])                                       
-        self.options = ['-d','-r','-g','-V','-l','-u','-h','--help','-b']
+        self.options = ['-d','-r','-g','-V','-l','-u','-h','--help','-b','-c']
         self.user = getuser()
         self.key_path = f"/home/{self.user}/KeySafe/.VaultSecret"
         self.sv_path = f"/home/{self.user}/KeySafe"
@@ -318,6 +318,7 @@ Usage:
     python3 sv.py -d  delete secure key
     python3 sv.py -l  list your stored passwords
     python3 sv.py -b  create a backup locally
+    python3 sv.py -c  Change the unique key
 Help Menu:
     -h  --help  print this help message and exit
                 """)
