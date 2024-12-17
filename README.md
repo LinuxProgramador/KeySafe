@@ -70,5 +70,5 @@ python3 sv.py -u
 
 Other commands:
 
-python3 sv.py [-h, --help, -V, -r, -g, -u, -d, -l, -b]
+python3 sv.py [-h, --help, -V, -r, -g, -u, -d, -l, -b, -c]
 
