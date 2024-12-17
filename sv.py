@@ -300,7 +300,8 @@ class SecureVault:
             break
           else:
              print("Incorrect password!")
-         return     
+         return   
+        
 
     def change_unique_key(self):
       '''
@@ -353,7 +354,9 @@ class SecureVault:
             break
         else:
             print("Incorrect password!")
+      return
 
+    
     def show_help(self):
         '''
         When the function is called, it prints the help menu.
