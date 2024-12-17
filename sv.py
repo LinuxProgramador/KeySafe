@@ -302,7 +302,57 @@ class SecureVault:
              print("Incorrect password!")
          return     
 
-    
+    def change_unique_key(self):
+      '''
+      Function to change the unique encryption key securely.
+      '''
+      for _ in range(2):
+        user_password = self.password_entry_validation()
+
+        if checkpw(bytes(user_password), self.read_key_local()):
+            current_fernet = Fernet(bytes(user_password))
+
+            self.inmutable_validation_delete(".key")
+            remove(path.join(self.key_path, ".key"))
+
+            # Generate a new Fernet key and hash it
+            new_fernet_key = bytearray(Fernet.generate_key())
+            with open(path.join(self.key_path, ".key"), 'wb') as key_file:
+                hashed_key = hashpw(bytes(new_fernet_key), gensalt())
+                key_file.write(hashed_key)
+                chmod(path.join(self.key_path, ".key"), 0o600)
+                self.immutable_data(".key")
+
+            # Re-encrypt all existing files with the new key
+            key_files = listdir(self.key_path)
+
+
+            for file_name in key_files:
+                if path.isfile(path.join(self.key_path, file_name)) and file_name != ".key":
+                    with open(path.join(self.key_path, file_name), 'rb') as file_to_read:
+                        encrypted_content = file_to_read.read()
+                        decrypted_content = bytearray(current_fernet.decrypt(encrypted_content))
+
+
+                    with open(path.join(self.key_path, file_name), 'wb') as file_to_write:
+                        new_fernet_encryptor = Fernet(bytes(new_fernet_key))
+                        re_encrypted_content = new_fernet_encryptor.encrypt(bytes(decrypted_content))
+
+
+                        file_to_write.write(re_encrypted_content)
+                        chmod(path.join(self.key_path, file_name), 0o600)
+                        self.immutable_data(file_name)
+
+
+            print(f"Your new unique key is => {new_fernet_key.decode()}")
+            new_fernet_key = self.data_overwrite()
+            user_password = self.data_overwrite()
+            current_fernet = self.data_overwrite()
+            decrypted_content = self.data_overwrite()
+            new_fernet_encryptor = self.data_overwrite()
+            break
+        else:
+            print("Incorrect password!")
 
     def show_help(self):
         '''
