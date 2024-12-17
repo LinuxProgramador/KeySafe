@@ -312,7 +312,6 @@ class SecureVault:
         if checkpw(bytes(user_password), self.read_key_local()):
             current_fernet = Fernet(bytes(user_password))
             self.inmutable_validation_delete(".key")
-            remove(path.join(self.key_path, ".key"))
             # Generate a new Fernet key and hash it
             new_fernet_key = bytearray(Fernet.generate_key())
             with open(path.join(self.key_path, ".key"), 'wb') as key_file:
@@ -323,6 +322,7 @@ class SecureVault:
             # Re-encrypt all existing files with the new key
             key_files = listdir(self.key_path)
             for file_name in key_files:
+                self.inmutable_validation_delete(file_name)
                 if path.isfile(path.join(self.key_path, file_name)) and file_name != ".key":
                     with open(path.join(self.key_path, file_name), 'rb') as file_to_read:
                         encrypted_content = file_to_read.read()
