@@ -4,15 +4,13 @@ Recommended distributions:
 
     1. Ubuntu and its derivatives (such as Kubuntu, Xubuntu)
 
-    2. Debian 
+    2. Fedora 
 
-    3. Fedora 
+    3. ArchLinux
 
-    4. ArchLinux
+    4. CentOS and RHEL (with proper dependency management)
 
-    5. CentOS and RHEL (with proper dependency management)
-
-    6. openSUSE
+    5. openSUSE
 
 NOTE: To read and save secure keys, first generate the unique key by running python3 sv.py -u. Make sure to store this key securely, as you won’t be able to access your saved passwords without it.
 
