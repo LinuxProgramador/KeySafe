@@ -10,7 +10,6 @@ Recommended distributions:
 
     4. CentOS and RHEL (with proper dependency management)
 
-    5. openSUSE
 
 NOTE: To read and save secure keys, first generate the unique key by running python3 sv.py -u. Make sure to store this key securely, as you won’t be able to access your saved passwords without it.
 
