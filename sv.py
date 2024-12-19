@@ -446,7 +446,7 @@ Help Menu:
         except ValueError:
             print("You did not enter any integer!")   
         except InvalidToken:
-            print("Invalid Token Error!")
+            print("An error has occurred in the data encoding or decoding procedure!")
         except IsADirectoryError:
             print("Error, a directory has been detected!")
         except TypeError:  
