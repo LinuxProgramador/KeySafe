@@ -300,7 +300,7 @@ class SecureVault:
             path_backup = f"/home/{self.user}/.BacKupSV"
             self.keep_safe(path_backup)
             for file in files:
-              if not path.isfile(path.join(path_backup,file + " " + str(datetime.now()))):
+              if self.is_sanitized(file) and not path.isfile(path.join(path_backup,file + " " + str(datetime.now()))):
                 copy(path.join(self.key_path,file),path.join(path_backup,file + " " + str(datetime.now())))
             print(f"The backup was created successfully in => {path_backup}")
             break
