@@ -134,7 +134,7 @@ class SecureVault:
          '''
          read the hash of the key stored in the .key file.
          '''
-         if path.isfile(path.join(self.key_path, ".key")):
+         if not path.islink(path.join(self.key_path, ".key")) and not path.isdir(path.join(self.key_path, ".key")):
            with open(path.join(self.key_path,".key"), 'rb') as key_file:
                 stored_hash = key_file.read()
                 return stored_hash
