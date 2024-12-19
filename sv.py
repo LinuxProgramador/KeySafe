@@ -53,13 +53,13 @@ class SecureVault:
        it from being requested repeatedly in subsequent commands during 
        the same session.
        """
-       run(['sudo','-S','true'])
+       run(['/usr/bin/sudo','-S','/usr/bin/true'])
        try:
         list_attr_results = run(['/usr/bin/lsattr', path.join(self.key_path,data) ], text=True, check=True, capture_output=True)
         if any('-i' in line for line in list_attr_results.stdout.splitlines()):
-           run(['sudo', '/usr/bin/chattr', '-i', path.join(self.key_path,data) ], check=True, capture_output=True)
+           run(['/usr/bin/sudo', '/usr/bin/chattr', '-i', path.join(self.key_path,data) ], check=True, capture_output=True)
         elif not any('-i' in line for line in list_attr_results.stdout.splitlines()):
-           run(['sudo', '/usr/bin/chattr', '+i', path.join(self.key_path,data) ], check=True, capture_output=True)
+           run(['/usr/bin/sudo', '/usr/bin/chattr', '+i', path.join(self.key_path,data) ], check=True, capture_output=True)
        except CalledProcessError:
            print("An error occurred while applying immutability settings!")
 
