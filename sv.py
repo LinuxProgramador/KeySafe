@@ -325,6 +325,7 @@ class SecureVault:
                 key_file.write(hashed_key)
                 chmod(path.join(self.key_path, ".key"), 0o600)
                 self.immutable_data(".key")
+            print(f"Your new unique key is => {new_fernet_key.decode()}")
             # Re-encrypt all existing files with the new key
             key_files = listdir(self.key_path)
             for file_name in key_files:
@@ -339,7 +340,6 @@ class SecureVault:
                         file_to_write.write(re_encrypted_content)
                         chmod(path.join(self.key_path, file_name), 0o600)
                         self.immutable_data(file_name)
-            print(f"Your new unique key is => {new_fernet_key.decode()}")
             new_fernet_key = self.data_overwrite()
             user_password = self.data_overwrite()
             current_fernet = self.data_overwrite()
