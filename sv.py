@@ -48,6 +48,11 @@ class SecureVault:
        '''
        (optional) set user keys to immutable added anti-delete security.
        '''
+       """
+       prompts the sudo password only once to cache it and prevent
+       it from being requested repeatedly in subsequent commands during 
+       the same session.
+       """
        run(['sudo','-S','true'])
        try:
         list_attr_results = run(['/usr/bin/lsattr', path.join(self.key_path,data) ], text=True, check=True, capture_output=True)
