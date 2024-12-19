@@ -134,10 +134,13 @@ class SecureVault:
          '''
          read the hash of the key stored in the .key file.
          '''
-         with open(path.join(self.key_path,".key"), 'rb') as key_file:
+         if self.is_sanitized(".key") and not path.isdir(path.join(self.key_path, ".key")):
+           with open(path.join(self.key_path,".key"), 'rb') as key_file:
                 stored_hash = key_file.read()
                 return stored_hash
-             
+         else:
+           print("")
+           exit(1)  
              
     def name_input(self):
          '''  
