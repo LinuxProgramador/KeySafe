@@ -139,7 +139,7 @@ class SecureVault:
                 stored_hash = key_file.read()
                 return stored_hash
          else:
-           print("Error, the file \".key\" cannot be a directory!")
+           print("Error, the file \".key\" cannot be a directory or symbolic link!")
            exit(1)  
              
     def name_input(self):
