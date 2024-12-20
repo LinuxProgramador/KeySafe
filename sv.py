@@ -285,7 +285,7 @@ class SecureVault:
         '''
         Function that validates the existence of the directory and ensures that the set permissions are maintained.
         '''
-        if not path.isdir(rute):
+        if not path.isdir(rute) and not path.isfile(rute):
               mkdir(rute)
               chmod(rute, 0o700)
         elif path.isdir(rute):
