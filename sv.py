@@ -76,7 +76,7 @@ class SecureVault:
         Shows the user that they have exceeded the allowed character length
         '''
         print("Possible block due to length exceeded!")
-            exit(1)
+        exit(1)
 
     
     def generate_key(self):
@@ -93,8 +93,7 @@ class SecureVault:
           else:
              print("You entered a number outside the allowed range, the default value will be set!")
          else:
-            print("Possible block due to length exceeded!")
-            exit(1)
+            self.allowed_length_message()
         characters = list(self.characters)
         for _ in range(key_length):
             char = choice(characters)
@@ -137,8 +136,8 @@ class SecureVault:
             if self.is_sanitized(frequent_user_entry) and len(frequent_user_entry) <= 45:
                return bytearray(frequent_user_entry,"utf-8")
             else:
-                print("Possible block due to length exceeded!")
-                exit(1)
+                self.allowed_length_message()
+                
 
     
     def read_key_local(self):
@@ -159,8 +158,8 @@ class SecureVault:
          if self.is_sanitized(key_name) and len(key_name) <= 40:
              return key_name
          else:
-             print("Possible block due to length exceeded!")
-             exit(1)   
+             self.allowed_length_message()
+             
              
 
     def read_key(self):
@@ -237,8 +236,8 @@ class SecureVault:
                  else:
                     print("Password name already exists!")
       else:
-          print("Possible block due to length exceeded!")
-          exit(1)
+          self.allowed_length_message()
+          
       return
     
     def list_password(self):
@@ -408,11 +407,11 @@ Help Menu:
              symbols is applied in said named method and if everything is correct it returns true
              """
              if not self.is_sanitized(argv[1]) or len(argv) > 2 or len(argv[1]) > 7:
-                  print("Possible block due to length exceeded!")
-                  exit(1)
+                  self.allowed_length_message()
+                 
         elif len(argv) >= 3:
-                  print("Possible block due to length exceeded!")
-                  exit(1)
+                  self.allowed_length_message()
+                 
 
     def auxiliary_main(self):
          '''
