@@ -288,7 +288,7 @@ class SecureVault:
         if not path.isdir(rute) and not path.isfile(rute):
               mkdir(rute)
               chmod(rute, 0o700)
-        elif path.isdir(rute):
+        elif path.isdir(rute) or path.isfile(rute):
               chmod(rute, 0o700)
 
     
