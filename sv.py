@@ -394,6 +394,11 @@ Help Menu:
         Function that validates the length and absence of malicious symbols. 
         '''
         if len(argv) >= 2 and not argv[1] in self.options:
+             """
+             A not was applied to the call of the is_sanitized method because it returns true, 
+             and in this logical expression it would not be viable, since the validation of malicious
+             symbols is applied in said named method and if everything is correct it returns true
+             """
              if not self.is_sanitized(argv[1]) or len(argv) > 2 or len(argv[1]) > 7:
                   print("Possible block due to length exceeded!")
                   exit(1)
