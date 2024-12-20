@@ -98,7 +98,10 @@ class SecureVault:
       Checks if the provided entry contains any malicious symbols or commands.
       '''
       malicious_symbols_set = self.malicious_symbols | self.malicious_symbols_and_commands
-      if path.islink(entry):
+      if path.isdir(entry):
+            print("Directory detected, operation denied!")
+            exit(1)
+      elif path.islink(entry):
             print("Symbolic link detected, operation denied!")
             exit(1)
       elif entry in malicious_symbols_set:
