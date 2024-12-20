@@ -71,6 +71,14 @@ class SecureVault:
         return urandom(2048)
         
         
+    def allowed_length_message(self):
+        '''
+        Shows the user that they have exceeded the allowed character length
+        '''
+        print("Possible block due to length exceeded!")
+            exit(1)
+
+    
     def generate_key(self):
         '''
         Generates a secure cryptographic key with a user-defined or default length.
