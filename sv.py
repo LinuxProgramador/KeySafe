@@ -98,10 +98,10 @@ class SecureVault:
       Checks if the provided entry contains any malicious symbols or commands.
       '''
       malicious_symbols_set = self.malicious_symbols | self.malicious_symbols_and_commands
-      if path.isdir(entry):
+      if path.isdir(entry) or path.isdir(path.join(self.key_path, entry)):
             print("Directory detected, operation denied!")
             exit(1)
-      elif path.islink(entry):
+      elif path.islink(entry) or path.islink(path.join(self.key_path, entry)):
             print("Symbolic link detected, operation denied!")
             exit(1)
       elif entry in malicious_symbols_set:
@@ -137,13 +137,11 @@ class SecureVault:
          '''
          read the hash of the key stored in the .key file.
          '''
-         if not path.islink(path.join(self.key_path, ".key")) and not path.isdir(path.join(self.key_path, ".key")):
+         if self.is_sanitized(".key"):
            with open(path.join(self.key_path,".key"), 'rb') as key_file:
                 stored_hash = key_file.read()
                 return stored_hash
-         else:
-           print("Error, the file \".key\" cannot be a directory or symbolic link!")
-           exit(1)  
+      
              
     def name_input(self):
          '''  
