@@ -335,7 +335,7 @@ class SecureVault:
             # Re-encrypt all existing files with the new key
             key_files = listdir(self.key_path)
             for file_name in key_files:
-                if path.isfile(path.join(self.key_path, file_name)) and file_name != ".key":
+                if self.is_sanitized(file_name) and file_name != ".key":
                     self.inmutable_validation_delete(file_name)
                     with open(path.join(self.key_path, file_name), 'rb') as file_to_read:
                         encrypted_content = file_to_read.read()
