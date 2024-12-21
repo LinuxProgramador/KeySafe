@@ -138,7 +138,9 @@ class SecureVault:
                 return bytearray(frequent_user_entry,"utf-8")
               else:
                 self.allowed_length_message()
-                
+            else:
+              frequent_user_entry = "0"
+              return bytearray(frequent_user_entry,"utf-8")   
 
     
     def read_key_local(self):
