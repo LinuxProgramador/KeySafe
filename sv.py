@@ -218,19 +218,11 @@ class SecureVault:
                  if not path.isfile(path.join(self.key_path,key_name)):
                     temp_entry = self.password_entry_validation()
                     if checkpw(bytes(temp_entry), self.read_key_local()):
-                        with open(path.join(self.key_path,key_name), 'wb') as key_file:
-                            fernet = Fernet(bytes(temp_entry))
-                            temp_entry = self.data_overwrite()
-                            temp_encrypt = bytearray(temp_fernet_key.decrypt(temp_encrypt))
-                            encrypted_key = fernet.encrypt(bytes(temp_encrypt))
-                            temp_encrypt = self.data_overwrite()
-                            temp_fernet_key = self.data_overwrite()
-                            fernet = self.data_overwrite()
-                            key_file.write(encrypted_key)
-                            chmod(path.join(self.key_path,key_name), 0o600)
-                            self.immutable_data(key_name)
-                            print("Your password has been saved successfully!")
-                            break
+                         self.auxiliary_save_key(key_name,temp_entry,temp_encrypt,temp_fernet_key)
+                         temp_entry = self.data_overwrite()
+                         temp_encrypt = self.data_overwrite()
+                         temp_fernet_key = self.data_overwrite()
+                         break
                     else:
                         print("Incorrect password!")
                  else:
