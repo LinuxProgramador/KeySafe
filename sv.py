@@ -186,6 +186,18 @@ class SecureVault:
              else:
                 print("Incorrect password!")
         return
+
+
+    def hashAndSaveKey(self,key):
+      '''
+      Hashes the given key and saves it securely in a `.key`
+      file with restricted permissions
+      '''
+      with open(path.join(self.key_path, ".key"), 'wb') as key_file:
+         hashed_key = hashpw(bytes(key), gensalt())
+         key_file.write(hashed_key)
+         chmod(path.join(self.key_path, ".key"), 0o600)
+         self.immutable_data(".key")
     
 
     def store_unique_key(self):
