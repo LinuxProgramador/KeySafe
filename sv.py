@@ -365,8 +365,6 @@ class SecureVault:
             new_fernet_key = self.data_overwrite()
             user_password = self.data_overwrite()
             current_fernet = self.data_overwrite()
-            decrypted_content = self.data_overwrite()
-            new_fernet_encryptor = self.data_overwrite()
             break
         else:
             print("Incorrect password!")
