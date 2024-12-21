@@ -206,13 +206,9 @@ class SecureVault:
         '''
         if not path.isfile(path.join(self.key_path,".key")):
             fernet_key = bytearray(Fernet.generate_key())
-            with open(path.join(self.key_path,".key"), 'wb') as key_file:
-                hashed_key = hashpw(bytes(fernet_key),gensalt())
-                key_file.write(hashed_key)
-                chmod(path.join(self.key_path,".key"), 0o600)
-                print(f"Its unique key is => {fernet_key.decode()}")
-                fernet_key = self.data_overwrite()
-                self.immutable_data(".key")
+            self.hashAndSaveKey(fernet_key)
+            print(f"Its unique key is => {fernet_key.decode()}")
+            fernet_key = self.data_overwrite()
         else:
             print("The password already exists!")
         return
