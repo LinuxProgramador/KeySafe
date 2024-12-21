@@ -198,6 +198,7 @@ class SecureVault:
          key_file.write(hashed_key)
          chmod(path.join(self.key_path, ".key"), 0o600)
          self.immutable_data(".key")
+      return   
     
 
     def store_unique_key(self):
