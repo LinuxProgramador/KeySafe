@@ -371,11 +371,7 @@ class SecureVault:
             self.inmutable_validation_delete(".key")
             # Generate a new Fernet key and hash it
             new_fernet_key = bytearray(Fernet.generate_key())
-            with open(path.join(self.key_path, ".key"), 'wb') as key_file:
-                hashed_key = hashpw(bytes(new_fernet_key), gensalt())
-                key_file.write(hashed_key)
-                chmod(path.join(self.key_path, ".key"), 0o600)
-                self.immutable_data(".key")
+            self.hashAndSaveKey(new_fernet_key)
             print(f"Your new unique key is => {new_fernet_key.decode()}")
             # Re-encrypt all existing files with the new key
             key_files = listdir(self.key_path)
