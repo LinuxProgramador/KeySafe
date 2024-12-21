@@ -204,7 +204,26 @@ class SecureVault:
         else:
             print("The password already exists!")
         return
-    
+
+
+    def auxiliary_save_key(self,key_name,temp_entry,temp_encrypt,temp_fernet_key):
+      '''
+      Helper function that divides the tasks of the save_key function
+      '''
+      with open(path.join(self.key_path,key_name), 'wb') as key_file:
+            fernet = Fernet(bytes(temp_entry))
+            temp_entry = self.data_overwrite()
+            temp_encrypt = bytearray(temp_fernet_key.decrypt(temp_encrypt))
+            encrypted_key = fernet.encrypt(bytes(temp_encrypt))
+            temp_encrypt = self.data_overwrite()
+            temp_fernet_key = self.data_overwrite()
+            fernet = self.data_overwrite()
+            key_file.write(encrypted_key)
+            chmod(path.join(self.key_path,key_name), 0o600)
+            self.immutable_data(key_name)
+            print("Your password has been saved successfully!")
+      return
+        
 
     def save_key(self,temp_encrypt,temp_fernet_key):
       '''
