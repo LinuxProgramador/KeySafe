@@ -361,17 +361,7 @@ class SecureVault:
             # Re-encrypt all existing files with the new key
             key_files = listdir(self.key_path)
             for file_name in key_files:
-                if self.is_sanitized(file_name) and file_name != ".key":
-                    self.inmutable_validation_delete(file_name)
-                    with open(path.join(self.key_path, file_name), 'rb') as file_to_read:
-                        encrypted_content = file_to_read.read()
-                        decrypted_content = bytearray(current_fernet.decrypt(encrypted_content))
-                    with open(path.join(self.key_path, file_name), 'wb') as file_to_write:
-                        new_fernet_encryptor = Fernet(bytes(new_fernet_key))
-                        re_encrypted_content = new_fernet_encryptor.encrypt(bytes(decrypted_content))
-                        file_to_write.write(re_encrypted_content)
-                        chmod(path.join(self.key_path, file_name), 0o600)
-                        self.immutable_data(file_name)
+               self.auxiliary_change_unique_key(file_name,current_fernet,new_fernet_key) 
             new_fernet_key = self.data_overwrite()
             user_password = self.data_overwrite()
             current_fernet = self.data_overwrite()
