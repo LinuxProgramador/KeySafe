@@ -106,10 +106,10 @@ class SecureVault:
       '''
       malicious_symbols_set = self.malicious_symbols | self.malicious_symbols_and_commands
       if path.isdir(entry) or path.isdir(path.join(self.key_path, entry)):
-            print("Directory detected, operation denied!")
+            print(f"Directory detected in {path.join(self.sv_path, entry)} or {path.join(self.key_path, entry)}, operation denied!")
             exit(1)
       elif path.islink(entry) or path.islink(path.join(self.key_path, entry)):
-            print("Symbolic link detected, operation denied!")
+            print(f"Symbolic link detected in {path.join(self.sv_path, entry)} or {path.join(self.key_path, entry)}, operation denied!")
             exit(1)
       elif entry in malicious_symbols_set:
             print("Possible crash due to malicious symbol or command!")
