@@ -163,7 +163,8 @@ class SecureVault:
               return key_name
            else:
               self.allowed_length_message()
-             
+         else:
+              return "KeyDefault"    
              
 
     def read_key(self):
