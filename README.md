@@ -80,6 +80,8 @@ Convert to executable:
 
 access your KeySafe directory from the path ~/KeySafe 
 
+First install all the program dependencies including those in the requirements.txt file
+
 then install the pyinstaller module 
 
 python3 -m pip install pyinstaller 
