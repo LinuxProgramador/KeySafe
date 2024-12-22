@@ -90,18 +90,20 @@ then remove the remaining files, just leave the sv and requirements.txt
 
 Sign executable: 
 
-1. install gnupg sudo apt update sudo apt install gnupg -y
+1. install gnupg
 
-2. Create a GPG key (if you don't have one) If you don't have a GPG key,
+   sudo apt update sudo apt install gnupg -y
 
-create a new one: gpg --full-generate-key
+2. Create a GPG key (if you don't have one) If you don't have a GPG key, create a new one:
+
+   gpg --full-generate-key
 
 3. Sign the executable Use GPG to sign the executable:
 
- Embedded signature, This attaches the signature to the executable:
+   Embedded signature, This attaches the signature to the executable:
  
- gpg --output sv --sign sv 
+   gpg --output sv --sign sv 
  
  4. Verify the signature If it is an embedded signature:
  
- gpg --verify sv
+   gpg --verify sv
