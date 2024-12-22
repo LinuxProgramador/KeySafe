@@ -150,7 +150,8 @@ class SecureVault:
          if self.is_sanitized(".key"):
            with open(path.join(self.key_path,".key"), 'rb') as key_file:
                 stored_hash = key_file.read()
-                return stored_hash
+                if any(v in stored_hash.decode() for v in ["2a$", "2b$", "2y$"]) and len(stored_hash) == 60:
+                    return stored_hash
       
              
     def name_input(self):
