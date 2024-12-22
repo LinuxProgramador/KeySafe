@@ -152,7 +152,10 @@ class SecureVault:
                 stored_hash = key_file.read()
                 if any(v in stored_hash.decode() for v in ["2a$", "2b$", "2y$"]) and len(stored_hash) == 60:
                     return stored_hash
-
+                else:
+                    print(f"Error, the file \".key\" is corrupt, please restore your backup and proceed to delete the corrupt file in => {self.key_path}")
+                    exit(1)
+                      
 
     def name_input(self):
          '''
