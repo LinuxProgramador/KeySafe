@@ -80,28 +80,32 @@ Convert to executable:
 
 access your KeySafe directory from the path ~/KeySafe 
 
-then install the pyinstaller module python3 -m pip install pyinstaller 
+then install the pyinstaller module 
+
+python3 -m pip install pyinstaller 
 
 pyinstaller --onefile sv 
 
 cp -f dist/sv ./ 
 
-then remove the remaining files, just leave the sv and requirements.txt
+then remove the remaining files, just leave the sv, .VaultSecret, README.md, .git and requirements.txt
 
 Sign executable: 
 
 1. install gnupg
 
-   sudo apt update sudo apt install gnupg -y
+   sudo apt update
 
-2. Create a GPG key (if you don't have one) If you don't have a GPG key, create a new one:
+   sudo apt install gnupg -y
+
+3. Create a GPG key:
 
    gpg --full-generate-key
 
-3. Sign the executable Use GPG to sign the executable:
+4. Sign the executable:
 
    gpg --detach-sign -o sv.sig  sv
  
-4. Verify the signature:
+5. Verify the signature:
  
    gpg --verify sv.sig  sv
