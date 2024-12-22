@@ -530,7 +530,9 @@ if __name__ == "__main__":
       print(f"Path or file does not exist => {e}")
    except (KeyError,ValueError,LookupError):
       print("Error getting owner of file sv!")
-
+   except (KeyboardInterrupt,EOFError):
+      print("\nOperation canceled by user!")
+      
 
 __name__="SecureVault"
 __version__="1.0"
