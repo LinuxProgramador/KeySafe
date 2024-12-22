@@ -158,10 +158,11 @@ class SecureVault:
          Function to set the name of the file where the password is.
          '''
          key_name = input("Enter the name of your password: ").strip().replace(" ","")
-         if self.is_sanitized(key_name) and len(key_name) <= 40:
-             return key_name
-         else:
-             self.allowed_length_message()
+         if key_name:
+           if self.is_sanitized(key_name) and len(key_name) <= 40:
+              return key_name
+           else:
+              self.allowed_length_message()
 
 
 
