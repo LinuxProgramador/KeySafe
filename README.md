@@ -68,3 +68,40 @@ Other commands:
 
 python3 sv.py [-h, --help, -V, -r, -g, -u, -d, -l, -b, -c]
 
+Version to compile:
+
+Advantages of compiling: 
+
+it guarantees that the source code is not altered, and even more so if a signature is applied to it
+
+NOTE: every time a dependency update is released, repeat this procedure to keep the program free of vulnerabilities 
+
+Convert to executable:
+
+access your KeySafe directory from the path ~/KeySafe 
+
+then install the pyinstaller module python3 -m pip install pyinstaller 
+
+pyinstaller --onefile sv 
+
+cp -f dist/sv ./ 
+
+then remove the remaining files, just leave the sv and requirements.txt
+
+Sign executable: 
+
+1. install gnupg sudo apt update sudo apt install gnupg -y
+
+2. Create a GPG key (if you don't have one) If you don't have a GPG key,
+
+create a new one: gpg --full-generate-key
+
+3. Sign the executable Use GPG to sign the executable:
+
+ Embedded signature, This attaches the signature to the executable:
+ 
+ gpg --output sv --sign sv 
+ 
+ 4. Verify the signature If it is an embedded signature:
+ 
+ gpg --verify sv
