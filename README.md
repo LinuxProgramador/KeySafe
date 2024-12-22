@@ -102,6 +102,6 @@ Sign executable:
 
    gpg --detach-sign -o sv.sig  sv
  
-4. Verify the signature If it is an embedded signature:
+4. Verify the signature:
  
    gpg --verify sv.sig  sv
