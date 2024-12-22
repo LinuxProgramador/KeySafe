@@ -100,10 +100,8 @@ Sign executable:
 
 3. Sign the executable Use GPG to sign the executable:
 
-   Embedded signature, This attaches the signature to the executable:
+   gpg --detach-sign -o sv.sig  sv
  
-   gpg --output sv --sign sv 
+4. Verify the signature If it is an embedded signature:
  
- 4. Verify the signature If it is an embedded signature:
- 
-   gpg --verify sv
+   gpg --verify sv.sig  sv
