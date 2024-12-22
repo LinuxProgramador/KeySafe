@@ -88,7 +88,7 @@ pyinstaller --onefile sv
 
 cp -f dist/sv ./ 
 
-then remove the remaining files, just leave the sv, .VaultSecret, README.md, .git and requirements.txt
+then remove the remaining files, just leave the sv, sv.sig, .VaultSecret, README.md, .git and requirements.txt
 
 Sign executable: 
 
