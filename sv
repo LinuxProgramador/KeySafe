@@ -532,7 +532,7 @@ if __name__ == "__main__":
     process = run(['/usr/bin/ps', 'aux'], text=True, check=True, capture_output=True)
     output = [line for line in process.stdout.splitlines() if 'sv' in line]
     if not any('S+' in line for line in output):
-       # 
+       #The "pass" is set and then closed with "finally"
        pass
     elif getuser() != owner or getuser() == "root":
        print("Access denied!")
