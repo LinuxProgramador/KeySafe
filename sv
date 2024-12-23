@@ -2,6 +2,17 @@
 
 #Tool to generate secure keys and store them safely on Linux distros
 
+from signal import signal, SIGTSTP
+#Known bug, does not handle the KeyboardInterrupt exception very well even if the try-except is applied
+def handle_tstp_signal(signum,frame):
+    '''                                                                       
+    Function that allows me to catch the signal produced by the ctrl_z key.
+    '''
+    print("\nOperation not permitted!")
+    exit(1)
+
+signal(SIGTSTP, handle_tstp_signal)
+    
 from secrets import choice
 from sys import argv, exit
 from os import chmod, path, mkdir, remove, listdir, stat, urandom
@@ -10,7 +21,6 @@ from bcrypt import checkpw, hashpw, gensalt
 from getpass import getpass, getuser
 from string import ascii_lowercase, digits, ascii_uppercase
 from subprocess import run, CalledProcessError
-from signal import signal, SIGTSTP
 from shutil import copy
 from datetime import datetime
 from pwd import getpwuid
@@ -530,8 +540,7 @@ if __name__ == "__main__":
       print(f"Path or file does not exist => {e}")
    except (KeyError,ValueError,LookupError):
       print("Error getting owner of file sv!")
-   except (KeyboardInterrupt,EOFError):
-      print("\nOperation canceled by user!")
+  
       
 
 __name__="SecureVault"
