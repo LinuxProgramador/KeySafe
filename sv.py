@@ -3,7 +3,7 @@
 #Tool to generate secure keys and store them safely on Linux distros
 
 from signal import signal, SIGTSTP, SIGINT
-
+#These two functions are implemented to avoid script suspension and also a bug when executing ctrl_c at the beginning of the script  
 def handle_tstp_signal(signum,frame):
     '''   
     Function that allows me to catch the signal produced by the ctrl_z key.
