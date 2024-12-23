@@ -532,10 +532,11 @@ if __name__ == "__main__":
     process = run(['/usr/bin/ps', 'aux'], text=True, check=True, capture_output=True)
     output = [line for line in process.stdout.splitlines() if 'sv' in line]
     if not any('S+' in line for line in output):
-       exit(1)
+       # 
+       pass
     elif getuser() != owner or getuser() == "root":
        print("Access denied!")
-       exit(1)
+       
     else:
        vault = SecureVault()
        vault.main()
@@ -546,7 +547,8 @@ if __name__ == "__main__":
       print(f"Path or file does not exist => {e}")
    except (KeyError,ValueError,LookupError):
       print("Error getting owner of file sv!")
-  
+   finally:
+      exit(1)
       
 
 __name__="SecureVault"
