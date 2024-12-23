@@ -4,6 +4,7 @@
 
 from signal import signal, SIGTSTP
 #Known bug, does not handle the KeyboardInterrupt exception very well even if the try-except is applied
+#The function below prevents the program from being suspended at startup using ctrl_z
 def handle_tstp_signal(signum,frame):
     '''                                                                       
     Function that allows me to catch the signal produced by the ctrl_z key.
