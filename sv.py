@@ -8,9 +8,12 @@ def handle_tstp_signal(signum,frame):
     '''   
     Function that allows me to catch the signal produced by the ctrl_z key.
     '''
-    print("\nOperation not permitted!")
-    exit(1)
-
+    try:
+      print("\nOperation not permitted!")
+      exit(1)
+    except NameError:
+      exit(1)
+        
 def handle_int_signal(signum,frame):
     '''
     Function that allows me to catch the signal produced by the ctrl_c key.
