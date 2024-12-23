@@ -540,7 +540,7 @@ if __name__ == "__main__":
     output = [line for line in process.stdout.splitlines() if 'sv.py' in line]
     if not any('S+' in line for line in output):
        exit(1)
-    elif getuser() != owner and getuser() == "root":
+    elif getuser() != owner or getuser() == "root":
        print("Access denied!")
        exit(1)
     else:
