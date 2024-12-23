@@ -2,7 +2,9 @@
 
 #Tool to generate secure keys and store them safely on Linux distros
 
+from sys import argv, exit
 from signal import signal, SIGTSTP
+    
 #Known bug, does not handle the KeyboardInterrupt exception very well even if the try-except is applied
 #The function below prevents the program from being suspended at startup using ctrl_z
 def handle_tstp_signal(signum,frame):
@@ -18,7 +20,6 @@ def handle_tstp_signal(signum,frame):
 signal(SIGTSTP, handle_tstp_signal)
     
 from secrets import choice
-from sys import argv, exit
 from os import chmod, path, mkdir, remove, listdir, stat, urandom
 from cryptography.fernet import Fernet, InvalidToken
 from bcrypt import checkpw, hashpw, gensalt
