@@ -2,7 +2,9 @@
 
 #Tool to generate secure keys and store them safely on Linux distros
 
+from sys import argv, exit
 from signal import signal, SIGTSTP, SIGINT
+
 #These two functions are implemented to avoid script suspension and also a bug when executing ctrl_c at the beginning of the script  
 def handle_tstp_signal(signum,frame):
     '''   
@@ -25,7 +27,6 @@ signal(SIGINT, handle_int_signal)
 signal(SIGTSTP, handle_tstp_signal)
 
 from secrets import choice
-from sys import argv, exit
 from os import chmod, path, mkdir, remove, listdir, stat, urandom
 from cryptography.fernet import Fernet, InvalidToken
 from bcrypt import checkpw, hashpw, gensalt 
