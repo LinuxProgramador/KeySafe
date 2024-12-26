@@ -18,6 +18,8 @@ NOTE: Anti-data deletion protection only applies to keys within the directory. V
 
 NOTE: in Arch Linux and in some distros derived from Ubuntu, it is necessary to create a virtual environment to install the dependencies that are in the requirements.txt file
 
+NOTE: Do not use symbols in password names 
+
 NOTE: when changing the unique key, it is recommended to execute the -b option first to have a backup of the keys in case there is a system interruption due to a power outage, etc....
 
 Dependencies: python3, python3-pip, e2fsprogs, procps
