@@ -219,6 +219,7 @@ class SecureVault:
       '''
       with open(path.join(self.key_path, ".key"), 'wb') as key_file:
          hashed_key = hashpw(bytes(key), gensalt())
+         key = self.data_overwrite()
          key_file.write(hashed_key)
          chmod(path.join(self.key_path, ".key"), 0o600)
          self.immutable_data(".key")
