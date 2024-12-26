@@ -49,10 +49,10 @@ class SecureVault:
         '''
         self.characters = ascii_lowercase + digits + '@/*_"\',\\+&-;!?#$' + ascii_uppercase
         #gru These sets are customizable at the user's disposal to add more data (Recommended not to delete)
-        self.malicious_symbols = set("/+_-='~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°")
+        self.malicious_symbols = set("/+_-='~£¢€¥^✓§∆π√©®™•÷×?#;|&}!{][*>%<)($@:`,°\"\\")
         self.malicious_symbols_and_commands = set(["ping","ss","id","whoami", "groups","disown",
         "nohup","fg","bg","more","dir","ps","ls","cd","nano","vim","echo","cat","exec","wget",
-        "curl","host","df","system","..","&&","||","\"","\\"])                                       
+        "curl","host","df","system","..","&&","||"])                                       
         self.options = ['-d','-r','-g','-V','-l','-u','-h','--help','-b','-c']
         self.user = getuser()
         self.key_path = f"/home/{self.user}/KeySafe/.VaultSecret"
