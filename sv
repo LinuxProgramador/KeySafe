@@ -270,6 +270,8 @@ class SecureVault:
       Helper function that divides the tasks of the save_key function
       '''
       with open(path.join(self.key_path,key_name), 'wb') as key_file:
+           try:
+            self.lock_file(key_file, fcntl.LOCK_EX)
             fernet = Fernet(bytes(temp_entry))
             temp_entry = self.data_overwrite()
             temp_encrypt = bytearray(temp_fernet_key.decrypt(temp_encrypt))
@@ -281,6 +283,8 @@ class SecureVault:
             chmod(path.join(self.key_path,key_name), 0o600)
             self.immutable_data(key_name)
             print("Your password has been saved successfully!")
+           finally:
+              fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
       return
 
 
