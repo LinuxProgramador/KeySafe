@@ -30,7 +30,8 @@ from shutil import copy
 from datetime import datetime
 from pwd import getpwuid
 from time import sleep
-
+import fcntl
+    
 
 class SecureVault:
     '''
@@ -77,6 +78,18 @@ class SecureVault:
            run(['/usr/bin/sudo', '/usr/bin/chattr', '+i', path.join(self.key_path,data) ], check=True, capture_output=True)
        except CalledProcessError:
            print("An error occurred while applying immutability settings!")
+
+           
+
+     def lock_file(self,file_obj, lock_type):
+       '''
+       Applies a lock to a file using fcntl.
+       '''
+       try:
+         fcntl.flock(file_obj.fileno(), lock_type)
+       except IOError:
+         print("Error locking file!")
+
 
 
     def data_overwrite(self):
