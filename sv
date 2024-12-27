@@ -185,6 +185,8 @@ class SecureVault:
                 else:
                     print(f"Error, the file \".key\" is corrupt, please restore your backup and proceed to delete the corrupt file in => {self.key_path}")
                     exit(1)
+               finally:
+                  fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
                       
 
     def name_input(self):
