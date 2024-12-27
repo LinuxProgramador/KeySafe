@@ -81,7 +81,7 @@ class SecureVault:
 
            
 
-     def lock_file(self,file_obj, lock_type):
+    def lock_file(self,file_obj, lock_type):
        '''
        Applies a lock to a file using fcntl.
        '''
