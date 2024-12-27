@@ -229,7 +229,7 @@ class SecureVault:
                     decrypted_key = self.data_overwrite()
                     break
                    finally:
-                      fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
+                    fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
               else:
                   print("Can't read the unique key!")
                   temp_entry = self.data_overwrite()
@@ -245,13 +245,14 @@ class SecureVault:
       '''
       with open(path.join(self.key_path, ".key"), 'wb') as key_file:
         try:
+         self.lock_file(key_file, fcntl.LOCK_EX)
          hashed_key = hashpw(bytes(key), gensalt())
          key = self.data_overwrite()
          key_file.write(hashed_key)
          chmod(path.join(self.key_path, ".key"), 0o600)
          self.immutable_data(".key")
         finally:
-           fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
+         fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
       return   
     
 
@@ -288,7 +289,7 @@ class SecureVault:
             self.immutable_data(key_name)
             print("Your password has been saved successfully!")
            finally:
-              fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
+            fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
       return
         
 
@@ -411,7 +412,7 @@ class SecureVault:
                  encrypted_content = file_to_read.read()
                  decrypted_content = bytearray(current_fernet.decrypt(encrypted_content))
                 finally:
-                    fcntl.flock(file_to_read.fileno(), fcntl.LOCK_UN)
+                 fcntl.flock(file_to_read.fileno(), fcntl.LOCK_UN)
             with open(path.join(self.key_path, file_name), 'wb') as file_to_write:
                 try:
                  self.lock_file(file_to_write, fcntl.LOCK_EX)
@@ -421,7 +422,7 @@ class SecureVault:
                  chmod(path.join(self.key_path, file_name), 0o600)
                  self.immutable_data(file_name)
                 finally:
-                    fcntl.flock(file_to_write.fileno(), fcntl.LOCK_UN)
+                 fcntl.flock(file_to_write.fileno(), fcntl.LOCK_UN)
       current_fernet = self.data_overwrite()
       new_fernet_key = self.data_overwrite()
       decrypted_content = self.data_overwrite()
