@@ -91,11 +91,13 @@ class SecureVault:
        '''
        Applies a lock to a file using fcntl.
        '''
-       try:
-         fcntl.flock(file_obj.fileno(), lock_type)
-       except IOError:
-         print("Error locking file!")
-           
+       for _ in range(3):
+         try:
+           fcntl.flock(file_obj.fileno(), lock_type)
+           return
+         except IOError:
+           print("Error locking file!")
+           sleep(2)
 
     
     def data_overwrite(self):
