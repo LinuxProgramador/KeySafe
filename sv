@@ -186,7 +186,7 @@ class SecureVault:
                     print(f"Error, the file \".key\" is corrupt, please restore your backup and proceed to delete the corrupt file in => {self.key_path}")
                     exit(1)
                finally:
-                  fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
+                fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
                       
 
     def name_input(self):
@@ -213,7 +213,7 @@ class SecureVault:
              if checkpw(bytes(temp_entry), self.read_key_local()):
               if key_name != ".key":
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
-                  try:
+                   try:
                     self.lock_file(key_file, fcntl.LOCK_EX)
                     encrypted_key = key_file.read()
                     fernet = Fernet(bytes(temp_entry))
@@ -223,7 +223,7 @@ class SecureVault:
                     print(f"Your password is => {decrypted_key.decode()}")
                     decrypted_key = self.data_overwrite()
                     break
-                  finally:
+                   finally:
                     fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
               else:
                   print("Can't read the unique key!")
@@ -247,7 +247,7 @@ class SecureVault:
          chmod(path.join(self.key_path, ".key"), 0o600)
          self.immutable_data(".key")
         finally:
-          fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
+         fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
       return
 
 
@@ -284,7 +284,7 @@ class SecureVault:
             self.immutable_data(key_name)
             print("Your password has been saved successfully!")
            finally:
-              fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
+            fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
       return
 
 
@@ -407,7 +407,7 @@ class SecureVault:
                  encrypted_content = file_to_read.read()
                  decrypted_content = bytearray(current_fernet.decrypt(encrypted_content))
                 finally:
-                   fcntl.flock(file_to_read.fileno(), fcntl.LOCK_UN)
+                 fcntl.flock(file_to_read.fileno(), fcntl.LOCK_UN)
             with open(path.join(self.key_path, file_name), 'wb') as file_to_write:
                 try:
                  self.lock_file(file_to_write, fcntl.LOCK_EX)
@@ -417,7 +417,7 @@ class SecureVault:
                  chmod(path.join(self.key_path, file_name), 0o600)
                  self.immutable_data(file_name)
                 finally:
-                    fcntl.flock(file_to_write.fileno(), fcntl.LOCK_UN)
+                 fcntl.flock(file_to_write.fileno(), fcntl.LOCK_UN)
       current_fernet = self.data_overwrite()
       new_fernet_key = self.data_overwrite()
       decrypted_content = self.data_overwrite()
