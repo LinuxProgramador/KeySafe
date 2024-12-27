@@ -177,6 +177,8 @@ class SecureVault:
          '''
          if self.is_sanitized(".key"):
            with open(path.join(self.key_path,".key"), 'rb') as key_file:
+               try:
+                self.lock_file(key_file, fcntl.LOCK_EX)
                 stored_hash = key_file.read()
                 if any(v in stored_hash.decode() for v in ["2a$", "2b$", "2y$"]) and len(stored_hash) == 60:
                     return stored_hash
