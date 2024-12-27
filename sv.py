@@ -183,13 +183,16 @@ class SecureVault:
          '''
          if self.is_sanitized(".key"):
            with open(path.join(self.key_path,".key"), 'rb') as key_file:
+               try:
+                self.lock_file(key_file, fcntl.LOCK_EX)
                 stored_hash = key_file.read()
                 if any(v in stored_hash.decode() for v in ["2a$", "2b$", "2y$"]) and len(stored_hash) == 60:
                     return stored_hash
                 else:
                     print(f"Error, the file \".key\" is corrupt, please restore your backup and proceed to delete the corrupt file in => {self.key_path}")
                     exit(1)
-
+               finally:
+                fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
     
     def name_input(self):
          '''  
@@ -215,6 +218,7 @@ class SecureVault:
              if checkpw(bytes(temp_entry), self.read_key_local()):
               if key_name != ".key":
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
+                   try:
                     encrypted_key = key_file.read()
                     fernet = Fernet(bytes(temp_entry))
                     temp_entry = self.data_overwrite()
@@ -223,6 +227,8 @@ class SecureVault:
                     print(f"Your password is => {decrypted_key.decode()}")
                     decrypted_key = self.data_overwrite()
                     break
+                   finally:
+                      fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
               else:
                   print("Can't read the unique key!")
                   temp_entry = self.data_overwrite()
@@ -237,11 +243,14 @@ class SecureVault:
       file with restricted permissions
       '''
       with open(path.join(self.key_path, ".key"), 'wb') as key_file:
+        try:
          hashed_key = hashpw(bytes(key), gensalt())
          key = self.data_overwrite()
          key_file.write(hashed_key)
          chmod(path.join(self.key_path, ".key"), 0o600)
          self.immutable_data(".key")
+        finally:
+           fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
       return   
     
 
@@ -264,6 +273,8 @@ class SecureVault:
       Helper function that divides the tasks of the save_key function
       '''
       with open(path.join(self.key_path,key_name), 'wb') as key_file:
+           try:
+            self.lock_file(key_file, fcntl.LOCK_EX)
             fernet = Fernet(bytes(temp_entry))
             temp_entry = self.data_overwrite()
             temp_encrypt = bytearray(temp_fernet_key.decrypt(temp_encrypt))
@@ -275,6 +286,8 @@ class SecureVault:
             chmod(path.join(self.key_path,key_name), 0o600)
             self.immutable_data(key_name)
             print("Your password has been saved successfully!")
+           finally:
+              fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
       return
         
 
@@ -392,14 +405,22 @@ class SecureVault:
       if self.is_sanitized(file_name) and file_name != ".key":
             self.inmutable_validation_delete(file_name)
             with open(path.join(self.key_path, file_name), 'rb') as file_to_read:
+                try:
+                 self.lock_file(file_to_read, fcntl.LOCK_EX)
                  encrypted_content = file_to_read.read()
                  decrypted_content = bytearray(current_fernet.decrypt(encrypted_content))
+                finally:
+                    fcntl.flock(file_to_read.fileno(), fcntl.LOCK_UN)
             with open(path.join(self.key_path, file_name), 'wb') as file_to_write:
+                try:
+                 self.lock_file(file_to_write, fcntl.LOCK_EX)
                  new_fernet_encryptor = Fernet(bytes(new_fernet_key))
                  re_encrypted_content = new_fernet_encryptor.encrypt(bytes(decrypted_content))
                  file_to_write.write(re_encrypted_content)
                  chmod(path.join(self.key_path, file_name), 0o600)
                  self.immutable_data(file_name)
+                finally:
+                    fcntl.flock(file_to_write.fileno(), fcntl.LOCK_UN)
       current_fernet = self.data_overwrite()
       new_fernet_key = self.data_overwrite()
       decrypted_content = self.data_overwrite()
