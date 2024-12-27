@@ -219,6 +219,7 @@ class SecureVault:
               if key_name != ".key":
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
                    try:
+                    self.lock_file(key_file, fcntl.LOCK_EX)
                     encrypted_key = key_file.read()
                     fernet = Fernet(bytes(temp_entry))
                     temp_entry = self.data_overwrite()
