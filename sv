@@ -213,6 +213,8 @@ class SecureVault:
              if checkpw(bytes(temp_entry), self.read_key_local()):
               if key_name != ".key":
                 with open(path.join(self.key_path,key_name), 'rb') as key_file:
+                  try:
+                    self.lock_file(key_file, fcntl.LOCK_EX)
                     encrypted_key = key_file.read()
                     fernet = Fernet(bytes(temp_entry))
                     temp_entry = self.data_overwrite()
@@ -221,6 +223,8 @@ class SecureVault:
                     print(f"Your password is => {decrypted_key.decode()}")
                     decrypted_key = self.data_overwrite()
                     break
+                  finally:
+                    fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
               else:
                   print("Can't read the unique key!")
                   temp_entry = self.data_overwrite()
