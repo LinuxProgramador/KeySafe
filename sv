@@ -239,11 +239,15 @@ class SecureVault:
       file with restricted permissions
       '''
       with open(path.join(self.key_path, ".key"), 'wb') as key_file:
+        try:
+         self.lock_file(key_file, fcntl.LOCK_EX)
          hashed_key = hashpw(bytes(key), gensalt())
          key = self.data_overwrite()
          key_file.write(hashed_key)
          chmod(path.join(self.key_path, ".key"), 0o600)
          self.immutable_data(".key")
+        finally:
+          fcntl.flock(key_file.fileno(), fcntl.LOCK_UN)
       return
 
 
