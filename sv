@@ -402,14 +402,22 @@ class SecureVault:
       if self.is_sanitized(file_name) and file_name != ".key":
             self.inmutable_validation_delete(file_name)
             with open(path.join(self.key_path, file_name), 'rb') as file_to_read:
+                try:
+                 self.lock_file(file_to_read, fcntl.LOCK_EX)
                  encrypted_content = file_to_read.read()
                  decrypted_content = bytearray(current_fernet.decrypt(encrypted_content))
+                finally:
+                   fcntl.flock(file_to_read.fileno(), fcntl.LOCK_UN)
             with open(path.join(self.key_path, file_name), 'wb') as file_to_write:
+                try:
+                 self.lock_file(file_to_write, fcntl.LOCK_EX)
                  new_fernet_encryptor = Fernet(bytes(new_fernet_key))
                  re_encrypted_content = new_fernet_encryptor.encrypt(bytes(decrypted_content))
                  file_to_write.write(re_encrypted_content)
                  chmod(path.join(self.key_path, file_name), 0o600)
                  self.immutable_data(file_name)
+                finally:
+                    fcntl.flock(file_to_write.fileno(), fcntl.LOCK_UN)
       current_fernet = self.data_overwrite()
       new_fernet_key = self.data_overwrite()
       decrypted_content = self.data_overwrite()
