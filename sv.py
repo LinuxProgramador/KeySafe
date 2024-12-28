@@ -190,6 +190,7 @@ class SecureVault:
                try:
                 self.lock_file(key_file, fcntl.LOCK_EX)
                 stored_hash = key_file.read()
+                bcrypt_hash_validation = stored_hash.decode()
                 if any(v in stored_hash.decode() for v in ["2a$", "2b$", "2y$"]) and len(stored_hash) == 60:
                     return stored_hash
                 else:
