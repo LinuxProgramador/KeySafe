@@ -30,7 +30,8 @@ from shutil import copy
 from datetime import datetime
 from pwd import getpwuid
 from time import sleep
-import fcntl
+from fcntl import flock, LOCK_EX, LOCK_UN
+    
     
 
 class SecureVault:
