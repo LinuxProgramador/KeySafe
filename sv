@@ -114,6 +114,7 @@ class SecureVault:
         Generates a secure cryptographic key with a user-defined or default length.
         '''
         generated_key = ""
+        #length is hidden with "getpass" for security 
         query_longitude = int(getpass("Set key length (15/64) or press zero for default: "))
         key_length = choice(range(15 ,65))
         if query_longitude:
