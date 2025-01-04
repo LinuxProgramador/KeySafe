@@ -30,7 +30,7 @@ from shutil import copy
 from datetime import datetime
 from pwd import getpwuid
 from time import sleep
-from fcntl import flock, LOCK_EX, LOCK_UN
+import fcntl 
     
     
 
