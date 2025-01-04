@@ -554,7 +554,7 @@ Help Menu:
         except PermissionError as p:
             print(f"Permissions error on the file or directory => {p}")
         except ValueError:
-            print("The data you entered does not match the data requested or the file is temporarily locked!")
+            print("The data you entered does not match the data requested!")
         except InvalidToken:
             print("An error has occurred in the data encoding or decoding procedure!")
         except IsADirectoryError:
