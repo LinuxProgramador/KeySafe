@@ -30,82 +30,96 @@ IMPORTANT: DO NOT RUN AS ROOT USER!
 
 First, navigate to your home directory:
 
-cd ~
+    cd ~
 
-Clone the repository:
+    Clone the repository:
 
-git clone https://github.com/LinuxProgramador/KeySafe
+    git clone https://github.com/LinuxProgramador/KeySafe
 
-Move into the KeySafe directory:
+    Move into the KeySafe directory:
 
-cd KeySafe
+    cd KeySafe
 
 Set the appropriate permissions for the script:
 
-chmod 700 sv.py
+    chmod 700 sv.py
 
 and
 
-chmod 600 requirements.txt
+    chmod 600 requirements.txt
 
 Install dependencies:
 
 For most distributions, install with:
 
-sudo apt install python3 python3-pip e2fsprogs procps
+    sudo apt install python3 python3-pip e2fsprogs procps
 
 For Arch Linux, use:
 
-sudo pacman -S python python-pip e2fsprogs procps
+    sudo pacman -S python python-pip e2fsprogs procps
 
 Then, install the Python dependencies:
 
-python3 -m pip install -r requirements.txt
+    python3 -m pip install -r requirements.txt
 
 Run the following command to generate the unique key, which will be required for any further actions within the script:
 
-python3 sv.py -u
+    python3 sv.py -u
 
 Other commands:
 
 python3 sv.py [-h, --help, -V, -r, -g, -u, -d, -l, -b, -c]
 
-Version to compile
+Version to compile:
 
-Advantages of compiling
+Advantages of compiling:
 
-Ensures that the source code is not tampered with.
+    Ensures that the source code is not tampered with.
 
-Signing adds extra security.
+    Signing adds extra security.
 
-Note: Update dependencies regularly to keep the program secure.
+    Note: Update dependencies regularly to keep the program secure.
 
 
-Convert to executable
+Convert to executable:
 
-Go to the KeySafe directory: cd ~/KeySafe.
+Go to the KeySafe directory: 
+
+    cd ~/KeySafe.
 
 Install the dependencies (including those in requirements.txt).
 
-Install PyInstaller: python3 -m pip install pyinstaller.
+Install PyInstaller: 
 
-Compile the program: pyinstaller --onefile sv.
+    python3 -m pip install pyinstaller.
 
-Copy the executable: cp -f dist/sv ./.
+Compile the program: 
+    
+    pyinstaller --onefile sv.
+
+Copy the executable: 
+     
+    cp -f dist/sv ./.
 
 Remove unnecessary files, leaving only:
 sv, sv.sig, .VaultSecret, README.md, .git, requirements.txt.
 
 
-Sign the executable
+Sign the executable:
 
-Install GnuPG: sudo apt update && sudo apt install gnupg -y.
+Install GnuPG: 
 
-Create a GPG key: gpg --full-generate-key.
+    sudo apt update && sudo apt install gnupg -y.
 
-Sign the executable: gpg --detach-sign -o sv.sig sv.
+Create a GPG key: 
+ 
+    gpg --full-generate-key.
+
+Sign the executable:
+
+    gpg --detach-sign -o sv.sig sv
 
 
-Verify the signature
+Verify the signature:
 
-Use: gpg --verify sv.sig sv.
+    gpg --verify sv.sig sv
