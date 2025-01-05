@@ -70,46 +70,42 @@ Other commands:
 
 python3 sv.py [-h, --help, -V, -r, -g, -u, -d, -l, -b, -c]
 
-Version to compile:
+Version to compile
 
-Advantages of compiling: 
+Advantages of compiling
 
-it guarantees that the source code is not altered, and even more so if a signature is applied to it
+Ensures that the source code is not tampered with.
 
-NOTE: every time a dependency update is released, repeat this procedure to keep the program free of vulnerabilities 
+Signing adds extra security.
 
-Convert to executable:
+Note: Update dependencies regularly to keep the program secure.
 
-access your KeySafe directory from the path ~/KeySafe 
 
-First install all the program dependencies including those in the requirements.txt file
+Convert to executable
 
-then install the pyinstaller module 
+Go to the KeySafe directory: cd ~/KeySafe.
 
-python3 -m pip install pyinstaller 
+Install the dependencies (including those in requirements.txt).
 
-pyinstaller --onefile sv 
+Install PyInstaller: python3 -m pip install pyinstaller.
 
-cp -f dist/sv ./ 
+Compile the program: pyinstaller --onefile sv.
 
-then remove the remaining files, just leave the sv, sv.sig, .VaultSecret, README.md, .git and requirements.txt
+Copy the executable: cp -f dist/sv ./.
 
-Sign executable: 
+Remove unnecessary files, leaving only:
+sv, sv.sig, .VaultSecret, README.md, .git, requirements.txt.
 
-1. install gnupg
 
-   sudo apt update
+Sign the executable
 
-   sudo apt install gnupg -y
+Install GnuPG: sudo apt update && sudo apt install gnupg -y.
 
-3. Create a GPG key:
+Create a GPG key: gpg --full-generate-key.
 
-   gpg --full-generate-key
+Sign the executable: gpg --detach-sign -o sv.sig sv.
 
-4. Sign the executable:
 
-   gpg --detach-sign -o sv.sig  sv
- 
-5. Verify the signature:
- 
-   gpg --verify sv.sig  sv
+Verify the signature
+
+Use: gpg --verify sv.sig sv.
