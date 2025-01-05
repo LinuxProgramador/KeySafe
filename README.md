@@ -32,11 +32,11 @@ First, navigate to your home directory:
 
     cd ~
 
-    Clone the repository:
+Clone the repository:
 
     git clone https://github.com/LinuxProgramador/KeySafe
-
-    Move into the KeySafe directory:
+    
+Move into the KeySafe directory:
 
     cd KeySafe
 
