@@ -85,21 +85,22 @@ Convert to executable:
 
 Go to the KeySafe directory: 
 
-    cd ~/KeySafe.
+    cd ~/KeySafe
+    
 
 Install the dependencies (including those in requirements.txt).
 
 Install PyInstaller: 
 
-    python3 -m pip install pyinstaller.
+    python3 -m pip install pyinstaller
 
 Compile the program: 
     
-    pyinstaller --onefile sv.
+    pyinstaller --onefile sv
 
 Copy the executable: 
      
-    cp -f dist/sv ./.
+    cp -f dist/sv ./
 
 Remove unnecessary files, leaving only:
 sv, sv.sig, .VaultSecret, README.md, .git, requirements.txt.
@@ -109,11 +110,11 @@ Sign the executable:
 
 Install GnuPG: 
 
-    sudo apt update && sudo apt install gnupg -y.
+    sudo apt update && sudo apt install gnupg -y
 
 Create a GPG key: 
  
-    gpg --full-generate-key.
+    gpg --full-generate-key
 
 Sign the executable:
 
