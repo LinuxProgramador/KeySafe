@@ -70,6 +70,14 @@ Other commands:
 
 python3 sv.py [-h, --help, -V, -r, -g, -u, -d, -l, -b, -c]
 
+How to create a virtual environment in Python3:
+
+    python3 -m venv venv/path/to/venv
+
+Using the virtual environment:
+
+    venv/path/to/venv/bin/"and here the commands to execute"
+
 Version to compile:
 
 Advantages of compiling:
