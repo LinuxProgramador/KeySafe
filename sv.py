@@ -596,7 +596,7 @@ if __name__ == "__main__":
    except FileNotFoundError as e:
       print(f"Path or file not found => {e}")
    except (KeyError,ValueError,LookupError):
-      print("Error getting owner of file sv.py")
+      print("Error retrieving file owner for sv.py")
    finally:
       exit(1)
        
