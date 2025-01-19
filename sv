@@ -231,7 +231,7 @@ class SecureVault:
                    finally:
                     flock(key_file.fileno(), LOCK_UN)
               else:
-                  print("Can't read the unique key!")
+                  print("Unable to read the unique key")
                   temp_entry = self.data_overwrite()
              else:
                 print("Invalid password")
