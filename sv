@@ -551,7 +551,7 @@ Help Menu:
         except (KeyboardInterrupt,EOFError):
             print("\nOperation aborted by the user")
         except FileNotFoundError as e:
-            print(f"Path or file does not exist => {e}")
+            print(f"Path or file not found => {e}")
         except PermissionError as p:
             print(f"Permissions error on the file or directory => {p}")
         except ValueError:
@@ -589,7 +589,7 @@ if __name__ == "__main__":
    except CalledProcessError:
       print("Error running ps command!")
    except FileNotFoundError as e:
-      print(f"Path or file does not exist => {e}")
+      print(f"Path or file not found => {e}")
    except (KeyError,ValueError,LookupError):
       print("Error getting owner of file sv!")
    finally:
