@@ -20,7 +20,7 @@ def handle_int_signal(signum,frame):
     '''
     Function that allows me to catch the signal produced by the ctrl_c key.
     '''
-    print("\nOperation canceled by user!")
+    print("\nOperation aborted by the user")
     exit(1)
 
 signal(SIGINT, handle_int_signal)
@@ -553,7 +553,7 @@ Help Menu:
             else:
                 print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
         except (KeyboardInterrupt,EOFError):
-            print("\nOperation canceled by user!")
+            print("\nOperation aborted by the user")
         except FileNotFoundError as e:
             print(f"Path or file does not exist => {e}")
         except PermissionError as p:
