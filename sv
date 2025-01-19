@@ -234,7 +234,7 @@ class SecureVault:
                   print("Can't read the unique key!")
                   temp_entry = self.data_overwrite()
              else:
-                print("Incorrect password!")
+                print("Invalid password")
         return
 
 
@@ -313,7 +313,7 @@ class SecureVault:
                          temp_fernet_key = self.data_overwrite()
                          break
                     else:
-                        print("Incorrect password!")
+                        print("Invalid password")
                  else:
                     print("Password name already exists!")
       else:
@@ -365,7 +365,7 @@ class SecureVault:
                else:
                    print("The unique key cannot be deleted!")
              else:
-                print("Incorrect password!")
+                print("Invalid password")
           return
 
 
@@ -397,7 +397,7 @@ class SecureVault:
             print(f"The backup was created successfully in => {path_backup}")
             break
           else:
-             print("Incorrect password!")
+             print("Invalid password")
          return
 
     def auxiliary_change_unique_key(self,file_name,current_fernet,new_fernet_key):
@@ -452,7 +452,7 @@ class SecureVault:
             current_fernet = self.data_overwrite()
             break
         else:
-            print("Incorrect password!")
+            print("Invalid password")
       return
 
 
