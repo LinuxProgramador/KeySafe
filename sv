@@ -123,7 +123,7 @@ class SecureVault:
           if query_longitude >= 15 and query_longitude <= 64:
              key_length = query_longitude
           else:
-             print("You entered a number outside the allowed range, the default value will be set!")
+             print("Number out of range; default value applied")
          else:
             self.allowed_length_message()
         characters = list(self.characters)
