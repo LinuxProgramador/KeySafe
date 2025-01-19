@@ -85,7 +85,7 @@ class SecureVault:
         elif not any('-i' in line for line in list_attr_results.stdout.splitlines()):
            run(['/usr/bin/sudo', '/usr/bin/chattr', '+i', path.join(self.key_path,data) ], check=True, capture_output=True)
        except CalledProcessError:
-           print("An error occurred while applying immutability settings!")
+           print("An error occurred while updating immutability settings")
 
 
     def lock_file(self,file_obj, lock_type):
