@@ -570,7 +570,7 @@ Help Menu:
         except OSError:
            print("System error preventing function execution")
         except UnicodeEncodeError:
-           print("Text encoding error, please enter valid characters!")
+           print("Text encoding error; please use valid characters")
         finally:  
            return
               
