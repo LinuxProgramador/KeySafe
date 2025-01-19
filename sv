@@ -315,7 +315,7 @@ class SecureVault:
                     else:
                         print("Invalid password")
                  else:
-                    print("Password name already exists!")
+                    print("Password name already in use")
       else:
           self.allowed_length_message()
 
