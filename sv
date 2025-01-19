@@ -363,7 +363,7 @@ class SecureVault:
                  else:
                      print("Permissions altered; file not deleted for security")
                else:
-                   print("The unique key cannot be deleted!")
+                   print("Unique key cannot be deleted")
              else:
                 print("Invalid password")
           return
