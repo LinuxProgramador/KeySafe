@@ -399,7 +399,7 @@ class SecureVault:
             for file in files:
               if self.is_sanitized(file) and not path.isfile(path.join(path_backup,file + " " + str(datetime.now()))):
                 copy(path.join(self.key_path,file),path.join(path_backup,file + " " + str(datetime.now())))
-            print(f"The backup was created successfully in => {path_backup}")
+            print(f"Backup created successfully in => {path_backup}")
             break
           else:
              print("Invalid password")
