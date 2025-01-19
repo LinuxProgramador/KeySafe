@@ -561,7 +561,7 @@ Help Menu:
         except IsADirectoryError:
             print("Error: Directory detected")
         except TypeError:
-            print("An error occurred while creating the backup!")
+            print("Error creating backup")
         except OSError:
            print("An error has occurred in the system that prevents the correct execution of the given function!")
         except UnicodeEncodeError:
