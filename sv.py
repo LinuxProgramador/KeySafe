@@ -150,7 +150,7 @@ class SecureVault:
             print(f"Symbolic link detected in {path.join(self.sv_path, entry)} or {path.join(self.key_path, entry)}, operation denied")
             exit(1)
       elif entry in malicious_symbols_set:
-            print("Possible crash due to malicious symbol or command!")
+            print("Potential crash: Malicious symbol or command detected")
             exit(1)
       #Disables certain malicious symbols so that the unique key can be entered in base64.
       elif len(entry) >= 44:
@@ -158,7 +158,7 @@ class SecureVault:
         self.malicious_symbols.difference_update(sym)
       for char in entry:
          if char in self.malicious_symbols:
-            print("Possible crash due to malicious symbol or command!")
+            print("Potential crash: Malicious symbol or command detected")
             exit(1)
       #It reactivates the malicious symbols after entering the user's password, thus maintaining security.
       self.malicious_symbols.update("/+_-=")
