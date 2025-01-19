@@ -563,7 +563,7 @@ Help Menu:
         except TypeError:
             print("Error creating backup")
         except OSError:
-           print("An error has occurred in the system that prevents the correct execution of the given function!")
+           print("System error preventing function execution")
         except UnicodeEncodeError:
            print("Text encoding error, please enter valid characters!")
         finally:
