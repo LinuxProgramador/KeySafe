@@ -562,7 +562,7 @@ Help Menu:
         except ValueError:
             print("Entered data does not match the requested data")   
         except InvalidToken:
-            print("An error has occurred in the data encoding or decoding procedure!")
+            print("Error in data encoding or decoding")
         except IsADirectoryError:
             print("Error, a directory has been detected!")
         except TypeError:  
