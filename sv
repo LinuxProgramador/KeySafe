@@ -587,11 +587,11 @@ if __name__ == "__main__":
        vault.main()
 
    except CalledProcessError:
-      print("Error running ps command!")
+      print("Error running ps command")
    except FileNotFoundError as e:
       print(f"Path or file not found => {e}")
    except (KeyError,ValueError,LookupError):
-      print("Error getting owner of file sv!")
+      print("Error getting owner of file sv")
    finally:
       exit(1)
       
