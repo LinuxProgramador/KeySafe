@@ -559,7 +559,7 @@ Help Menu:
         except InvalidToken:
             print("Error in data encoding or decoding")
         except IsADirectoryError:
-            print("Error, a directory has been detected!")
+            print("Error: Directory detected")
         except TypeError:
             print("An error occurred while creating the backup!")
         except OSError:
