@@ -366,7 +366,7 @@ class SecureVault:
                    print("Password deleted successfully")
                    break
                  else:
-                     print("The permissions were altered, for security the file will not be deleted!")
+                     print("Permissions altered; file not deleted for security")
                else:
                    print("The unique key cannot be deleted!")
              else:
