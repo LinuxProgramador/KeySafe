@@ -11,7 +11,7 @@ def handle_tstp_signal(signum,frame):
     Function that allows me to catch the signal produced by the ctrl_z key.
     '''
     try:
-      print("\nOperation not permitted!")
+      print("\nOperation not allowed")
       exit(1)
     except NameError:
       exit(1)
@@ -64,7 +64,7 @@ class SecureVault:
        '''
        Function that allows me to catch the signal produced by the ctrl_z key.
        '''
-       print("\nOperation not permitted!")
+       print("\nOperation not allowed")
        exit(1)
         
         
