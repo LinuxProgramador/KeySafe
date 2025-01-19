@@ -548,7 +548,7 @@ Help Menu:
             else:
                 print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
         except (KeyboardInterrupt,EOFError):
-            print("\nOperation canceled by user!")
+            print("\nOperation aborted by the user")
         except FileNotFoundError as e:
             print(f"Path or file does not exist => {e}")
         except PermissionError as p:
