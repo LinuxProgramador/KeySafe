@@ -266,7 +266,7 @@ class SecureVault:
             print(f"Its unique key is => {fernet_key.decode()}")
             fernet_key = self.data_overwrite()
         else:
-            print("The password already exists!")
+            print("Password already exists")
         return
 
 
