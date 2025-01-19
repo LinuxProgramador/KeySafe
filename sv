@@ -297,7 +297,7 @@ class SecureVault:
       '''
       Saves a generated key to a specified file, after verifying the password.
       '''
-      confirm = input("Would you like to save the password (y/n): ").strip().lower()
+      confirm = input("Save password? (y/n): ").strip().lower()
       if not confirm:
           confirm = "n"
       if self.is_sanitized(confirm) and len(confirm) < 2:
