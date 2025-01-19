@@ -558,7 +558,7 @@ Help Menu:
         except FileNotFoundError as e:
             print(f"Path or file not found => {e}")
         except PermissionError as p:
-            print(f"Permissions error on the file or directory => {p}")
+            print(f"Permissions error on file or directory => {p}")
         except ValueError:
             print("The data you entered does not match the data requested!")   
         except InvalidToken:
