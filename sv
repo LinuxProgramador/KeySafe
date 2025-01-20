@@ -79,7 +79,7 @@ class SecureVault:
            run(['/usr/bin/sudo', '/usr/bin/chattr', '+i', path.join(self.key_path,data) ], check=True, capture_output=True)
        except CalledProcessError:
            print("An error occurred while updating immutability settings")
-
+       return
            
 
     def lock_file(self,file_obj, lock_type):
@@ -352,7 +352,7 @@ class SecureVault:
                self.immutable_data(key_name)
           except CalledProcessError:
                print("Error validating immutability: lsattr execution failed")
-
+          return
 
     def delete(self):
           '''
@@ -390,7 +390,7 @@ class SecureVault:
               chmod(rute, 0o700)
         elif path.isdir(rute) or path.isfile(rute):
               chmod(rute, 0o700)
-
+        return
 
     def backup(self):
          '''
@@ -529,7 +529,7 @@ Help Menu:
          self.keep_safe(self.sv_path)
          self.keep_safe(self.key_path)
          self.validate_arguments()
-
+         return
 
     def main(self):
         '''
