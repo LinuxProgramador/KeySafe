@@ -144,9 +144,10 @@ class SecureVault:
            
 
     def is_sanitized(self,entry):
-      '''
+     '''
       Checks if the provided entry contains any malicious symbols or commands.
-      '''
+     '''
+     try:
       malicious_symbols_set = self.malicious_symbols | self.malicious_symbols_and_commands
       if path.isdir(entry) or path.isdir(path.join(self.key_path, entry)):
             print(f"Directory detected in {path.join(self.sv_path, entry)} or {path.join(self.key_path, entry)}, operation denied")
@@ -168,7 +169,8 @@ class SecureVault:
       #It reactivates the malicious symbols after entering the user's password, thus maintaining security.
       self.malicious_symbols.update("/+_-=")
       return True
-
+     finally:
+        entry = self.data_overwrite()
     
     def password_entry_validation(self):
             '''
