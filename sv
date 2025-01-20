@@ -135,7 +135,8 @@ class SecureVault:
        finally:
          generated_key = self.data_overwrite()
          char = self.data_overwrite()
-
+         key_length = self.data_overwrite()
+         query_longitude = self.data_overwrite()
          
     def is_sanitized(self,entry):
      '''
