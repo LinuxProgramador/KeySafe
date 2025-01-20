@@ -188,7 +188,7 @@ class SecureVault:
                 if any(v in bcrypt_hash_validation[0:5] for v in ["2a$", "2b$", "2y$"]) and len(stored_hash) == 60:
                     return stored_hash
                 else:
-                    print(f"Error: \".key\" file corrupt. Restore backup and delete the file => {self.key_path}")
+                    print(f"Error: \".key\" file corrupt. Restore backup and delete the file in => {self.key_path}")
                     exit(1)
                finally:
                 flock(key_file.fileno(), LOCK_UN)
