@@ -165,11 +165,13 @@ class SecureVault:
       return True
      finally:
         entry = self.data_overwrite()
+        
 
     def password_entry_validation(self):
-            '''
+           '''
             Allows you to enter a key to validate with the stored password hash.
-            '''
+           '''
+           try:
             sleep(2)
             frequent_user_entry = bytearray(getpass("Enter your unique key: ").strip().replace(" ",""),"utf-8")
             if frequent_user_entry:
@@ -180,7 +182,9 @@ class SecureVault:
             else:
               frequent_user_entry = bytearray("0","utf-8")
               return frequent_user_entry
-
+           finally:
+               frequent_user_entry = self.data_overwrite()
+               
 
     def read_key_local(self):
          '''
