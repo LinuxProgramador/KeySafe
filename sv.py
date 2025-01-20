@@ -121,7 +121,7 @@ class SecureVault:
         Generates a secure cryptographic key with a user-defined or default length.
        '''
        try:
-        generated_key = ""
+        generated_key = bytearray("","utf-8")
         #length is hidden with "getpass" for security
         query_longitude = int(getpass("Set key length (15-64) or press 0 to use the default: "))
         key_length = choice(range(15 ,65))
@@ -135,7 +135,7 @@ class SecureVault:
             self.allowed_length_message()
         characters = list(self.characters)
         for _ in range(key_length):
-            char = choice(characters)
+            char = bytearray(choice(characters),"utf-8")
             generated_key += char
         return generated_key
        finally:
