@@ -93,7 +93,7 @@ class SecureVault:
          except IOError:
            print("Failed to lock the file")
            sleep(2)
-
+       return
 
     def data_overwrite(self):
         '''
