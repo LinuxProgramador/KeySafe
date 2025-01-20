@@ -111,9 +111,10 @@ class SecureVault:
 
 
     def generate_key(self):
-        '''
+       '''
         Generates a secure cryptographic key with a user-defined or default length.
-        '''
+       '''
+       try:
         generated_key = ""
         #length is hidden with "getpass" for security 
         query_longitude = int(getpass("Set key length (15-64) or press 0 to use the default: "))
@@ -131,7 +132,11 @@ class SecureVault:
             char = choice(characters)
             generated_key += char
         return generated_key
+       finally:
+         generated_key = self.data_overwrite()
+         char = self.data_overwrite()
 
+         
     def is_sanitized(self,entry):
       '''
       Checks if the provided entry contains any malicious symbols or commands.
@@ -526,7 +531,7 @@ Help Menu:
         try:
             self.auxiliary_main()
             if self.options[2] in argv:
-                temp_encrypt = bytearray(self.generate_key(),"utf-8")
+                temp_encrypt = self.generate_key()
                 print(f"Key-Safe => {temp_encrypt.decode()}")
                 self.temporary_key_encryption(temp_encrypt)
                 temp_encrypt = self.data_overwrite()
