@@ -160,7 +160,7 @@ class SecureVault:
             print("Potential crash: Malicious symbol or command detected")
             exit(1)
       #Disables certain malicious symbols so that the unique key can be entered in base64.
-      elif len(entry) >= 44:
+      elif len(entry) == 44:
         sym = set([rm for rm in "/+_-=" if rm in self.malicious_symbols])
         self.malicious_symbols.difference_update(sym)
       for char in entry:
