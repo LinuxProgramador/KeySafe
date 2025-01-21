@@ -464,7 +464,8 @@ class SecureVault:
             # Re-encrypt all existing files with the new key
             key_files = listdir(self.key_path)
             for file_name in key_files:
-               self.auxiliary_change_unique_key(file_name,current_fernet,new_fernet_key) 
+              if path.isfile(path.join(self.key_path, file_name)):
+                 self.auxiliary_change_unique_key(file_name,current_fernet,new_fernet_key) 
             new_fernet_key = self.data_overwrite()
             user_password = self.data_overwrite()
             current_fernet = self.data_overwrite()
