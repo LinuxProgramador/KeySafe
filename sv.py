@@ -72,6 +72,7 @@ class SecureVault:
      '''
      (optional) Detects framebuffer access on the system
      '''
+     #Detects framebuffer access to identify potential screen recording or unauthorized activity.
      try:
         """
         prompts the sudo password only once to cache it and prevent
