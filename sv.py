@@ -72,12 +72,6 @@ class SecureVault:
        '''
        (optional) set user keys to immutable added anti-delete security.
        '''
-       """
-       prompts the sudo password only once to cache it and prevent
-       it from being requested repeatedly in subsequent commands during 
-       the same session.
-       """
-       run(['/usr/bin/sudo','-S','/usr/bin/true'])
        try:
         list_attr_results = run(['/usr/bin/lsattr', path.join(self.key_path,data) ], text=True, check=True, capture_output=True)
         if any('-i' in line for line in list_attr_results.stdout.splitlines()):
@@ -541,6 +535,7 @@ Help Menu:
         Main function, which will perform tasks based on the arguments given by the user.
         '''
         try:
+            self.detect_framebuffer_access()
             self.auxiliary_main()
             if self.options[2] in argv:
                 temp_encrypt = self.generate_key()
