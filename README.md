@@ -96,11 +96,11 @@ Usage:
 
 To encrypt:
 
-    ccrypt -R .Vaultsecret/
+    ccrypt -R .VaultSecret/
 
 To decrypt:
 
-    ccrypt -dR .Vaultsecret/
+    ccrypt -dR .VaultSecret/
 
 NOTE: Use a random key that is different from your unique key.
 
