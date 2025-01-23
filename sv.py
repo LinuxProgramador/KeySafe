@@ -361,10 +361,10 @@ class SecureVault:
             '''
             Lists all stored passwords except the .key file.
             '''
-            listen = listdir(self.key_path) 
-            for x in listen: 
-                if not any(x in key_local for key_local in [".key",".key.cpt"]):
-                   print(x)
+            keys = listdir(self.key_path) 
+            for key in keys: 
+                if not any(key in key_unique for key_unique in [".key",".key.cpt"]):
+                   print(key)
             
     def inmutable_validation_delete(self,key_name):
           '''
