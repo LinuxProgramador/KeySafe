@@ -172,7 +172,7 @@ class SecureVault:
             exit(1)
       #Disables certain malicious symbols so that the unique key can be entered in base64.
       elif len(entry) == 44:
-        sym = set([rm for rm in "/+_-=" if rm in self.malicious_symbols])
+        sym = set([rm_sym for rm_sym in "/+_-=" if rm_sym in self.malicious_symbols])
         self.malicious_symbols.difference_update(sym)
       for char in entry:
          if char in self.malicious_symbols:
