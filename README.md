@@ -82,6 +82,14 @@ Using the virtual environment:
 
 Optional: Use ccrypt to apply an additional layer of encryption.
 
+but first remove the immutability:
+
+    sudo chattr -i "archivo aquí"
+    
+After encrypting with ccrypt, re-apply immutability:
+
+    sudo chattr +i "archivo aquí"
+    
 Installation:
 
 Ubuntu and derivatives:
