@@ -373,7 +373,7 @@ class SecureVault:
                print("Error validating immutability: lsattr execution failed")
           return
 
-    def delete(self):
+    def delete_key(self):
           '''
           Deletes a specified key file after verifying the password.
           '''
@@ -569,7 +569,7 @@ Help Menu:
             elif self.options[1] in argv:
                 self.read_key()
             elif self.options[0] in argv:
-                self.delete()
+                self.delete_key()
             elif self.options[4] in argv:
                 self.list_password()
             elif self.options[6] in argv or self.options[7] in argv:
