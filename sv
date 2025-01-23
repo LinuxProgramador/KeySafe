@@ -254,6 +254,7 @@ class SecureVault:
                     temp_entry = self.data_overwrite()
                     decrypted_key = bytearray(fernet.decrypt(encrypted_key))
                     fernet = self.data_overwrite()
+                    self.detect_framebuffer_access()
                     print(f"Your password is => {decrypted_key.decode()}")
                     decrypted_key = self.data_overwrite()
                     break
@@ -292,6 +293,7 @@ class SecureVault:
         if not path.isfile(path.join(self.key_path,".key")):
             fernet_key = bytearray(Fernet.generate_key())
             self.hashAndSaveKey(fernet_key)
+            self.detect_framebuffer_access()
             print(f"Its unique key is => {fernet_key.decode()}")
             fernet_key = self.data_overwrite()
         else:
@@ -553,7 +555,6 @@ Help Menu:
         Main function, which will perform tasks based on the arguments given by the user.
         '''
         try:
-            self.detect_framebuffer_access()
             self.auxiliary_main()
             if self.options[2] in argv:
                 temp_encrypt = self.generate_key()
