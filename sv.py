@@ -562,6 +562,7 @@ Help Menu:
             self.auxiliary_main()
             if self.options[2] in argv:
                 temp_encrypt = self.generate_key()
+                self.detect_framebuffer_access()
                 print(f"Key-Safe => {temp_encrypt.decode()}")
                 self.temporary_key_encryption(temp_encrypt)
                 temp_encrypt = self.data_overwrite()
