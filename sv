@@ -467,9 +467,9 @@ class SecureVault:
       Function to change the unique encryption key securely.
       '''
       for _ in range(2):
-        user_password = self.password_entry_validation()
+        temp_entry = self.password_entry_validation()
         if checkpw(bytes(user_password), self.read_key_local()):
-            current_fernet = Fernet(bytes(user_password))
+            current_fernet = Fernet(bytes(temp_entry))
             self.inmutable_validation_delete(".key")
             # Generate a new Fernet key and hash it
             new_fernet_key = bytearray(Fernet.generate_key())
@@ -480,7 +480,7 @@ class SecureVault:
             for file_name in key_files:
                  self.auxiliary_change_unique_key(file_name,current_fernet,new_fernet_key)
             new_fernet_key = self.data_overwrite()
-            user_password = self.data_overwrite()
+            temp_entry = self.data_overwrite()
             current_fernet = self.data_overwrite()
             break
         else:
