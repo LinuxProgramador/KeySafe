@@ -441,29 +441,29 @@ class SecureVault:
       '''
       Helper function that divides the tasks of the change_unique_key function
       '''
-      if self.is_sanitized(file_name) and file_name != ".key":
-            self.validation_existence_immutability(file_name)
-            with open(path.join(self.key_path, file_name), 'rb') as file_to_read:
+      if self.is_sanitized(key) and key != ".key":
+            self.validation_existence_immutability(key)
+            with open(path.join(self.key_path, key), 'rb') as file_to_read:
                 try:
                  self.lock_file(file_to_read, LOCK_EX)
                  encrypted_content = file_to_read.read()
-                 decrypted_content = bytearray(current_fernet.decrypt(encrypted_content))
+                 decrypted_content = bytearray(fernet_old_key.decrypt(encrypted_content))
                 finally:
                  flock(file_to_read.fileno(), LOCK_UN)
-            with open(path.join(self.key_path, file_name), 'wb') as file_to_write:
+            with open(path.join(self.key_path, key), 'wb') as file_to_write:
                 try:
                  self.lock_file(file_to_write, LOCK_EX)
-                 new_fernet_encryptor = Fernet(bytes(new_fernet_key))
-                 re_encrypted_content = new_fernet_encryptor.encrypt(bytes(decrypted_content))
-                 file_to_write.write(re_encrypted_content)
-                 chmod(path.join(self.key_path, file_name), 0o600)
-                 self.immutable_data(file_name)
+                 fernet_new_key = Fernet(bytes(new_fernet_key))
+                 encrypted_content = fernet_new_key.encrypt(bytes(decrypted_content))
+                 file_to_write.write(encrypted_content)
+                 chmod(path.join(self.key_path, key), 0o600)
+                 self.immutable_data(key)
                 finally:
                  flock(file_to_write.fileno(), LOCK_UN)
-      current_fernet = self.data_overwrite()
+      fernet_old_key = self.data_overwrite()
       new_fernet_key = self.data_overwrite()
       decrypted_content = self.data_overwrite()
-      new_fernet_encryptor = self.data_overwrite()
+      fernet_new_key = self.data_overwrite()
       return
         
 
@@ -474,19 +474,19 @@ class SecureVault:
       for _ in range(2):
         temp_entry = self.password_entry_validation()
         if checkpw(bytes(temp_entry), self.read_key_local()):
-            current_fernet = Fernet(bytes(temp_entry))
+            fernet_old_key = Fernet(bytes(temp_entry))
             self.validation_existence_immutability(".key")
             # Generate a new Fernet key and hash it
             new_fernet_key = bytearray(Fernet.generate_key())
             self.hashAndSaveKey(new_fernet_key)
             print(f"Your new unique key is => {new_fernet_key.decode()}")
             # Re-encrypt all existing files with the new key
-            key_files = listdir(self.key_path)
-            for file_name in key_files:
-                 self.auxiliary_change_unique_key(file_name,current_fernet,new_fernet_key) 
+            keys = listdir(self.key_path)
+            for key in keys:
+                 self.auxiliary_change_unique_key(key,fernet_old_key,new_fernet_key) 
             new_fernet_key = self.data_overwrite()
             temp_entry = self.data_overwrite()
-            current_fernet = self.data_overwrite()
+            fernet_old_key = self.data_overwrite()
             break
         else:
             print("Invalid password")
