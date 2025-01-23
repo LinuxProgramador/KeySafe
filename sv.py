@@ -366,7 +366,7 @@ class SecureVault:
                 if not any(key in key_unique for key_unique in [".key",".key.cpt"]):
                    print(key)
             
-    def inmutable_validation_delete(self,key_name):
+    def validation_existence_immutability(self,key_name):
           '''
           To avoid amplifying the immutable_data method, this validation was set up only for the delete method to ensure that it was only called if the immutable property exists.
           '''
@@ -392,7 +392,7 @@ class SecureVault:
                temp_entry = self.data_overwrite()
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
-                   self.inmutable_validation_delete(key_name)
+                   self.validation_existence_immutability(key_name)
                    remove(path.join(self.key_path,key_name))
                    print("Password deleted successfully")
                    break
@@ -442,7 +442,7 @@ class SecureVault:
       Helper function that divides the tasks of the change_unique_key function
       '''
       if self.is_sanitized(file_name) and file_name != ".key":
-            self.inmutable_validation_delete(file_name)
+            self.validation_existence_immutability(file_name)
             with open(path.join(self.key_path, file_name), 'rb') as file_to_read:
                 try:
                  self.lock_file(file_to_read, LOCK_EX)
@@ -475,7 +475,7 @@ class SecureVault:
         temp_entry = self.password_entry_validation()
         if checkpw(bytes(temp_entry), self.read_key_local()):
             current_fernet = Fernet(bytes(temp_entry))
-            self.inmutable_validation_delete(".key")
+            self.validation_existence_immutability(".key")
             # Generate a new Fernet key and hash it
             new_fernet_key = bytearray(Fernet.generate_key())
             self.hashAndSaveKey(new_fernet_key)
