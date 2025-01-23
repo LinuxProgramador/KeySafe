@@ -358,7 +358,7 @@ class SecureVault:
             '''
             listen = listdir(self.key_path)
             for x in listen:
-                if x != ".key":
+                if not any(x in key_local for key_local in [".key",".key.cpt"]):
                    print(x)
 
     def inmutable_validation_delete(self,key_name):
