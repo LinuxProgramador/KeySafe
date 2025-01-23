@@ -419,13 +419,13 @@ class SecureVault:
           temp_entry = self.password_entry_validation()
           if checkpw(bytes(temp_entry), self.read_key_local()):
             temp_entry = self.data_overwrite()
-            files = listdir(self.key_path)
+            keys = listdir(self.key_path)
             path_backup = f"/home/{self.user}/.BacKupSV"
             self.keep_safe(path_backup)
-            for file in files:
-              now = datetime.now().strftime("%Y-%m-%d %H:%M")
-              if self.is_sanitized(file) and not path.isfile(path.join(path_backup,file + " " + now )):
-                copy(path.join(self.key_path,file),path.join(path_backup,file + " " + now ))
+            for key in keys:
+              date_and_time = datetime.now().strftime("%Y-%m-%d %H:%M")
+              if self.is_sanitized(key) and not path.isfile(path.join(path_backup,key + " " + date_and_time )):
+                copy(path.join(self.key_path,key),path.join(path_backup,key + " " + date_and_time ))
             print(f"Backup created successfully in => {path_backup}")
             break
           else:
