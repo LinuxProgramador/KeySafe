@@ -291,7 +291,7 @@ class SecureVault:
       return   
     
 
-    def store_unique_key(self):
+    def generate_unique_key(self):
         '''
         Stores a unique key by creating a .key file if it does not already exist.
         '''
@@ -570,7 +570,7 @@ Help Menu:
             elif self.options[3] in argv:
                 print("SecureVault 1.0. It is a tool that allows you to generate secure keys.")
             elif self.options[5] in argv:
-                self.store_unique_key()
+                self.generate_unique_key()
             elif self.options[1] in argv:
                 self.read_key()
             elif self.options[0] in argv:
