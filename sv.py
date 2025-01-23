@@ -612,8 +612,8 @@ if __name__ == "__main__":
     owner = getpwuid(stat(f"/home/{getuser()}/KeySafe/sv.py").st_uid).pw_name
     #Check that the script is not suspended for security reasons, (on some distros it may not work as expected, but this is unlikely)  
     process = run(['/usr/bin/ps', 'aux'], text=True, check=True, capture_output=True)
-    output = [line for line in process.stdout.splitlines() if 'sv.py' in line]
-    if process.stdout.count("sv.py") != 1 or not any('S+' in line for line in output):
+    line = [line for line in process.stdout.splitlines() if 'sv.py' in line]
+    if process.stdout.count("sv.py") != 1 or not any('S+' in word for word in line):
        #The "pass" is set and then closed with "finally"
        pass
     elif getuser() != owner or getuser() == "root":
