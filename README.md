@@ -80,6 +80,30 @@ Using the virtual environment:
 
     venv/path/to/venv/bin/"and here the commands to execute"
 
+Optional: Use ccrypt to apply an additional layer of encryption.
+
+Installation:
+
+Ubuntu and derivatives:
+
+    sudo apt install ccrypt -y
+
+Arch Linux:
+
+    sudo pacman -S ccrypt
+
+Usage:
+
+To encrypt:
+
+    ccrypt -R .Vaultsecret/
+
+To decrypt:
+
+    ccrypt -dR .Vaultsecret/
+
+NOTE: Use a random key that is different from your unique key.
+
 Version to compile:
 
 Advantages of compiling:
