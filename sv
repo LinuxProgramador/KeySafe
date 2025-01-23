@@ -432,7 +432,7 @@ class SecureVault:
              print("Invalid password")
          return
 
-    def auxiliary_change_unique_key(self,file_name,current_fernet,new_fernet_key):
+    def auxiliary_change_unique_key(self,key,fernet_old_key,new_fernet_key):
       '''
       Helper function that divides the tasks of the change_unique_key function
       '''
