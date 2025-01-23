@@ -468,7 +468,7 @@ class SecureVault:
       '''
       for _ in range(2):
         temp_entry = self.password_entry_validation()
-        if checkpw(bytes(user_password), self.read_key_local()):
+        if checkpw(bytes(temp_entry), self.read_key_local()):
             current_fernet = Fernet(bytes(temp_entry))
             self.inmutable_validation_delete(".key")
             # Generate a new Fernet key and hash it
