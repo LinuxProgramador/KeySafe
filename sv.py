@@ -630,7 +630,7 @@ if __name__ == "__main__":
     #Check that the script is not suspended for security reasons, (on some distros it may not work as expected, but this is unlikely)  
     process = run(['/usr/bin/ps', 'aux'], text=True, check=True, capture_output=True)
     line = [line for line in process.stdout.splitlines() if 'sv.py' in line]
-    if process.stdout.count("sv.py") != 1 or not any('S+' in word for word in line):
+    if process.stdout.count("sv.py") != 1 or not any('S+' in word for word in line) and not any('S<+' in word for word in line):
        #The "pass" is set and then closed with "finally"
        pass
     elif getuser() != owner or getuser() == "root":
