@@ -77,9 +77,7 @@ class SecureVault:
         if any(recording in fb_access.stdout for recording in ['ffmpeg','x11grab']):
             print("Screen recording detected")
             exit(1)
-     except CalledProcessError:
-           pass
-     except:
+     except (CalledProcessError,Exception):
            pass
      return
 
