@@ -86,8 +86,8 @@ class SecureVault:
        '''
        (optional) set user keys to immutable added anti-delete security.
        '''
-       run(['/usr/bin/sudo','-S','/usr/bin/true'])
        try:
+        run(['/usr/bin/sudo','-S','/usr/bin/true'])
         list_attr_results = run(['/usr/bin/lsattr', path.join(self.key_path,key) ], text=True, check=True, capture_output=True)
         if any('-i' in line for line in list_attr_results.stdout.splitlines()):
            run(['/usr/bin/sudo', '/usr/bin/chattr', '-i', path.join(self.key_path,key) ], check=True, capture_output=True)
