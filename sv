@@ -539,7 +539,7 @@ Help Menu:
                   self.allowed_length_message()
                   
 
-    def Validation_nonexistence_immutability(self):
+    def validation_nonexistence_immutability(self):
           '''
             This method checks the immutability of files in self.key_path and sets them as immutable if they are not.
           '''
@@ -563,6 +563,7 @@ Help Menu:
          self.keep_safe(self.sv_path)
          self.keep_safe(self.key_path)
          self.validate_arguments()
+         self.validation_nonexistence_immutability()
          return
 
     def main(self):
