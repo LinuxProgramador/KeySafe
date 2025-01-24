@@ -537,8 +537,23 @@ Help Menu:
 
         elif len(argv) >= 3:
                   self.allowed_length_message()
+                  
 
-
+    def Validation_nonexistence_immutability(self):
+          '''
+            This method checks the immutability of files in self.key_path and sets them as immutable if they are not.
+          '''
+          try:
+            keys = listdir(self.key_path)
+            for key in keys:
+              inmutable_validation = run(['/usr/bin/lsattr', path.join(self.key_path,key) ], text=True, check=True, capture_output=True)
+              if not any('-i' in inm for inm in inmutable_validation.stdout.splitlines()):
+                 self.immutable_data(key)
+          except CalledProcessError:
+            print("Error validating immutability: lsattr execution failed")
+          return
+          
+          
     def auxiliary_main(self):
          '''
          Helper function to split the tasks of the main function.
