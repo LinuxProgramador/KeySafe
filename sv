@@ -78,9 +78,9 @@ class SecureVault:
             print("Screen recording detected")
             exit(1)
      except CalledProcessError:
-           print("Error executing the lsof command")
+           pass
      except:
-           print("Error reading the framebuffer")
+           pass
      return
 
      
@@ -95,7 +95,7 @@ class SecureVault:
         elif not any('-i' in line for line in list_attr_results.stdout.splitlines()):
            run(['/usr/bin/sudo', '/usr/bin/chattr', '+i', path.join(self.key_path,data) ], check=True, capture_output=True)
        except CalledProcessError:
-           print("An error occurred while updating immutability settings")
+           pass
        return
            
 
