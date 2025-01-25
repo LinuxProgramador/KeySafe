@@ -58,8 +58,6 @@ Other commands:
 
 python3 sv.py [-h, --help, -V, -r, -g, -u, -d, -l, -b, -c]
 
-Remove unnecessary files, leaving only: sv.py, .VaultSecret, README.md, .git, requirements.txt.
-
 How to create a virtual environment in Python3:
 
     python3 -m venv venv/path/to/venv
@@ -133,10 +131,6 @@ Compile the program:
 Copy the executable: 
      
     cp -f dist/sv ./
-
-Remove unnecessary files, leaving only:
-sv, sv.sig, .VaultSecret, README.md, .git, requirements.txt.
-
 
 Sign the executable:
 
