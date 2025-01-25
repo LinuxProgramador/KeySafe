@@ -8,8 +8,6 @@ Recommended distributions:
 
 NOTE: To read and save secure keys, first generate the unique key by running python3 sv.py -u. Make sure to store this key securely, as you won’t be able to access your saved passwords without it.
 
-RECOMMENDED: Keep a backup of the unique key (or .key file) on external storage, along with any keys saved in the KeySafe/.VaultSecret directory. This ensures that if the system is formatted or the .VaultSecret directory is accidentally deleted, you won’t lose access to your keys.
-
 Remember to keep the script and module dependencies up-to-date by maintaining the requirements.txt file.
 
 To restore local backups: simply copy them to the KeySafe/. VaultSecret path and remove the date, but first remove the immutable attribute from the keys in the . VaultSecret directory.
