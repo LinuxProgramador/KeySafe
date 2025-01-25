@@ -108,9 +108,6 @@ Advantages of compiling:
 
     Signing adds extra security.
 
-    Note: Update dependencies regularly to keep the program secure.
-
-
 Convert to executable:
 
 Go to the KeySafe directory: 
