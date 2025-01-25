@@ -106,8 +106,6 @@ change password:
 
     ccrypt -x -R .VaultSecret/
 
-NOTE: Use a random key that is different from your unique key.
-
 Version to compile:
 
 Advantages of compiling:
