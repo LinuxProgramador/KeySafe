@@ -14,11 +14,7 @@ NOTE: in Arch Linux and in some distros derived from Ubuntu, it is necessary to 
 
 NOTE: Do not use symbols in password names 
 
-Dependencies: python3, python3-pip, e2fsprogs, procps
-
 Usage:
-
-IMPORTANT: DO NOT RUN AS ROOT USER!
 
 First, navigate to your home directory:
 
