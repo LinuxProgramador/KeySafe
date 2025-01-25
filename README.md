@@ -70,11 +70,11 @@ Optional: Use ccrypt to apply an additional layer of encryption.
 
 but first remove the immutability:
 
-    sudo chattr -i "archivo aquí"
+    sudo chattr -i "file here"
     
 After encrypting with ccrypt, re-apply immutability:
 
-    sudo chattr +i "archivo aquí"
+    sudo chattr +i "file here"
     
 Installation:
 
