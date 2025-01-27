@@ -56,7 +56,7 @@ Run the following command to generate the unique key, which will be required for
 
 Other commands:
 
-python3 sv.py [-h, --help, -V, -r, -g, -u, -d, -l, -b, -c]
+python3 sv.py [-h, --help, -V, -r, -g, -u, -d, -l, -b, -c, -ck]
 
 How to create a virtual environment in Python3:
 
