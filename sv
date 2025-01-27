@@ -502,7 +502,7 @@ Usage:
     ./sv -l  list your stored passwords
     ./sv -b  create a backup locally
     ./sv -c  change the unique key
-    ./sv -ck Stores a user-customized key
+    ./sv -ck stores a user-customized key
 Help Menu:
     -h  --help  print this help message and exit
                 """)
