@@ -55,7 +55,7 @@ class SecureVault:
         self.malicious_symbols_and_commands = set(["ping","ss","id","whoami", "groups","disown",
         "nohup","fg","bg","more","dir","ps","ls","cd","nano","vim","echo","cat","exec","wget",
         "curl","host","df","system","..","&&","||"])                                       
-        self.options = ['-d','-r','-g','-V','-l','-u','-h','--help','-b','-c']
+        self.options = ['-d','-r','-g','-V','-l','-u','-h','--help','-b','-c','-ck']
         self.user = getuser()
         self.key_path = f"/home/{self.user}/KeySafe/.VaultSecret"
         self.sv_path = f"/home/{self.user}/KeySafe"
@@ -630,6 +630,8 @@ Help Menu:
                 self.backup()
             elif self.options[9] in argv:
                 self.change_unique_key()
+            elif self.options[10] in argv:
+                 self.save_custom_key()
             else:
                 print("SecureVault: invalid arguments. Use -g to generate a secure key. Try --help for more information.")
         except (KeyboardInterrupt,EOFError):
