@@ -494,14 +494,15 @@ class SecureVault:
         print("SecureVault 1.0. It is a tool that allows you to generate secure keys.")
         print("""
 Usage:
-    ./ sv -g  generate a secure key
-    ./ sv -V  print version info and exit
-    ./ sv -r  read a stored password by its custom name
-    ./ sv -u  generate a unique key
-    ./ sv -d  delete secure key
-    ./ sv -l  list your stored passwords
-    ./ sv -b  create a backup locally
-    ./ sv -c  change the unique key
+    ./sv -g  generate a secure key
+    ./sv -V  print version info and exit
+    ./sv -r  read a stored password by its custom name
+    ./sv -u  generate a unique key
+    ./sv -d  delete secure key
+    ./sv -l  list your stored passwords
+    ./sv -b  create a backup locally
+    ./sv -c  change the unique key
+    ./sv -ck Stores a user-customized key
 Help Menu:
     -h  --help  print this help message and exit
                 """)
