@@ -546,9 +546,10 @@ Help Menu:
           try:
             keys = listdir(self.key_path)
             for key in keys:
-              inmutable_validation = run(['/usr/bin/lsattr', path.join(self.key_path,key) ], text=True, check=True, capture_output=True)
-              if not any('-i' in inm for inm in inmutable_validation.stdout.splitlines()):
-                 self.immutable_data(key)
+              if path.isfile(path.join(self.key_path,key)):
+                inmutable_validation = run(['/usr/bin/lsattr', path.join(self.key_path,key) ], text=True, check=True, capture_output=True)
+                if not any('-i' in inm for inm in inmutable_validation.stdout.splitlines()):
+                  self.immutable_data(key)
           except CalledProcessError:
             print("Error validating immutability: lsattr execution failed")
           return
