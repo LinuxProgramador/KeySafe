@@ -507,6 +507,7 @@ Usage:
     python3 sv.py -l  list your stored passwords
     python3 sv.py -b  create a backup locally
     python3 sv.py -c  change the unique key
+    python3 sv.py -ck stores a user-customized key
 Help Menu:
     -h  --help  print this help message and exit
                 """)
