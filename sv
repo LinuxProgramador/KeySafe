@@ -586,7 +586,7 @@ Help Menu:
               print("Invalid password")
           else:
              print("Password name already in use")
-          return
+        return
              
     def auxiliary_main(self):
          '''
