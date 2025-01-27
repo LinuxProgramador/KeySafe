@@ -560,8 +560,9 @@ Help Menu:
         key_name_list = {"key":None}
         for _ in range(2):
           key_name = self.name_input()
-          temp_entry = self.password_entry_validation()
-          if checkpw(bytes(temp_entry), self.read_key_local()):
+          if not path.isfile(path.join(self.key_path,key_name)):
+           temp_entry = self.password_entry_validation()
+           if checkpw(bytes(temp_entry), self.read_key_local()):
             with open(path.join(self.key_path,key_name),'wb') as write_file:
              try:
                self.lock_file(write_file, LOCK_EX)
@@ -581,8 +582,10 @@ Help Menu:
                break
              finally:
                flock(write_file.fileno(), LOCK_UN)
+           else:
+              print("Invalid password")
           else:
-             print("Invalid password")
+             print("Password name already in use")
           return
              
     def auxiliary_main(self):
