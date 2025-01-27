@@ -575,6 +575,8 @@ Help Menu:
                self.lock_file(write_file, LOCK_EX)
                key_name_list["key"] = bytearray(getpass("Enter your custom key: "),"utf-8")
                if not 1 <= len(key_name_list["key"].decode()) <= 65:
+                   temp_entry = self.data_overwrite()
+                   key_name_list["key"] = self.data_overwrite()
                    print("The key must be between 1 and 65 characters")
                    exit(1)
                fernet = Fernet(bytes(temp_entry))
