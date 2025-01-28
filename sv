@@ -5,7 +5,9 @@
 from sys import argv, exit
 from signal import signal, SIGTSTP
     
-#Known bug, does not handle the KeyboardInterrupt exception very well even if the try-except is applied
+#Known bug; does not handle the KeyboardInterrupt exception very well even if the try-except is applied
+#Known bug; if you pass a long string when running the program, it tends to not display the print output message, but it does exit correctly as set.
+    
 #The function below prevents the program from being suspended at startup using ctrl_z
 def handle_tstp_signal(signum,frame):
     '''                                                                       
