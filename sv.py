@@ -570,15 +570,15 @@ Help Menu:
           if not path.isfile(path.join(self.key_path,key_name)):
            temp_entry = self.password_entry_validation()
            if checkpw(bytes(temp_entry), self.read_key_local()):
+            key_name_list["key"] = bytearray(getpass("Enter your custom key: "),"utf-8")
+            if not 1 <= len(key_name_list["key"].decode()) <= 65:
+               temp_entry = self.data_overwrite()
+               key_name_list["key"] = self.data_overwrite()
+               print("The key must be between 1 and 65 characters")
+               exit(1) 
             with open(path.join(self.key_path,key_name),'wb') as write_file:
              try:
                self.lock_file(write_file, LOCK_EX)
-               key_name_list["key"] = bytearray(getpass("Enter your custom key: "),"utf-8")
-               if not 1 <= len(key_name_list["key"].decode()) <= 65:
-                   temp_entry = self.data_overwrite()
-                   key_name_list["key"] = self.data_overwrite()
-                   print("The key must be between 1 and 65 characters")
-                   exit(1)
                fernet = Fernet(bytes(temp_entry))
                temp_entry = self.data_overwrite()
                encrypted_key = fernet.encrypt(bytes(key_name_list["key"]))
