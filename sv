@@ -122,7 +122,7 @@ class SecureVault:
         '''
         Shows the user that they have exceeded the allowed character length
         '''
-        print("Operation blocked: Length limit exceeded")
+        print("Operation blocked: Length limit exceeded",flush=True)
         exit(1)
 
 
