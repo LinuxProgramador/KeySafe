@@ -139,7 +139,7 @@ class SecureVault:
         key_length = choice(range(15 ,65))
         if query_longitude:
          if len(str(query_longitude)) <= 3:
-          if query_longitude >= 15 and query_longitude <= 64:
+          if 15 <= query_longitude <= 64:
              key_length = query_longitude
           else:
              print("Number out of range; default value applied")
