@@ -475,6 +475,7 @@ class SecureVault:
             # Generate a new Fernet key and hash it
             new_fernet_key = bytearray(Fernet.generate_key())
             self.hashAndSaveKey(new_fernet_key)
+            self.detect_framebuffer_access()
             print(f"Your new unique key is => {new_fernet_key.decode()}")
             # Re-encrypt all existing files with the new key
             keys = listdir(self.key_path)
@@ -568,8 +569,6 @@ Help Menu:
            if checkpw(bytes(temp_entry), self.read_key_local()):
             key_name_list["key"] = bytearray(getpass("Enter your custom key: "),"utf-8")
             if not 1 <= len(key_name_list["key"].decode()) <= 65:
-               temp_entry = self.data_overwrite()
-               key_name_list["key"] = self.data_overwrite()
                print("The key must be between 1 and 65 characters")
                exit(1)
             with open(path.join(self.key_path,key_name),'wb') as write_file:
