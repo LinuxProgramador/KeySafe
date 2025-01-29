@@ -359,7 +359,7 @@ class SecureVault:
             '''
             keys = listdir(self.key_path)
             for key in keys:
-                if not any(key in key_unique for key_unique in [".key",".key.cpt"]):
+                if not key in [".key",".key.cpt"]:
                    print(key)
 
     def validation_existence_immutability(self,key_name):
