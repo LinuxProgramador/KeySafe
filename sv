@@ -117,7 +117,7 @@ class SecureVault:
         '''
         Allows overwriting variable values by a 2048-bit salt.
         '''
-        return urandom(2048)
+        return urandom(5000)
 
 
     def allowed_length_message(self):
@@ -151,10 +151,10 @@ class SecureVault:
             generated_key += char
         return generated_key
        finally:
-         generated_key = self.data_overwrite()
-         char = self.data_overwrite()
-         key_length = self.data_overwrite()
-         query_longitude = self.data_overwrite()
+         generated_key[:] = self.data_overwrite()
+         char[:] = self.data_overwrite()
+         key_length[:] = self.data_overwrite()
+         query_longitude[:] = self.data_overwrite()
          
     def is_sanitized(self,entry):
      '''
@@ -183,7 +183,7 @@ class SecureVault:
       self.malicious_symbols.update("/+_-=")
       return True
      finally:
-        entry = self.data_overwrite()
+        entry[:] = self.data_overwrite()
         
 
     def password_entry_validation(self):
@@ -202,7 +202,7 @@ class SecureVault:
               frequent_user_entry = bytearray("0","utf-8")
               return frequent_user_entry
            finally:
-               frequent_user_entry = self.data_overwrite()
+               frequent_user_entry[:] = self.data_overwrite()
                
 
     def read_key_local(self):
@@ -252,18 +252,18 @@ class SecureVault:
                     self.lock_file(key_file, LOCK_EX)
                     encrypted_key = key_file.read()
                     fernet = Fernet(bytes(temp_entry))
-                    temp_entry = self.data_overwrite()
+                    temp_entry[:] = self.data_overwrite()
                     decrypted_key = bytearray(fernet.decrypt(encrypted_key))
-                    fernet = self.data_overwrite()
+                    fernet[:] = self.data_overwrite()
                     self.detect_framebuffer_access()
                     print(f"Your password is => {decrypted_key.decode()}")
-                    decrypted_key = self.data_overwrite()
+                    decrypted_key[:] = self.data_overwrite()
                     break
                    finally:
                     flock(key_file.fileno(), LOCK_UN)
               else:
                   print("Unable to read the unique key")
-                  temp_entry = self.data_overwrite()
+                  temp_entry[:] = self.data_overwrite()
              else:
                 print("Invalid password")
         return
@@ -278,7 +278,7 @@ class SecureVault:
         try:
          self.lock_file(key_file, LOCK_EX)
          hashed_key = hashpw(bytes(key), gensalt())
-         key = self.data_overwrite()
+         key[:] = self.data_overwrite()
          key_file.write(hashed_key)
          chmod(path.join(self.key_path, ".key"), 0o600)
          self.immutable_data(".key")
@@ -296,7 +296,7 @@ class SecureVault:
             self.hashAndSaveKey(fernet_key)
             self.detect_framebuffer_access()
             print(f"Its unique key is => {fernet_key.decode()}")
-            fernet_key = self.data_overwrite()
+            fernet_key[:] = self.data_overwrite()
         else:
             print("Password already exists")
         return
@@ -310,12 +310,12 @@ class SecureVault:
            try:
             self.lock_file(key_file, LOCK_EX)
             fernet = Fernet(bytes(temp_entry))
-            temp_entry = self.data_overwrite()
+            temp_entry[:] = self.data_overwrite()
             temp_encrypt = bytearray(temp_fernet_key.decrypt(temp_encrypt))
             encrypted_key = fernet.encrypt(bytes(temp_encrypt))
-            temp_encrypt = self.data_overwrite()
-            temp_fernet_key = self.data_overwrite()
-            fernet = self.data_overwrite()
+            temp_encrypt[:] = self.data_overwrite()
+            temp_fernet_key[:] = self.data_overwrite()
+            fernet[:] = self.data_overwrite()
             key_file.write(encrypted_key)
             chmod(path.join(self.key_path,key_name), 0o600)
             self.immutable_data(key_name)
@@ -340,9 +340,9 @@ class SecureVault:
                     temp_entry = self.password_entry_validation()
                     if checkpw(bytes(temp_entry), self.read_key_local()):
                          self.auxiliary_save_key(key_name,temp_entry,temp_encrypt,temp_fernet_key)
-                         temp_entry = self.data_overwrite()
-                         temp_encrypt = self.data_overwrite()
-                         temp_fernet_key = self.data_overwrite()
+                         temp_entry[:] = self.data_overwrite()
+                         temp_encrypt[:] = self.data_overwrite()
+                         temp_fernet_key[:] = self.data_overwrite()
                          break
                     else:
                         print("Invalid password")
@@ -385,7 +385,7 @@ class SecureVault:
                  exit(1)
              temp_entry = self.password_entry_validation()
              if checkpw(bytes(temp_entry), self.read_key_local()):
-               temp_entry = self.data_overwrite()
+               temp_entry[:] = self.data_overwrite()
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
                    self.validation_existence_immutability(key_name)
@@ -419,7 +419,7 @@ class SecureVault:
          for _ in range(2):
           temp_entry = self.password_entry_validation()
           if checkpw(bytes(temp_entry), self.read_key_local()):
-            temp_entry = self.data_overwrite()
+            temp_entry[:] = self.data_overwrite()
             keys = listdir(self.key_path)
             path_backup = f"/home/{self.user}/.BacKupSV"
             self.keep_safe(path_backup)
@@ -456,10 +456,10 @@ class SecureVault:
                  self.immutable_data(key)
                 finally:
                  flock(file_to_write.fileno(), LOCK_UN)
-      fernet_old_key = self.data_overwrite()
-      new_fernet_key = self.data_overwrite()
-      decrypted_content = self.data_overwrite()
-      fernet_new_key = self.data_overwrite()
+      fernet_old_key[:] = self.data_overwrite()
+      new_fernet_key[:] = self.data_overwrite()
+      decrypted_content[:] = self.data_overwrite()
+      fernet_new_key[:] = self.data_overwrite()
       return
 
 
@@ -481,9 +481,9 @@ class SecureVault:
             keys = listdir(self.key_path)
             for key in keys:
                  self.auxiliary_change_unique_key(key,fernet_old_key,new_fernet_key)
-            new_fernet_key = self.data_overwrite()
-            temp_entry = self.data_overwrite()
-            fernet_old_key = self.data_overwrite()
+            new_fernet_key[:] = self.data_overwrite()
+            temp_entry[:] = self.data_overwrite()
+            fernet_old_key[:] = self.data_overwrite()
             break
         else:
             print("Invalid password")
@@ -518,10 +518,10 @@ Help Menu:
         '''
         key = bytearray(Fernet.generate_key())
         temp_fernet_key = Fernet(bytes(key))
-        key = self.data_overwrite()
+        key[:] = self.data_overwrite()
         temp_encrypt = temp_fernet_key.encrypt(bytes(temp_encrypt))
         self.save_key(temp_encrypt,temp_fernet_key)
-        temp_fernet_key = self.data_overwrite()
+        temp_fernet_key[:] = self.data_overwrite()
         return
 
 
@@ -575,9 +575,9 @@ Help Menu:
              try:
                self.lock_file(write_file, LOCK_EX)
                fernet = Fernet(bytes(temp_entry))
-               temp_entry = self.data_overwrite()
+               temp_entry[:] = self.data_overwrite()
                encrypted_key = fernet.encrypt(bytes(key_name_list["key"]))
-               fernet = self.data_overwrite()
+               fernet[:] = self.data_overwrite()
                key_name_list["key"] = self.data_overwrite()
                write_file.write(encrypted_key)
                chmod(path.join(self.key_path,key_name), 0o600)
@@ -615,7 +615,7 @@ Help Menu:
                 self.detect_framebuffer_access()
                 print(f"Key-Safe => {temp_encrypt.decode()}")
                 self.temporary_key_encryption(temp_encrypt)
-                temp_encrypt = self.data_overwrite()
+                temp_encrypt[:] = self.data_overwrite()
             elif self.options[3] in argv:
                 print("SecureVault 1.0. It is a tool that allows you to generate secure keys.")
             elif self.options[5] in argv:
