@@ -56,6 +56,10 @@ Copy the executable:
      
     cp -f dist/sv ./
 
+Give execute permissions:
+
+    chmod u+x sv
+
 Sign the executable:
 
 Install GnuPG: 
