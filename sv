@@ -33,7 +33,7 @@ from datetime import datetime
 from pwd import getpwuid
 from time import sleep
 from fcntl  import flock,LOCK_UN,LOCK_EX
-
+import gc
     
 
 class SecureVault:
@@ -99,14 +99,6 @@ class SecureVault:
            pass
        return
            
-    def secure_memzero(self,data):
-     '''
-      Clear a bytearray using memoryview.
-     '''
-     if isinstance(data, bytearray):
-        memview = memoryview(data)
-        memview[:] = b'\x00' * len(data)
-     return
       
     def lock_file(self,file_obj, lock_type):
        '''
@@ -152,10 +144,7 @@ class SecureVault:
             generated_key += char
         return generated_key
        finally:
-         self.secure_memzero(generated_key)
-         self.secure_memzero(char)
-         self.secure_memzero(key_length)
-         self.secure_memzero(query_longitude)
+         gc.collect() 
          
     def is_sanitized(self,entry):
      '''
@@ -184,7 +173,7 @@ class SecureVault:
       self.malicious_symbols.update("/+_-=")
       return True
      finally:
-        self.secure_memzero(entry)
+        gc.collect() 
         
 
     def password_entry_validation(self):
@@ -203,7 +192,7 @@ class SecureVault:
               frequent_user_entry = bytearray("0","utf-8")
               return frequent_user_entry
            finally:
-               self.secure_memzero(frequent_user_entry)
+               gc.collect() 
                
 
     def read_key_local(self):
@@ -243,7 +232,8 @@ class SecureVault:
         '''
         Reads a stored key by prompting the user for its name and verifying the password.
         '''
-        for _ in range(2):
+        try:
+          for _ in range(2):
              key_name = self.name_input()
              temp_entry = self.password_entry_validation()
              if checkpw(bytes(temp_entry), self.read_key_local()):
@@ -253,21 +243,19 @@ class SecureVault:
                     self.lock_file(key_file, LOCK_EX)
                     encrypted_key = key_file.read()
                     fernet = Fernet(bytes(temp_entry))
-                    self.secure_memzero(temp_entry)
                     decrypted_key = bytearray(fernet.decrypt(encrypted_key))
-                    self.secure_memzero(fernet)
                     self.detect_framebuffer_access()
                     print(f"Your password is => {decrypted_key.decode()}")
-                    self.secure_memzero(decrypted_key)
                     break
                    finally:
                     flock(key_file.fileno(), LOCK_UN)
               else:
                   print("Unable to read the unique key")
-                  self.secure_memzero(temp_entry)
              else:
                 print("Invalid password")
-        return
+          return
+        finally:
+          gc.collect() 
 
 
     def hashAndSaveKey(self,key):
@@ -275,65 +263,69 @@ class SecureVault:
       Hashes the given key and saves it securely in a `.key`
       file with restricted permissions
       '''
-      with open(path.join(self.key_path, ".key"), 'wb') as key_file:
+      try:
+       with open(path.join(self.key_path, ".key"), 'wb') as key_file:
         try:
          self.lock_file(key_file, LOCK_EX)
          hashed_key = hashpw(bytes(key), gensalt())
-         self.secure_memzero(key)
          key_file.write(hashed_key)
          chmod(path.join(self.key_path, ".key"), 0o600)
          self.immutable_data(".key")
         finally:
          flock(key_file.fileno(), LOCK_UN)
-      return
+       return
+      finally:
+        gc.collect() 
 
 
     def generate_unique_key(self):
         '''
         Stores a unique key by creating a .key file if it does not already exist.
         '''
-        if not path.isfile(path.join(self.key_path,".key")):
+        try:
+         if not path.isfile(path.join(self.key_path,".key")):
             fernet_key = bytearray(Fernet.generate_key())
             self.hashAndSaveKey(fernet_key)
             self.detect_framebuffer_access()
             print(f"Its unique key is => {fernet_key.decode()}")
-            self.secure_memzero(fernet_key)
-        else:
+         else:
             print("Password already exists")
-        return
+         return
+        finally:
+          gc.collect() 
 
 
     def auxiliary_save_key(self,key_name,temp_entry,temp_encrypt,temp_fernet_key):
       '''
       Helper function that divides the tasks of the save_key function
       '''
-      with open(path.join(self.key_path,key_name), 'wb') as key_file:
+      try:
+       with open(path.join(self.key_path,key_name), 'wb') as key_file:
            try:
             self.lock_file(key_file, LOCK_EX)
             fernet = Fernet(bytes(temp_entry))
-            self.secure_memzero(temp_entry)
             temp_encrypt = bytearray(temp_fernet_key.decrypt(temp_encrypt))
             encrypted_key = fernet.encrypt(bytes(temp_encrypt))
-            self.secure_memzero(temp_encrypt)
-            self.secure_memzero(temp_fernet_key)
-            self.secure_memzero(fernet)
             key_file.write(encrypted_key)
             chmod(path.join(self.key_path,key_name), 0o600)
             self.immutable_data(key_name)
             print("Password saved successfully")
            finally:
             flock(key_file.fileno(), LOCK_UN)
-      return
+       return
+      finally:
+         gc.collect() 
 
 
     def save_key(self,temp_encrypt,temp_fernet_key):
       '''
       Saves a generated key to a specified file, after verifying the password.
       '''
-      confirm = input("Save password? (y/n): ").strip().lower()
-      if not confirm:
+      try:
+       confirm = input("Save password? (y/n): ").strip().lower()
+       if not confirm:
           confirm = "n"
-      if self.is_sanitized(confirm) and len(confirm) < 2:
+       if self.is_sanitized(confirm) and len(confirm) < 2:
         if confirm == "y":
             for _ in range(2):
                  key_name = self.name_input()
@@ -341,18 +333,17 @@ class SecureVault:
                     temp_entry = self.password_entry_validation()
                     if checkpw(bytes(temp_entry), self.read_key_local()):
                          self.auxiliary_save_key(key_name,temp_entry,temp_encrypt,temp_fernet_key)
-                         self.secure_memzero(temp_entry)
-                         self.secure_memzero(temp_encrypt)
-                         self.secure_memzero(temp_fernet_key)
                          break
                     else:
                         print("Invalid password")
                  else:
                     print("Password name already in use")
-      else:
+       else:
           self.allowed_length_message()
 
-      return
+       return
+      finally:
+        gc.collect() 
 
     def list_password(self):
             '''
@@ -379,14 +370,14 @@ class SecureVault:
           '''
           Deletes a specified key file after verifying the password.
           '''
-          for _ in range(2):
+          try:
+           for _ in range(2):
              key_name = self.name_input()
              if not path.isfile(path.join(self.key_path,key_name)):
                  print("Error: Please enter a valid file name")
                  exit(1)
              temp_entry = self.password_entry_validation()
              if checkpw(bytes(temp_entry), self.read_key_local()):
-               self.secure_memzero(temp_entry)
                if key_name != ".key":
                  if (stat(path.join(self.key_path,key_name)).st_mode & 0o777) == 0o600:
                    self.validation_existence_immutability(key_name)
@@ -399,7 +390,9 @@ class SecureVault:
                    print("Unique key cannot be deleted")
              else:
                 print("Invalid password")
-          return
+           return
+          finally:
+            gc.collect() 
 
 
     def keep_safe(self,rute):
@@ -417,10 +410,10 @@ class SecureVault:
          '''
          Function that allows you to create a backup locally.
          '''
-         for _ in range(2):
-          temp_entry = self.password_entry_validation()
-          if checkpw(bytes(temp_entry), self.read_key_local()):
-            self.secure_memzero(temp_entry)
+         try:
+          for _ in range(2):
+           temp_entry = self.password_entry_validation()
+           if checkpw(bytes(temp_entry), self.read_key_local()):
             keys = listdir(self.key_path)
             path_backup = f"/home/{self.user}/.BacKupSV"
             self.keep_safe(path_backup)
@@ -430,15 +423,18 @@ class SecureVault:
                 copy(path.join(self.key_path,key),path.join(path_backup,key + " " + date_and_time ))
             print(f"Backup created successfully in => {path_backup}")
             break
-          else:
+           else:
              print("Invalid password")
-         return
+          return
+         finally:
+           gc.collect() 
 
     def auxiliary_change_unique_key(self,key,fernet_old_key,new_fernet_key):
       '''
       Helper function that divides the tasks of the change_unique_key function
       '''
-      if self.is_sanitized(key) and key != ".key":
+      try:
+       if self.is_sanitized(key) and key != ".key":
             self.validation_existence_immutability(key)
             with open(path.join(self.key_path, key), 'rb') as file_to_read:
                 try:
@@ -457,18 +453,17 @@ class SecureVault:
                  self.immutable_data(key)
                 finally:
                  flock(file_to_write.fileno(), LOCK_UN)
-      self.secure_memzero(fernet_old_key)
-      self.secure_memzero(new_fernet_key)
-      self.secure_memzero(decrypted_content)
-      self.secure_memzero(fernet_new_key)
-      return
+       return
+      finally:
+        gc.collect() 
 
 
     def change_unique_key(self):
       '''
       Function to change the unique encryption key securely.
       '''
-      for _ in range(2):
+      try:
+       for _ in range(2):
         temp_entry = self.password_entry_validation()
         if checkpw(bytes(temp_entry), self.read_key_local()):
             fernet_old_key = Fernet(bytes(temp_entry))
@@ -482,13 +477,12 @@ class SecureVault:
             keys = listdir(self.key_path)
             for key in keys:
                  self.auxiliary_change_unique_key(key,fernet_old_key,new_fernet_key)
-            self.secure_memzero(new_fernet_key)
-            self.secure_memzero(temp_entry)
-            self.secure_memzero(fernet_old_key)
             break
         else:
             print("Invalid password")
-      return
+       return
+      finally:
+         gc.collect() 
 
 
     def show_help(self):
@@ -514,16 +508,17 @@ Help Menu:
 
 
     def temporary_key_encryption(self,temp_encrypt):
-        '''
+       '''
         Function that allows the encoding of the key generated by the generate_key method.
-        '''
+       '''
+       try:
         key = bytearray(Fernet.generate_key())
         temp_fernet_key = Fernet(bytes(key))
-        self.secure_memzero(key)
         temp_encrypt = temp_fernet_key.encrypt(bytes(temp_encrypt))
         self.save_key(temp_encrypt,temp_fernet_key)
-        self.secure_memzero(temp_fernet_key)
         return
+       finally:
+          gc.collect() 
 
 
     def validate_arguments(self):
@@ -562,8 +557,9 @@ Help Menu:
         '''
          Stores a user-provided custom key securely.
         '''
-        key_name_list = {"key":None}
-        for _ in range(2):
+        try:
+         key_name_list = {"key":None}
+         for _ in range(2):
           key_name = self.name_input()
           if not path.isfile(path.join(self.key_path,key_name)):
            temp_entry = self.password_entry_validation()
@@ -576,10 +572,7 @@ Help Menu:
              try:
                self.lock_file(write_file, LOCK_EX)
                fernet = Fernet(bytes(temp_entry))
-               self.secure_memzero(temp_entry)
                encrypted_key = fernet.encrypt(bytes(key_name_list["key"]))
-               self.secure_memzero(fernet)
-               self.secure_memzero(key_name_list["key"])
                write_file.write(encrypted_key)
                chmod(path.join(self.key_path,key_name), 0o600)
                self.immutable_data(key_name)
@@ -591,7 +584,9 @@ Help Menu:
               print("Invalid password")
           else:
              print("Password name already in use")
-        return
+         return
+        finally:
+          gc.collect() 
              
     def auxiliary_main(self):
          '''
@@ -616,7 +611,6 @@ Help Menu:
                 self.detect_framebuffer_access()
                 print(f"Key-Safe => {temp_encrypt.decode()}")
                 self.temporary_key_encryption(temp_encrypt)
-                self.secure_memzero(temp_encrypt)
             elif self.options[3] in argv:
                 print("SecureVault 1.0. It is a tool that allows you to generate secure keys.")
             elif self.options[5] in argv:
@@ -655,8 +649,9 @@ Help Menu:
            print("System error preventing function execution")
         except UnicodeEncodeError:
            print("Text encoding error; please use valid characters")
+        return
         finally:
-           return
+           gc.collect() 
 
 if __name__ == "__main__":
    try:
