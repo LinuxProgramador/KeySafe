@@ -54,14 +54,7 @@ class SecureVault:
         self.user = getuser()
         self.key_path = f"/home/{self.user}/KeySafe/.VaultSecret"
         self.sv_path = f"/home/{self.user}/KeySafe"
-
-    def handle_tstp_signal(self,signum,frame):
-       '''
-       Function that allows me to catch the signal produced by the ctrl_z key.
-       '''
-       print("\nOperation not allowed")
-       exit(1)
-       
+      
 
     def detect_framebuffer_access(self):
      '''
@@ -592,7 +585,6 @@ Help Menu:
          '''
          Helper function to split the tasks of the main function.
          '''
-         signal(SIGTSTP, self.handle_tstp_signal)
          self.keep_safe(path.join(self.sv_path, "sv"))
          self.keep_safe(self.sv_path)
          self.keep_safe(self.key_path)
