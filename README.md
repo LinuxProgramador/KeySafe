@@ -8,8 +8,6 @@ Recommended distributions:
 
 To restore local backups: simply copy them to the KeySafe/. VaultSecret path and remove the date, but first remove the immutable attribute from the keys in the . VaultSecret directory.
 
-NOTE: Anti-data deletion protection only applies to keys within the directory. VaultSecret
-
 NOTE: in Arch Linux and in some distros derived from Ubuntu, it is necessary to create a virtual environment to install the dependencies that are in the requirements.txt file
 
 NOTE: Do not use symbols in password names 
@@ -95,38 +93,5 @@ Using the virtual environment:
 
     venv/path/to/venv/bin/"and here the commands to execute"
 
-Optional: Use ccrypt to apply an additional layer of encryption.
-
-but first remove the immutability:
-
-    sudo chattr -i "file here"
-    
-After encrypting with ccrypt, re-apply immutability:
-
-    sudo chattr +i "file here"
-    
-Installation:
-
-Ubuntu and derivatives:
-
-    sudo apt install ccrypt -y
-
-Arch Linux:
-
-    sudo pacman -S ccrypt
-
-Usage:
-
-To encrypt:
-
-    ccrypt -R .VaultSecret/
-
-To decrypt:
-
-    ccrypt -dR .VaultSecret/
-
-change password:
-
-    ccrypt -x -R .VaultSecret/
 
 
