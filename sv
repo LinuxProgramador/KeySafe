@@ -134,7 +134,7 @@ class SecureVault:
             generated_key += char
         return generated_key
        finally:
-         del(generated_key,char,key_length,query_longitude)
+         del generated_key,char,key_length,query_longitude
          collect() 
          
     def is_sanitized(self,entry):
@@ -164,7 +164,7 @@ class SecureVault:
       self.malicious_symbols.update("/+_-=")
       return True
      finally:
-        del(entry)
+        del entry
         collect() 
         
 
@@ -184,7 +184,7 @@ class SecureVault:
               frequent_user_entry = bytearray("0","utf-8")
               return frequent_user_entry
            finally:
-               del(frequent_user_entry)
+               del frequent_user_entry
                collect() 
                
 
@@ -248,7 +248,7 @@ class SecureVault:
                 print("Invalid password")
           return
         finally:
-          del(temp_entry,fernet,decrypted_key)
+          del temp_entry,fernet,decrypted_key
           collect() 
 
 
@@ -269,7 +269,7 @@ class SecureVault:
          flock(key_file.fileno(), LOCK_UN)
        return
       finally:
-        del(key)
+        del key
         collect() 
 
 
@@ -287,7 +287,7 @@ class SecureVault:
             print("Password already exists")
          return
         finally:
-          del(fernet_key)
+          del fernet_key
           collect() 
 
 
@@ -310,7 +310,7 @@ class SecureVault:
             flock(key_file.fileno(), LOCK_UN)
        return
       finally:
-         del(fernet,temp_encrypt,temp_fernet_key,temp_entry)
+         del fernet,temp_encrypt,temp_fernet_key,temp_entry
          collect() 
 
 
@@ -340,7 +340,7 @@ class SecureVault:
 
        return
       finally:
-        del(temp_entry,temp_encrypt,temp_fernet_key)
+        del temp_entry,temp_encrypt,temp_fernet_key
         collect() 
 
     def list_password(self):
@@ -390,7 +390,7 @@ class SecureVault:
                 print("Invalid password")
            return
           finally:
-            del(temp_entry)
+            del temp_entry
             collect() 
 
 
@@ -426,7 +426,7 @@ class SecureVault:
              print("Invalid password")
           return
          finally:
-           del(temp_entry)
+           del temp_entry
            collect() 
 
     def auxiliary_change_unique_key(self,key,fernet_old_key,new_fernet_key):
@@ -455,7 +455,7 @@ class SecureVault:
                  flock(file_to_write.fileno(), LOCK_UN)
        return
       finally:
-        del(fernet_old_key,new_fernet_key,decrypted_content)
+        del fernet_old_key,new_fernet_key,decrypted_content
         collect() 
 
 
@@ -483,7 +483,7 @@ class SecureVault:
             print("Invalid password")
        return
       finally:
-         del(temp_entry,fernet_old_key,new_fernet_key)
+         del temp_entry,fernet_old_key,new_fernet_key
          collect() 
 
 
@@ -520,7 +520,7 @@ Help Menu:
         self.save_key(temp_encrypt,temp_fernet_key)
         return
        finally:
-          del(key,temp_fernet_key,temp_encrypt)
+          del key,temp_fernet_key,temp_encrypt
           collect() 
 
 
@@ -589,7 +589,7 @@ Help Menu:
              print("Password name already in use")
          return
         finally:
-          del(temp_entry,fernet,key_name_list)
+          del temp_entry,fernet,key_name_list
           collect() 
              
     def auxiliary_main(self):
@@ -654,7 +654,7 @@ Help Menu:
         except UnicodeEncodeError:
            print("Text encoding error; please use valid characters")
         finally:
-           del(temp_encrypt)
+           del temp_encrypt
            collect() 
 
 if __name__ == "__main__":
