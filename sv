@@ -455,7 +455,7 @@ class SecureVault:
                  flock(file_to_write.fileno(), LOCK_UN)
        return
       finally:
-        del fernet_old_key,new_fernet_key,decrypted_content
+        del fernet_old_key,new_fernet_key,decrypted_content,fernet_new_key
         collect() 
 
 
