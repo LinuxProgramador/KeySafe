@@ -32,8 +32,8 @@ from shutil import copy
 from datetime import datetime
 from pwd import getpwuid
 from time import sleep
-from fcntl  import flock,LOCK_UN,LOCK_EX
-import gc
+from fcntl import flock,LOCK_UN,LOCK_EX
+from gc import collect
     
 
 class SecureVault:
@@ -144,7 +144,7 @@ class SecureVault:
             generated_key += char
         return generated_key
        finally:
-         gc.collect() 
+         collect() 
          
     def is_sanitized(self,entry):
      '''
@@ -173,7 +173,7 @@ class SecureVault:
       self.malicious_symbols.update("/+_-=")
       return True
      finally:
-        gc.collect() 
+        collect() 
         
 
     def password_entry_validation(self):
@@ -192,7 +192,7 @@ class SecureVault:
               frequent_user_entry = bytearray("0","utf-8")
               return frequent_user_entry
            finally:
-               gc.collect() 
+               collect() 
                
 
     def read_key_local(self):
@@ -255,7 +255,7 @@ class SecureVault:
                 print("Invalid password")
           return
         finally:
-          gc.collect() 
+          collect() 
 
 
     def hashAndSaveKey(self,key):
@@ -275,7 +275,7 @@ class SecureVault:
          flock(key_file.fileno(), LOCK_UN)
        return
       finally:
-        gc.collect() 
+        collect() 
 
 
     def generate_unique_key(self):
@@ -292,7 +292,7 @@ class SecureVault:
             print("Password already exists")
          return
         finally:
-          gc.collect() 
+          collect() 
 
 
     def auxiliary_save_key(self,key_name,temp_entry,temp_encrypt,temp_fernet_key):
@@ -314,7 +314,7 @@ class SecureVault:
             flock(key_file.fileno(), LOCK_UN)
        return
       finally:
-         gc.collect() 
+         collect() 
 
 
     def save_key(self,temp_encrypt,temp_fernet_key):
@@ -343,7 +343,7 @@ class SecureVault:
 
        return
       finally:
-        gc.collect() 
+        collect() 
 
     def list_password(self):
             '''
@@ -392,7 +392,7 @@ class SecureVault:
                 print("Invalid password")
            return
           finally:
-            gc.collect() 
+            collect() 
 
 
     def keep_safe(self,rute):
@@ -427,7 +427,7 @@ class SecureVault:
              print("Invalid password")
           return
          finally:
-           gc.collect() 
+           collect() 
 
     def auxiliary_change_unique_key(self,key,fernet_old_key,new_fernet_key):
       '''
@@ -455,7 +455,7 @@ class SecureVault:
                  flock(file_to_write.fileno(), LOCK_UN)
        return
       finally:
-        gc.collect() 
+        collect() 
 
 
     def change_unique_key(self):
@@ -482,7 +482,7 @@ class SecureVault:
             print("Invalid password")
        return
       finally:
-         gc.collect() 
+         collect() 
 
 
     def show_help(self):
@@ -518,7 +518,7 @@ Help Menu:
         self.save_key(temp_encrypt,temp_fernet_key)
         return
        finally:
-          gc.collect() 
+          collect() 
 
 
     def validate_arguments(self):
@@ -586,7 +586,7 @@ Help Menu:
              print("Password name already in use")
          return
         finally:
-          gc.collect() 
+          collect() 
              
     def auxiliary_main(self):
          '''
@@ -651,7 +651,7 @@ Help Menu:
         except UnicodeEncodeError:
            print("Text encoding error; please use valid characters")
         finally:
-           gc.collect() 
+           collect() 
 
 if __name__ == "__main__":
    try:
