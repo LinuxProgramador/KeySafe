@@ -28,14 +28,6 @@ Move into the KeySafe directory:
 
     cd KeySafe
 
-Set the appropriate permissions for the script:
-
-    chmod 700 sv.py
-
-and
-
-    chmod 600 requirements.txt
-
 Install dependencies:
 
 For most distributions, install with:
@@ -50,13 +42,46 @@ Then, install the Python dependencies:
 
     python3 -m pip install -r requirements.txt
 
+Convert to executable:
+
+Install PyInstaller: 
+
+    python3 -m pip install pyinstaller
+
+Compile the program: 
+    
+    pyinstaller --onefile sv
+
+Copy the executable: 
+     
+    cp -f dist/sv ./
+
+Sign the executable:
+
+Install GnuPG: 
+
+    sudo apt update && sudo apt install gnupg -y
+
+Create a GPG key: 
+ 
+    gpg --full-generate-key
+
+Sign the executable:
+
+    gpg --detach-sign -o sv.sig sv
+
+
+Verify the signature:
+
+    gpg --verify sv.sig sv
+
 Run the following command to generate the unique key, which will be required for any further actions within the script:
 
-    python3 sv.py -u
+    ./sv -u
 
 Other commands:
 
-python3 sv.py [-h, --help, -V, -r, -g, -u, -d, -l, -b, -c, -ck]
+./sv [-h, --help, -V, -r, -g, -u, -d, -l, -b, -c, -ck]
 
 How to create a virtual environment in Python3:
 
@@ -100,50 +125,4 @@ change password:
 
     ccrypt -x -R .VaultSecret/
 
-Version to compile:
 
-Advantages of compiling:
-
-    Ensures that the source code is not tampered with.
-
-    Signing adds extra security.
-
-Convert to executable:
-
-Go to the KeySafe directory: 
-
-    cd ~/KeySafe
-    
-
-Install the dependencies (including those in requirements.txt).
-
-Install PyInstaller: 
-
-    python3 -m pip install pyinstaller
-
-Compile the program: 
-    
-    pyinstaller --onefile sv
-
-Copy the executable: 
-     
-    cp -f dist/sv ./
-
-Sign the executable:
-
-Install GnuPG: 
-
-    sudo apt update && sudo apt install gnupg -y
-
-Create a GPG key: 
- 
-    gpg --full-generate-key
-
-Sign the executable:
-
-    gpg --detach-sign -o sv.sig sv
-
-
-Verify the signature:
-
-    gpg --verify sv.sig sv
