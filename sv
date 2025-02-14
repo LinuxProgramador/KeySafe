@@ -611,6 +611,7 @@ Help Menu:
                 self.detect_framebuffer_access()
                 print(f"Key-Safe => {temp_encrypt.decode()}")
                 self.temporary_key_encryption(temp_encrypt)
+                return
             elif self.options[3] in argv:
                 print("SecureVault 1.0. It is a tool that allows you to generate secure keys.")
             elif self.options[5] in argv:
@@ -649,7 +650,6 @@ Help Menu:
            print("System error preventing function execution")
         except UnicodeEncodeError:
            print("Text encoding error; please use valid characters")
-        return
         finally:
            gc.collect() 
 
