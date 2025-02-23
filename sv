@@ -422,8 +422,8 @@ Help Menu:
                   
 
     def validation_nonexistence_immutability(self):
-         ''' This method checks the immutability of files in self.key_path and sets them as immutable if they are not. '''
-         try:
+          ''' This method checks the immutability of files in self.key_path and sets them as immutable if they are not. '''
+          try:
             keys = listdir(self.key_path)
             for key in keys:
               if path.isfile(path.join(self.key_path,key)):
