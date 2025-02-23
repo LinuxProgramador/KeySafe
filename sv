@@ -475,6 +475,7 @@ Help Menu:
 
     def main(self):
         ''' Main function, which will perform tasks based on the arguments given by the user.'''
+        try:
             self.auxiliary_main()
             if self.options[2] in argv:
                 temp_encrypt = self.generate_key()
