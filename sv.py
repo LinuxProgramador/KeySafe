@@ -433,7 +433,23 @@ Help Menu:
           except CalledProcessError:
             print("Error validating immutability: lsattr execution failed")
           return
-          
+        
+     def auxiliary_save_custom_key(self,key_name,temp_entry,key_name_list):
+        ''' Saves an encrypted key in a file with secure locking and permissions. '''
+        with open(path.join(self.key_path,key_name),'wb') as write_file:
+             try:
+               self.lock_file(write_file, LOCK_EX)
+               fernet = Fernet(bytes(temp_entry))
+               encrypted_key = fernet.encrypt(bytes(key_name_list["key"]))
+               write_file.write(encrypted_key)
+               chmod(path.join(self.key_path,key_name), 0o600)
+               self.immutable_data(key_name)
+               print("Password saved successfully")
+               break
+             finally:
+               flock(write_file.fileno(), LOCK_UN)
+        return
+
     def save_custom_key(self):
          '''  Stores a user-provided custom key securely. '''
          key_name_list = {"key":None}
@@ -446,18 +462,7 @@ Help Menu:
             if not 1 <= len(key_name_list["key"].decode()) <= 65:
                print("The key must be between 1 and 65 characters")
                exit(1)
-            with open(path.join(self.key_path,key_name),'wb') as write_file:
-             try:
-               self.lock_file(write_file, LOCK_EX)
-               fernet = Fernet(bytes(temp_entry))
-               encrypted_key = fernet.encrypt(bytes(key_name_list["key"]))
-               write_file.write(encrypted_key)
-               chmod(path.join(self.key_path,key_name), 0o600)
-               self.immutable_data(key_name)
-               print("Password saved successfully")
-               break
-             finally:
-               flock(write_file.fileno(), LOCK_UN)
+            
            else:
               print("Invalid password")
           else:
