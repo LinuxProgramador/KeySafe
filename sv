@@ -433,7 +433,7 @@ Help Menu:
             print("Error validating immutability: lsattr execution failed")
           return
         
-     def auxiliary_save_custom_key(self,key_name,temp_entry,key_name_list):
+    def auxiliary_save_custom_key(self,key_name,temp_entry,key_name_list):
         ''' Saves an encrypted key in a file with secure locking and permissions. '''
         with open(path.join(self.key_path,key_name),'wb') as write_file:
              try:
