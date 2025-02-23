@@ -462,7 +462,7 @@ Help Menu:
             if not 1 <= len(key_name_list["key"].decode()) <= 65:
                print("The key must be between 1 and 65 characters")
                exit(1)
-            
+            self.auxiliary_save_custom_key(key_name,temp_entry,key_name_list)
            else:
               print("Invalid password")
           else:
