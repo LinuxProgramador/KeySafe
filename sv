@@ -444,7 +444,6 @@ Help Menu:
                chmod(path.join(self.key_path,key_name), 0o600)
                self.immutable_data(key_name)
                print("Password saved successfully")
-               break
              finally:
                flock(write_file.fileno(), LOCK_UN)
         return
@@ -462,6 +461,7 @@ Help Menu:
                print("The key must be between 1 and 65 characters")
                exit(1)
             self.auxiliary_save_custom_key(key_name,temp_entry,key_name_list)
+            break
            else:
               print("Invalid password")
           else:
