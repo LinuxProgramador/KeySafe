@@ -10,9 +10,7 @@ from signal import signal, SIGTSTP
     
 #The function below prevents the program from being suspended at startup using ctrl_z
 def handle_tstp_signal(signum,frame):
-    '''                                                                       
-    Function that allows me to catch the signal produced by the ctrl_z key.
-    '''
+    ''' Function that allows me to catch the signal produced by the ctrl_z key.'''
     print("\nOperation not allowed")
     exit(1)
       
@@ -30,13 +28,9 @@ from datetime import datetime
 from pwd import getpwuid
 from time import sleep
 from fcntl import flock,LOCK_UN,LOCK_EX
-from gc import collect
-    
 
 class SecureVault:
-    '''
-    SecureVault class provides functionalities to generate, store, and manage cryptographic keys.
-    '''
+    ''' SecureVault class provides functionalities to generate, store, and manage cryptographic keys.'''
     def __init__(self):
         '''
         Initializes the SecureVault instance with default values.
