@@ -336,7 +336,7 @@ class SecureVault:
              print("Invalid password")
           return
 
-     def auxiliary_change_unique_key(self,key,fernet_old_key,new_fernet_key):
+    def auxiliary_change_unique_key(self,key,fernet_old_key,new_fernet_key):
        ''' Helper function that divides the tasks of the change_unique_key function '''
        if self.is_sanitized(key) and key != ".key":
             self.validation_existence_immutability(key)
@@ -359,7 +359,7 @@ class SecureVault:
                  flock(file_to_write.fileno(), LOCK_UN)
        return
 
-     def change_unique_key(self):
+    def change_unique_key(self):
        '''Function to change the unique encryption key securely.'''
        for _ in range(2):
         temp_entry = self.password_entry_validation()
@@ -380,7 +380,7 @@ class SecureVault:
             print("Invalid password")
        return
 
-     def show_help(self):
+    def show_help(self):
         ''' When the function is called, it prints the help menu. '''
         print("SecureVault 1.0. It is a tool that allows you to generate secure keys.")
         print("""
@@ -406,7 +406,7 @@ Help Menu:
         self.save_key(temp_encrypt,temp_fernet_key)
         return
         
-     def validate_arguments(self):
+    def validate_arguments(self):
         ''' Function that validates the length and absence of malicious symbols.  '''
         if len(argv) >= 2 and not argv[1] in self.options:
              """
