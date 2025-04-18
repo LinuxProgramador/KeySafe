@@ -54,7 +54,7 @@ class SecureVault:
         the same session.
         """
         run(['/usr/bin/sudo','-S','/usr/bin/true'])
-        fb_access = run(["/usr/bin/lsof", "/dev/fb0"],text=True, check=True, capture_output=True)
+        fb_access = run(["/usr/bin/sudo", "/usr/bin/lsof", "/dev/fb0"],text=True, check=True, capture_output=True)
         if any(recording in fb_access.stdout for recording in ['ffmpeg','x11grab']):
             print("Screen recording detected")
             exit(1)
