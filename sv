@@ -16,7 +16,7 @@ def handle_tstp_signal(signum,frame):
 signal(SIGTSTP, handle_tstp_signal)
     
 from secrets import choice
-from os import chmod, path, mkdir, remove, listdir, stat
+from os import chmod, path, mkdir, remove, listdir, stat, urandom
 from cryptography.fernet import Fernet, InvalidToken
 from bcrypt import checkpw, hashpw, gensalt
 from getpass import getpass, getuser
@@ -200,6 +200,7 @@ class SecureVault:
                     flock(key_file.fileno(), LOCK_UN)
               else:
                   print("Unable to read the unique key")
+                  temp_entry[:] = urandom(len(temp_entry.decode()))
              else:
                 print("Invalid password")
           return
