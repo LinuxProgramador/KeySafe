@@ -83,7 +83,7 @@ class SecureVault:
          try:
            flock(file_obj.fileno(), lock_type)
            return
-         except IOError:
+         except (IOError,Exception):
            print("Failed to lock the file")
            sleep(2)
        return
