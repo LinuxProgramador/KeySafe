@@ -55,6 +55,7 @@ class SecureVault:
         """
         run(['/usr/bin/sudo','-S','/usr/bin/true'])
         fb_access = run(["/usr/bin/sudo", "/usr/bin/lsof", "/dev/fb0"],text=True, check=True, capture_output=True)
+        # More screen recorders can be added
         if any(recording in fb_access.stdout for recording in ['ffmpeg','x11grab']):
             print("Screen recording detected")
             exit(1)
@@ -144,6 +145,15 @@ class SecureVault:
             frequent_user_entry = bytearray(getpass("Enter your unique key: ").strip().replace(" ",""),"utf-8")
             if frequent_user_entry:
               if self.is_sanitized(frequent_user_entry.decode()) and len(frequent_user_entry.decode()) <= 45:
+                try:
+                   key = frequent_user_entry
+                   token = Fernet(key).encrypt(b"Test")
+                   f = Fernet(key)
+                   f.decrypt(token)
+                   key[:] = urandom(len(key.decode()))
+                except (ValueError, InvalidToken):
+                   print("Password does not meet the required format")
+                   exit(1)
                 return frequent_user_entry
               else:
                 self.allowed_length_message()
