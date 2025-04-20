@@ -303,8 +303,10 @@ class SecureVault:
                    break
                  else:
                      print("Permissions altered; file not deleted for security")
+                     temp_entry[:] = urandom(len(temp_entry.decode()))
                else:
                    print("Unique key cannot be deleted")
+                   temp_entry[:] = urandom(len(temp_entry.decode()))
              else:
                 print("Invalid password")
            return
