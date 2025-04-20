@@ -25,7 +25,7 @@ from subprocess import run, CalledProcessError
 from shutil import copy
 from datetime import datetime
 from pwd import getpwuid
-from time import sleep
+from time import sleep, perf_counter
 from fcntl import flock,LOCK_UN,LOCK_EX
 
 class SecureVault:
