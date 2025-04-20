@@ -329,7 +329,7 @@ class SecureVault:
             path_backup = f"/home/{self.user}/.BacKupSV"
             self.keep_safe(path_backup)
             for key in keys:
-              date_and_time = datetime.now().strftime("%Y-%m-%d %H:%M")
+              date_and_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
               if self.is_sanitized(key) and not path.isfile(path.join(path_backup,key + " " + date_and_time )):
                 copy(path.join(self.key_path,key),path.join(path_backup,key + " " + date_and_time ))
             print(f"Backup created successfully in => {path_backup}")
