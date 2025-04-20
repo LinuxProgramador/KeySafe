@@ -147,8 +147,8 @@ class SecureVault:
               if self.is_sanitized(frequent_user_entry.decode()) and len(frequent_user_entry.decode()) <= 45:
                 try:
                    key = frequent_user_entry
-                   token = Fernet(key).encrypt(b"Test")
-                   f = Fernet(key)
+                   token = Fernet(bytes(key)).encrypt(b"Test")
+                   f = Fernet(bytes(key))
                    f.decrypt(token)
                    key[:] = urandom(len(key.decode()))
                 except (ValueError, InvalidToken):
