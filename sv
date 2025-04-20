@@ -97,6 +97,8 @@ class SecureVault:
 
     def generate_key(self):
         '''  Generates a secure cryptographic key with a user-defined or default length '''
+        constant_duration = 2.0
+        start_time = perf_counter()
         generated_key = bytearray("","utf-8")
         #length is hidden with "getpass" for security 
         query_longitude = int(getpass("Set key length (15-64) or press 0 to use the default: ").strip())
