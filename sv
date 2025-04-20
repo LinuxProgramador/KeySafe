@@ -115,6 +115,9 @@ class SecureVault:
         for _ in range(key_length):
             char = bytearray(choice(characters),"utf-8")
             generated_key += char
+        elapsed = perf_counter() - start_time
+        if elapsed < constant_duration:
+           sleep(constant_duration - elapsed)
         return generated_key
          
     def is_sanitized(self,entry):
