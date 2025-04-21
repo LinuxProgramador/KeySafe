@@ -155,7 +155,6 @@ class SecureVault:
                    token = Fernet(bytes(key)).encrypt(b"Test")
                    f = Fernet(bytes(key))
                    f.decrypt(token)
-                   key[:] = urandom(len(key.decode()))
                 except (ValueError, InvalidToken):
                    print("Password does not meet the required format")
                    exit(1)
