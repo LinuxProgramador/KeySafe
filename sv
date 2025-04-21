@@ -152,13 +152,13 @@ class SecureVault:
               if self.is_sanitized(frequent_user_entry.decode()) and len(frequent_user_entry.decode()) <= 45:
                 if len(frequent_user_entry.decode()) == 44:
                   try:
-                   key = frequent_user_entry
-                   token = Fernet(bytes(key)).encrypt(b"Test")
-                   f = Fernet(bytes(key))
-                   f.decrypt(token)
+                     key = frequent_user_entry
+                     token = Fernet(bytes(key)).encrypt(b"Test")
+                     f = Fernet(bytes(key))
+                     f.decrypt(token)
                   except (ValueError, InvalidToken):
-                   print("Password does not meet the required format")
-                   exit(1)
+                     print("Password does not meet the required format")
+                     exit(1)
                 return frequent_user_entry
               else:
                 self.allowed_length_message()
