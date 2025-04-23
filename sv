@@ -400,6 +400,8 @@ class SecureVault:
             keys = listdir(self.key_path)
             for key in keys:
                  self.auxiliary_change_unique_key(key,fernet_old_key,new_fernet_key)
+            temp_entry[:] = urandom(len(temp_entry.decode()))
+            new_fernet_key[:] = urandom(len(new_fernet_key.decode()))
             break
         else:
             print("Invalid password")
