@@ -210,6 +210,8 @@ class SecureVault:
                     decrypted_key = bytearray(fernet.decrypt(encrypted_key))
                     self.detect_framebuffer_access()
                     print(f"Your password is => {decrypted_key.decode()}")
+                    temp_entry[:] = urandom(len(temp_entry.decode()))
+                    decrypted_key[:] = urandom(len(decrypted_key.decode()))
                     break
                    finally:
                     flock(key_file.fileno(), LOCK_UN)
