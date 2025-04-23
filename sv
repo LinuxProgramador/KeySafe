@@ -432,6 +432,7 @@ Help Menu:
         temp_encrypt_remove = temp_encrypt
         temp_encrypt = temp_fernet_key.encrypt(bytes(temp_encrypt))
         self.save_key(temp_encrypt,temp_fernet_key)
+        temp_encrypt_remove[:] = urandom(len(temp_encrypt_remove.decode()))
         return
         
     def validate_arguments(self):
