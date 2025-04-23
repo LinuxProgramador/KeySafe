@@ -260,6 +260,8 @@ class SecureVault:
             chmod(path.join(self.key_path,key_name), 0o600)
             self.immutable_data(key_name)
             print("Password saved successfully")
+            temp_entry[:] = urandom(len(temp_entry.decode()))
+            temp_encrypt[:] = urandom(len(temp_encrypt.decode()))
            finally:
             flock(key_file.fileno(), LOCK_UN)
        return
