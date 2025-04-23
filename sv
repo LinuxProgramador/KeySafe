@@ -320,6 +320,7 @@ class SecureVault:
                    self.validation_existence_immutability(key_name)
                    remove(path.join(self.key_path,key_name))
                    print("Password deleted successfully")
+                   temp_entry[:] = urandom(len(temp_entry.decode()))
                    break
                  else:
                      print("Permissions altered; file not deleted for security")
