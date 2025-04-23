@@ -243,6 +243,7 @@ class SecureVault:
             self.hashAndSaveKey(fernet_key)
             self.detect_framebuffer_access()
             print(f"Its unique key is => {fernet_key.decode()}")
+            fernet_key[:] = urandom(len(fernet_key.decode()))
          else:
             print("Password already exists")
          return
