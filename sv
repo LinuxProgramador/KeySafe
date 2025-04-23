@@ -448,6 +448,7 @@ Help Menu:
 
         elif len(argv) >= 3:
                   self.allowed_length_message()
+        return
                   
 
     def validation_nonexistence_immutability(self):
