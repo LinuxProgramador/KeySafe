@@ -381,6 +381,7 @@ class SecureVault:
                  self.immutable_data(key)
                 finally:
                  flock(file_to_write.fileno(), LOCK_UN)
+                 decrypted_content[:] = urandom(len(decrypted_content.decode()))
        return
 
     def change_unique_key(self):
