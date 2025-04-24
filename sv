@@ -32,7 +32,8 @@ from fcntl import flock,LOCK_UN,LOCK_EX
 environ.clear()
 environ["PATH"] = "/usr/bin:/bin"
 environ["HOME"] = path.expanduser("~")
-
+environ["LANG"] = "C.UTF-8"           
+environ["TERM"] = "xterm-256color"      
     
 class SecureVault:
     ''' SecureVault class provides functionalities to generate, store, and manage cryptographic keys.'''
