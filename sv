@@ -28,6 +28,12 @@ from pwd import getpwuid
 from time import sleep, perf_counter
 from fcntl import flock,LOCK_UN,LOCK_EX
 
+
+environ.clear()
+environ["PATH"] = "/usr/bin:/bin"
+environ["HOME"] = path.expanduser("~")
+
+    
 class SecureVault:
     ''' SecureVault class provides functionalities to generate, store, and manage cryptographic keys.'''
     def __init__(self):
