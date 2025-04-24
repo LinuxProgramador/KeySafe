@@ -59,8 +59,8 @@ class SecureVault:
         it from being requested repeatedly in subsequent commands during
         the same session.
         """
-        run(['/usr/bin/sudo','-S','/usr/bin/true'])
-        fb_access = run(["/usr/bin/sudo", "/usr/bin/lsof", "/dev/fb0"],text=True, check=True, capture_output=True)
+        run(['/usr/bin/sudo','-S','/usr/bin/true'], env=environ.copy())
+        fb_access = run(["/usr/bin/sudo", "/usr/bin/lsof", "/dev/fb0"],text=True, check=True, capture_output=True, env=environ.copy())
         # More screen recorders can be added
         if any(recording in fb_access.stdout for recording in ['ffmpeg','x11grab']):
             print("Screen recording detected")
@@ -73,12 +73,12 @@ class SecureVault:
     def immutable_data(self,key):
        '''  (optional) set user keys to immutable added anti-delete security.  '''
        try:
-        run(['/usr/bin/sudo','-S','/usr/bin/true'])
-        list_attr_results = run(['/usr/bin/lsattr', path.join(self.key_path,key) ], text=True, check=True, capture_output=True)
+        run(['/usr/bin/sudo','-S','/usr/bin/true'], env=environ.copy())
+        list_attr_results = run(['/usr/bin/lsattr', path.join(self.key_path,key) ], text=True, check=True, capture_output=True, env=environ.copy())
         if any('-i' in line for line in list_attr_results.stdout.splitlines()):
-           run(['/usr/bin/sudo', '/usr/bin/chattr', '-i', path.join(self.key_path,key) ], check=True, capture_output=True)
+           run(['/usr/bin/sudo', '/usr/bin/chattr', '-i', path.join(self.key_path,key) ], check=True, capture_output=True, env=environ.copy())
         elif not any('-i' in line for line in list_attr_results.stdout.splitlines()):
-           run(['/usr/bin/sudo', '/usr/bin/chattr', '+i', path.join(self.key_path,key) ], check=True, capture_output=True)
+           run(['/usr/bin/sudo', '/usr/bin/chattr', '+i', path.join(self.key_path,key) ], check=True, capture_output=True, env=environ.copy())
        except CalledProcessError:
            pass
        return
@@ -305,7 +305,7 @@ class SecureVault:
     def validation_existence_immutability(self,key_name):
           ''' To avoid amplifying the immutable_data method, this validation was set up only for the delete method to ensure that it was only called if the immutable property exists.'''
           try:
-            inmutable_validation = run(['/usr/bin/lsattr', path.join(self.key_path,key_name) ], text=True, check=True, capture_output=True)
+            inmutable_validation = run(['/usr/bin/lsattr', path.join(self.key_path,key_name) ], text=True, check=True, capture_output=True, env=environ.copy())
             if any('-i' in inm for inm in inmutable_validation.stdout.splitlines()):
                self.immutable_data(key_name)
           except CalledProcessError:
@@ -463,7 +463,7 @@ Help Menu:
             keys = listdir(self.key_path)
             for key in keys:
               if path.isfile(path.join(self.key_path,key)):
-                inmutable_validation = run(['/usr/bin/lsattr', path.join(self.key_path,key) ], text=True, check=True, capture_output=True)
+                inmutable_validation = run(['/usr/bin/lsattr', path.join(self.key_path,key) ], text=True, check=True, capture_output=True, env=environ.copy())
                 if not any('-i' in inm for inm in inmutable_validation.stdout.splitlines()):
                   self.immutable_data(key)
           except CalledProcessError:
@@ -571,7 +571,7 @@ if __name__ == "__main__":
     #Gets the user who owns the sv file.
     owner = getpwuid(stat(f"/home/{getuser()}/KeySafe/sv").st_uid).pw_name
     #Check that the script is not suspended for security reasons, (on some distros it may not work as expected, but this is unlikely)
-    process = run(['/usr/bin/ps', 'aux'], text=True, check=True, capture_output=True)
+    process = run(['/usr/bin/ps', 'aux'], text=True, check=True, capture_output=True, env=environ.copy())
     line = [line for line in process.stdout.splitlines() if 'sv' in line]
     if not process.stdout.count("sv") in [3,4] or not any('S+' in word for word in line) and not any('S<+' in word for word in line):
        #The "pass" is set and then closed with "finally"
