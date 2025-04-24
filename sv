@@ -16,7 +16,7 @@ def handle_tstp_signal(signum,frame):
 signal(SIGTSTP, handle_tstp_signal)
     
 from secrets import choice
-from os import chmod, path, mkdir, remove, listdir, stat, urandom
+from os import chmod, path, mkdir, remove, listdir, stat, urandom, environ
 from cryptography.fernet import Fernet, InvalidToken
 from bcrypt import checkpw, hashpw, gensalt
 from getpass import getpass, getuser
