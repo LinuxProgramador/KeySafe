@@ -497,6 +497,9 @@ Help Menu:
            temp_entry = self.password_entry_validation()
            if checkpw(bytes(temp_entry), self.read_key_local()):
             key_name_list["key"] = bytearray(getpass("Enter your custom key: ").strip().replace(" ",""),"utf-8")
+            if path.islink(key_name_list["key"].decode()) or path.isdir(key_name_list["key"].decode()):
+               print("You entered a direct path or symbolic link; operation not permitted")
+               exit(1)
             if not 1 <= len(key_name_list["key"].decode()) <= 65:
                print("The key must be between 1 and 65 characters")
                exit(1)
