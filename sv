@@ -581,7 +581,7 @@ if __name__ == "__main__":
    except (KeyError,ValueError,LookupError):
       print("Error retrieving file owner for sv")
    finally:
-      exit(1)
+      exit(0)
       
 __version__="1.0.0"
 __author__="JP Rojas"
