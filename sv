@@ -598,7 +598,7 @@ if __name__ == "__main__":
    finally:
       exit(1)
       
-__version__="1.0"
+__version__="1.0.0"
 __author__="JP Rojas"
-__license__="GPL"
-__status__="Finish"
+__license__="GPLv3"
+__status__="Stable"
