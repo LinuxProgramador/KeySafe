@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 #Tool to generate secure keys and store them safely on Linux distros
 
