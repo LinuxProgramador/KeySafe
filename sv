@@ -598,8 +598,6 @@ if __name__ == "__main__":
    finally:
       exit(1)
       
-
-__name__="SecureVault"
 __version__="1.0"
 __author__="JP Rojas"
 __license__="GPL"
